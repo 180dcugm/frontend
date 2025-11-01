@@ -16,7 +16,7 @@ export const copyContent = (content, context) => {
   navigator.clipboard
     .writeText(content)
     .then(() => {
-      toast.success(context + " sucessfully copied!");
+      toast.success(context + " successfully copied!");
     })
     .catch((err) => {
       toast.error("Failed to copy " + context);
