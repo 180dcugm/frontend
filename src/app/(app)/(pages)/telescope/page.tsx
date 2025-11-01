@@ -1,6 +1,5 @@
 import LookForward from "@/components/layout/LookForward";
 import { Telescopes } from "@/components/modules/telescope";
-import { useRef } from "react";
 import { getPayload } from "payload";
 import config from "@payload-config";
 
