@@ -136,7 +136,7 @@ export default function CasebookJourney() {
                 <h1 className="font-avenir-black mt-[0.1vw] text-[3.79vw] text-[#58B9D1]">
                   Introducing Casebook Vol.2
                 </h1>
-                <h1 className="mt-[4 .8vw] font-lato-bold text-black-300 w-[69.231vw] text-[3.79vw]/[4.5vw]">
+                <h1 className="mt-[4.8vw] font-lato-bold text-black-300 w-[69.231vw] text-[3.79vw]/[4.5vw]">
                   Casebook Vol 2 aims to provide a walkthrough for readers on getting into
                   Consulting companies, including CV, Cover Letter, and especially case-based
                   interviews. In this newest version of 180DC UGM’s Casebook, SMEs in Yogyakarta
