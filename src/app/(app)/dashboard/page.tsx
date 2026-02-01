@@ -142,16 +142,25 @@ export default function AdminPage() {
             )}
           </div>
 
-          {/* Logout Button */}
-          <div className="mt-8 text-center">
-            <button
-              onClick={handleLogout}
-              disabled={isLoggingOut}
-              className="font-lato-regular text-sm text-gray-500 transition-colors hover:text-red-500"
-            >
-              {isLoggingOut ? "Logging out..." : "Logout"}
-            </button>
+          {/* Store Card */}
+          <div className="rounded-lg border-2 bg-white p-6 shadow-md transition-shadow duration-300 hover:border-lime-300 hover:shadow-lg">
+            <div className="pb-4 text-center">
+              <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-amber-200"></div>
+              <h2 className="mb-2 text-2xl font-semibold text-gray-900">180 DC Store</h2>
+              <p className="mb-6 text-gray-600">
+                Manage store (merchandise, framework, casebook) 180DC UGM
+              </p>
+            </div>
+            <Link href="/dashboard/store">
+              <Button
+                className="w-full bg-lime-600 py-3 text-lg font-medium text-white hover:bg-lime-700"
+                size="lg"
+              >
+                Access Store
+              </Button>
+            </Link>
           </div>
+        </div>
 
           {/* Footer */}
           <div className="mt-4 text-center">
