@@ -15,7 +15,7 @@ export function VisitSpotify() {
             />
             <Container>
                 <div className="flex flex-col md:flex-row items-center justify-center gap-8 relative z-20 px-[4%] sm:px-[6%] md:px-0">
-                    <div className="shrink-0 font-avenir-black text-black leading-[1.05]">
+                    <div data-aos="fade-right" data-aos-duration="600" className="shrink-0 font-avenir-black text-black leading-[1.05]">
                         <div className="flex md:hidden flex-row items-center justify-center gap-2 sm:gap-3 text-[32px] sm:text-[48px] flex-wrap">
                             <span>Visit</span>
                             <span>Our</span>
@@ -47,7 +47,7 @@ export function VisitSpotify() {
                             <p>Spotify</p>
                         </div>
                     </div>
-                    <div className="w-full md:w-[55%] md:pt-[60px] lg:flex-1 lg:min-w-0 max-w-[620px]">
+                    <div data-aos="fade-left" data-aos-duration="600" data-aos-delay="200" className="w-full md:w-[55%] md:pt-[60px] lg:flex-1 lg:min-w-0 max-w-[620px]">
                         <iframe
                             title="Spotify Web Player"
                             src={`https://open.spotify.com/embed${new URL(podcastLink).pathname}`}

@@ -71,7 +71,7 @@ export function HomeStore() {
         <div className="relative z-30 w-full">
           <Container>
             <div className="flex flex-col ">
-              <div className="flex flex-wrap justify-center w-fit mx-auto px-6 py-2 md:px-10 md:py-2 font-avenir-black text-[20px] md:text-[28px] lg:text-[38.98px] items-center shadow-[3px_6px_4px_rgba(0,0,0,0.18)] backdrop-blur-[13.8px] bg-[#C5C5C5]/23 border-1 border-white/37 rounded-[20px] lg:rounded-[41px] text-center">
+              <div data-aos="fade-up" data-aos-duration="600" className="flex flex-wrap justify-center w-fit mx-auto px-6 py-2 md:px-10 md:py-2 font-avenir-black text-[20px] md:text-[28px] lg:text-[38.98px] items-center shadow-[3px_6px_4px_rgba(0,0,0,0.18)] backdrop-blur-[13.8px] bg-[#C5C5C5]/23 border-1 border-white/37 rounded-[20px] lg:rounded-[41px] text-center">
                 <p className="text-white">Shop at&nbsp;</p>
                 <p className="text-[#73B743]">180DC UGM&nbsp;</p>
                 <p className="text-white">Store</p>
@@ -81,6 +81,9 @@ export function HomeStore() {
                 {storeItems.map((item, index) => (
                   <div
                     key={index}
+                    data-aos="fade-up"
+                    data-aos-duration="600"
+                    data-aos-delay={index * 300}
                     className="flex flex-col items-center px-6 pb-6 md:pb-4 pt-0 bg-[#7FF7DD]/12 backdrop-blur-[18px] border border-white/81 rounded-[17px] shadow-[8px_12px_8px_rgba(0,0,0,0.11)]"
                   >
                     <div className="relative w-full -mt-12 md:-mt-10 mb-6 md:mb-12 drop-shadow-2xl flex justify-center pointer-events-none">
@@ -101,7 +104,7 @@ export function HomeStore() {
                   </div>
                 ))}
               </div>
-              <div className="flex justify-center w-fit mx-auto mt-12 mb-10 md:mb-0 relative z-40">
+              <div data-aos="fade-up" data-aos-duration="600" data-aos-delay="450" className="flex justify-center w-fit mx-auto mt-12 mb-10 md:mb-0 relative z-40">
                 <Button180
                   size="md"
                   color="green"

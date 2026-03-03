@@ -47,7 +47,7 @@ export function HomeJoinUs() {
       />
       <Container className="flex flex-col">
         <div className="relative z-30 flex flex-col items-center gap-4 md:gap-6 w-full">
-          <div className="flex flex-col justify-center items-center text-center">
+          <div data-aos="fade-up" data-aos-duration="600" className="flex flex-col justify-center items-center text-center">
             <p className="font-avenir-black text-white text-[26px] md:text-[32px] lg:text-[52px] leading-tight">Join Us!</p>
             <p className="font-avenir-book text-white text-[16px] md:text-[20px] lg:text-[24px] mt-2">Connect with Indonesia's premier student consultancy.</p>
           </div>
@@ -55,6 +55,8 @@ export function HomeJoinUs() {
             {clients.map((client, index) => (
               <div
                 key={index}
+                data-aos="fade-up"
+                data-aos-duration="600"
                 className="relative rounded-[20px] overflow-hidden aspect-[4/3] min-h-[200px] shadow-[0_24px_15px_rgba(0,0,0,0.31)] group"
               >
                 <Image
