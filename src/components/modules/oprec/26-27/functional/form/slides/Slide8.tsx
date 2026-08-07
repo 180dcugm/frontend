@@ -20,7 +20,7 @@ const Slide8 = ({ formData, onSubmit, isSubmitting }) => {
     formData.twibbonPostLink &&
     formData.twibbonProofLink &&
     formData.hearAboutUs?.length > 0 &&
-    formData.unlockedAcknowledged &&
+    // formData.unlockedAcknowledged &&  // 180UNLOCKED step disabled
     formData.consentAgreed;
 
   const handleSubmit = async (e) => {
@@ -574,6 +574,7 @@ const Slide8 = ({ formData, onSubmit, isSubmitting }) => {
               )}
             </p>
           </div>
+          {/* 180UNLOCKED step disabled
           <div className="md:col-span-2">
             <span className="font-avenir-regular text-sm font-medium text-gray-700">
               180UNLOCKED Registration Proof:
@@ -605,6 +606,7 @@ const Slide8 = ({ formData, onSubmit, isSubmitting }) => {
               )}
             </p>
           </div>
+          */}
           <div>
             <span className="font-avenir-regular text-sm font-medium text-gray-700">
               Consent Agreement:

@@ -20,7 +20,7 @@ const SubmitSlide = ({ formData }) => {
       <div className="rounded-xl border border-gray-200 bg-white p-6 shadow-xs">
         <h3 className="font-avenir-black mb-6 flex items-center gap-2 text-xl text-gray-800">
           <div className="flex h-6 w-6 items-center justify-center rounded-full bg-green-300">
-            <span className="text-sm font-bold text-white">7</span>
+            <span className="text-sm font-bold text-white">6</span>
           </div>
           Next Steps
         </h3>
@@ -77,7 +77,7 @@ const SubmitSlide = ({ formData }) => {
       <div className="rounded-xl border border-gray-200 bg-white p-6 shadow-xs">
         <h3 className="font-avenir-black mb-6 flex items-center gap-2 text-xl text-gray-800">
           <div className="flex h-6 w-6 items-center justify-center rounded-full bg-green-300">
-            <span className="text-sm font-bold text-white">8</span>
+            <span className="text-sm font-bold text-white">7</span>
           </div>
           Application Summary
         </h3>
