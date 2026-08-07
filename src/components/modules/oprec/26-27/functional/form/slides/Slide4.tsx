@@ -19,19 +19,22 @@ const Slide4 = ({ formData, updateFormData, onNext, onPrevious }) => {
   const [documentLink, setDocumentLink] = useState(formData.first_documentLink || "");
   const [cvLink, setCvLink] = useState(formData.first_cvLink || "");
   const [portfolioLink, setPortfolioLink] = useState(formData.first_portfolioLink || "");
-  const [content, setContent] = useState(formData.content || false);
-  const [graphicDesigner, setGraphicDesigner] = useState(formData.graphicDesigner || false);
-  const [videographer, setVideographer] = useState(formData.videographer || false);
-  const [partnership, setPartnership] = useState(formData.partnership || false);
-  const [frontend, setFrontend] = useState(formData.frontend || false);
-  const [backend, setBackend] = useState(formData.backend || false);
-  const [uiux, setUiux] = useState(formData.uiux || false);
-  const [sngCeoCC, setSngCeoCC] = useState(formData.sngCeoCC || false);
-  const [sngAnalyst, setSngAnalyst] = useState(formData.sngAnalyst || false);
+  // These must read the same first_ prefixed keys handleNext writes below.
+  // Reading unprefixed keys meant the checkboxes came back empty whenever this
+  // slide remounted, and Continue then overwrote the saved roles with false.
+  const [content, setContent] = useState(formData.first_content || false);
+  const [graphicDesigner, setGraphicDesigner] = useState(formData.first_graphicDesigner || false);
+  const [videographer, setVideographer] = useState(formData.first_videographer || false);
+  const [partnership, setPartnership] = useState(formData.first_partnership || false);
+  const [frontend, setFrontend] = useState(formData.first_frontend || false);
+  const [backend, setBackend] = useState(formData.first_backend || false);
+  const [uiux, setUiux] = useState(formData.first_uiux || false);
+  const [sngCeoCC, setSngCeoCC] = useState(formData.first_sngCeoCC || false);
+  const [sngAnalyst, setSngAnalyst] = useState(formData.first_sngAnalyst || false);
 
   const handleNext = () => {
-    // Update form data with document, CV, and portfolio links
-    // Role preferences are already updated by the sub-components via updateFormData
+    // Roles are held in local state here and flushed on Continue; the division
+    // sub-components only call the setters, they never call updateFormData.
     updateFormData({
       first_documentLink: documentLink,
       first_cvLink: cvLink,
@@ -52,8 +55,18 @@ const Slide4 = ({ formData, updateFormData, onNext, onPrevious }) => {
   // Get the selected first choice division from formData
   const firstChoice = formData.firstChoice;
 
-  // Check if form is valid (both fields filled)
-  const isValid = documentLink.trim() && cvLink.trim();
+  // Only these divisions offer role checkboxes. The rest must not be gated on a
+  // selection they are never shown, or they could never continue.
+  const rolesByDivision = {
+    Marketing: [content, graphicDesigner, videographer, partnership],
+    IT: [frontend, backend, uiux],
+    "Strategy and Growth": [sngCeoCC, sngAnalyst],
+  };
+  const offeredRoles = rolesByDivision[firstChoice];
+  const hasRequiredRole = !offeredRoles || offeredRoles.some(Boolean);
+
+  // Check if form is valid (links filled, and a role picked where one is offered)
+  const isValid = documentLink.trim() && cvLink.trim() && hasRequiredRole;
 
   // Render division-specific form for first choice
   const renderDivisionSpecificForm = (division) => {

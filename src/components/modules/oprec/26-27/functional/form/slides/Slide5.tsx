@@ -53,8 +53,18 @@ const Slide5 = ({ formData, updateFormData, onNext, onPrevious }) => {
   // Check if user has a second choice
   const hasSecondChoice = secondChoice && secondChoice !== "";
 
-  // Check if form is valid (both fields filled)
-  const isValid = documentLink.trim() && cvLink.trim();
+  // Only these divisions offer role checkboxes. The rest must not be gated on a
+  // selection they are never shown, or they could never continue.
+  const rolesByDivision = {
+    Marketing: [content, graphicDesigner, videographer, partnership],
+    IT: [frontend, backend, uiux],
+    "Strategy and Growth": [sngCeoCC, sngAnalyst],
+  };
+  const offeredRoles = rolesByDivision[secondChoice];
+  const hasRequiredRole = !offeredRoles || offeredRoles.some(Boolean);
+
+  // Check if form is valid (links filled, and a role picked where one is offered)
+  const isValid = documentLink.trim() && cvLink.trim() && hasRequiredRole;
 
   // Render division-specific form for second choice
   const renderDivisionSpecificForm = (division) => {
