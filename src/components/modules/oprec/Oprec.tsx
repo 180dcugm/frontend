@@ -41,7 +41,7 @@ const batches: RecruitmentBatch[] = [
     type: "Functional Analyst",
     description:
       "Drive internal excellence across Marketing, Human Resources, Finance, and Technology. Build leadership skills while strengthening our organization's foundation.",
-    status: "Open",
+    status: "Closed",
     period: "August 2026",
     image: "/img/homepage/hero1.png",
     href: "/events/oprec/26-27/functional",

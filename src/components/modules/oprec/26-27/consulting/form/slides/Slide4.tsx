@@ -6,10 +6,14 @@ import { ChevronRight, ChevronLeft } from "lucide-react";
 import { Checkbox } from "@/components/elements/Form/checkbox";
 import Link from "next/link";
 
+const hearAboutUsOptions = ["Instagram", "LinkedIn", "Facebook", "180DC member/analyst"];
+const HEAR_ABOUT_US_OTHER = "Other";
+
 const Slide4 = ({ formData, updateFormData, onNext, onPrevious }) => {
   const [twibbonPost, settwibbonPost] = useState(formData.twibbonPost || "");
   const [instagramProofLink, setInstagramProofLink] = useState(formData.instagramProofLink || "");
   const [hearAboutUs, setHearAboutUs] = useState(formData.hearAboutUs || []);
+  const [hearAboutUsOther, setHearAboutUsOther] = useState(formData.hearAboutUsOther || "");
   const [consentAgreed, setConsentAgreed] = useState(formData.consentAgreed || false);
 
   const handleNext = () => {
@@ -17,6 +21,7 @@ const Slide4 = ({ formData, updateFormData, onNext, onPrevious }) => {
       twibbonPost,
       instagramProofLink,
       hearAboutUs,
+      hearAboutUsOther,
       consentAgreed,
     });
     onNext();
@@ -30,10 +35,15 @@ const Slide4 = ({ formData, updateFormData, onNext, onPrevious }) => {
     }
   };
 
-  const isValid =
-    twibbonPost.trim() && instagramProofLink.trim() && hearAboutUs.length > 0 && consentAgreed;
+  // Ticking "Other" without saying what it was gives us an unusable answer.
+  const otherIsIncomplete = hearAboutUs.includes(HEAR_ABOUT_US_OTHER) && !hearAboutUsOther.trim();
 
-  const hearAboutUsOptions = ["Instagram", "TikTok", "LinkedIn", "Former Alumni", "Friends"];
+  const isValid =
+    twibbonPost.trim() &&
+    instagramProofLink.trim() &&
+    hearAboutUs.length > 0 &&
+    !otherIsIncomplete &&
+    consentAgreed;
 
   return (
     <div className="animate-fade-in space-y-6">
@@ -50,7 +60,7 @@ const Slide4 = ({ formData, updateFormData, onNext, onPrevious }) => {
       <div className="rounded-xl border border-gray-200 bg-white p-6 shadow-xs">
         <h3 className="font-avenir-black mb-6 flex items-center gap-2 text-xl text-gray-800">
           <div className="flex h-6 w-6 items-center justify-center rounded-full bg-green-300">
-            <span className="text-sm font-bold text-white">5</span>
+            <span className="text-sm font-bold text-white">7</span>
           </div>
           Applicant Twibbon & Social Media
         </h3>
@@ -65,7 +75,10 @@ const Slide4 = ({ formData, updateFormData, onNext, onPrevious }) => {
               Post our applicant twibbon on your Instagram account! *
             </Label>
             <p className="font-lato-regular mb-3 text-sm text-gray-500">
-              <span className="font-lato-bold text-black-300">Instructions:</span>
+              <span className="font-lato-bold text-black-300">
+                Please ensure your account is public!
+              </span>
+              <br />
               <br />
               1. Open the drive:{" "}
               <span className="font-lato-bold text-black-300">
@@ -79,15 +92,16 @@ const Slide4 = ({ formData, updateFormData, onNext, onPrevious }) => {
                 </Link>
               </span>
               <br />
-              2. Edit and insert your favorite picture of yourself
+              2. Download the twibbon according to your first preference choice
               <br />
-              3. Add the caption that has been provided
+              3. Edit and insert your favourite picture of yourself
               <br />
-              4. Tag @180dcugm and POST 💘
+              4. Add in the caption that has been provided
+              <br />
+              5. Tag @180dcugm and POST 💘
               <br />
               <br />
-              <span className="font-lato-bold text-black-300">Important:</span> Please post it on
-              your main Instagram account and ensure that it is public!
+              Please post it on your main Instagram account and ensure that it is public!
             </p>
             <Input
               id="twibbonPost"
@@ -164,12 +178,14 @@ const Slide4 = ({ formData, updateFormData, onNext, onPrevious }) => {
 
         {/* How did you hear about us */}
         <div className="mt-6 space-y-4">
-          <h2 className="font-avenir-regular font-bold">How did you hear about us? *</h2>
+          <h2 className="font-avenir-regular font-bold">
+            How did you first hear about 180DC UGM? *
+          </h2>
           <p className="font-lato-regular text-sm text-gray-500">
             Please select all sources that apply to how you learned about 180DC UGM.
           </p>
 
-          <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
+          <div className="grid grid-cols-1 gap-3">
             {hearAboutUsOptions.map((option) => (
               <div key={option} className="flex items-center space-x-2">
                 <Checkbox
@@ -183,7 +199,32 @@ const Slide4 = ({ formData, updateFormData, onNext, onPrevious }) => {
                 </Label>
               </div>
             ))}
+
+            <div className="flex items-center space-x-2">
+              <Checkbox
+                id="hear-Other"
+                checked={hearAboutUs.includes(HEAR_ABOUT_US_OTHER)}
+                onCheckedChange={(checked) => handleHearAboutUsChange(HEAR_ABOUT_US_OTHER, checked)}
+                className="text-white"
+              />
+              <Label htmlFor="hear-Other" className="font-lato-regular text-gray-600">
+                Other:
+              </Label>
+              <Input
+                value={hearAboutUsOther}
+                onChange={(e) => setHearAboutUsOther(e.target.value)}
+                disabled={!hearAboutUs.includes(HEAR_ABOUT_US_OTHER)}
+                placeholder="Please specify"
+                className="font-lato-regular h-8 flex-1 border-0 border-b border-gray-300 bg-transparent transition-all duration-200 focus:ring-0 disabled:opacity-50"
+              />
+            </div>
           </div>
+
+          {otherIsIncomplete && (
+            <p className="font-lato-regular text-sm text-red-600">
+              Please specify where you heard about us.
+            </p>
+          )}
         </div>
 
         {/* Consent Agreement */}
@@ -196,12 +237,9 @@ const Slide4 = ({ formData, updateFormData, onNext, onPrevious }) => {
               className="mt-1 text-white"
             />
             <Label htmlFor="consent" className="font-lato-regular leading-relaxed text-gray-600">
-              I hereby consent to the collection, processing, and use of my personal data provided
-              in this application for the purpose of the 180DC UGM recruitment process. I understand
-              that my information will be handled in accordance with applicable data protection
-              regulations and will only be used for recruitment-related activities. I also confirm
-              that all information provided in this application is accurate and complete to the best
-              of my knowledge.
+              By completing this form, you understand and freely choose to provide 180DC Universitas
+              Gadjah Mada and its affiliated partners with access to your information and data for
+              specified purposes.
             </Label>
           </div>
         </div>

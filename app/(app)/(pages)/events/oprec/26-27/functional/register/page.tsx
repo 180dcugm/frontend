@@ -1,12 +1,12 @@
-import Form from "@/components/modules/oprec/26-27/functional/form/Form";
+// import Form from "@/components/modules/oprec/26-27/functional/form/Form";
 // import ComingSoon from "@/components/modules/comingsoon/ComingSoon";
-// import Closed from "@/components/modules/closed/Closed";
+import Closed from "@/components/modules/closed/Closed";
 
 export default function Page() {
   return (
     <>
-      <Form />
-      {/* <Closed /> */}
+      {/* <Form /> */}
+      <Closed />
       {/* <ComingSoon /> */}
     </>
   );

@@ -54,8 +54,12 @@ const TABS = [
     headers: [
       "Timestamp", "Name", "Email", "Batch", "Phone", "Faculty", "Major", "GPA",
       "Active Student", "180DC Alumni", "Past Position", "Past Batch",
-      "First Choice", "Second Choice", "Doc Link", "CV Link", "Twibbon Post",
-      "Instagram Proof", "Heard About Us", "Consent", "IP Address", "User Agent",
+      "First Choice Division", "First Choice Role", "First Open To Analyst",
+      "First Doc Link", "First CV Link",
+      "Second Choice Division", "Second Choice Role", "Second Open To Analyst",
+      "Second Doc Link", "Second CV Link",
+      "Twibbon Post", "Instagram Proof", "Heard About Us", "Consent",
+      "IP Address", "User Agent",
     ],
   },
 ];

@@ -8,12 +8,16 @@ import { toast } from "sonner";
 import Slide1 from "../form/slides/Slide1";
 import Slide2 from "../form/slides/Slide2";
 import Slide3 from "../form/slides/Slide3";
+import SlideChoice from "../form/slides/SlideChoice";
 import Slide4 from "../form/slides/Slide4";
-import Slide5 from "../form/slides/Slide5";
+// import Slide5 from "../form/slides/Slide5"; // Consulting Day step, disabled
 import Slide6 from "../form/slides/Slide6";
 import SubmitSlide from "../form/slides/SubmitSlide";
 
-const STORAGE_KEY = "180DC-consulting-26-27-cycle-1";
+// Bumped when division/role selection replaced the flat position dropdown:
+// progress saved under the old key points at slide numbers and position values
+// that no longer mean the same thing.
+const STORAGE_KEY = "180DC-consulting-26-27-cycle-1-v2";
 const API_ENDPOINT = "/api/oprec/26-27/consulting/cycle1/submit";
 
 export default function Form() {
@@ -23,7 +27,9 @@ export default function Form() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const totalSlides = 5;
+  const totalSlides = 7;
+  const REVIEW_SLIDE = 7;
+  const SUBMITTED_SLIDE = 8;
 
   // Load progress from localStorage on component mount
   useEffect(() => {
@@ -43,7 +49,7 @@ export default function Form() {
         // If user has already submitted, always direct to submit slide
         if (savedIsSubmitted) {
           setIsSubmitted(true);
-          setCurrentSlide(6);
+          setCurrentSlide(SUBMITTED_SLIDE);
         } else {
           setCurrentSlide(savedSlide || 1);
         }
@@ -71,6 +77,10 @@ export default function Form() {
   };
 
   const handleNext = (nextSlide) => {
+    // Applicants who only want one position never see the second choice slide.
+    if (currentSlide === 4 && !("secondChoice" in formData && formData.secondChoice)) {
+      nextSlide = 6;
+    }
     const targetSlide = nextSlide || currentSlide + 1;
     setSlideHistory((prev) => [...prev, targetSlide]);
     setCurrentSlide(targetSlide);
@@ -78,7 +88,7 @@ export default function Form() {
 
   const handlePrevious = () => {
     // If user has submitted, don't allow navigation away from success slide
-    if (isSubmitted && currentSlide === 6) {
+    if (isSubmitted && currentSlide === SUBMITTED_SLIDE) {
       return;
     }
 
@@ -92,7 +102,7 @@ export default function Form() {
   };
 
   const getProgressPercentage = () => {
-    if (currentSlide === 6) return 100;
+    if (currentSlide === SUBMITTED_SLIDE) return 100;
     return (currentSlide / totalSlides) * 100;
   };
 
@@ -128,7 +138,7 @@ export default function Form() {
 
       console.log("Form submitted successfully via API:", result.message);
       setIsSubmitted(true);
-      setCurrentSlide(6); // SubmitSlide
+      setCurrentSlide(SUBMITTED_SLIDE); // SubmitSlide
 
       toast("Success!", {
         description: result.message || "Your application has been submitted successfully.",
@@ -160,13 +170,19 @@ export default function Form() {
         return <Slide2 {...slideProps} />;
       case 3:
         return <Slide3 {...slideProps} />;
+      // Keyed so the second choice does not inherit the first choice's answers.
       case 4:
-        return <Slide4 {...slideProps} />;
-      // case 5:
-      //   return <Slide5 {...slideProps} onSubmit={handleSubmit} isSubmitting={isSubmitting} />;
+        return <SlideChoice key="first" {...slideProps} />;
       case 5:
-        return <Slide6 {...slideProps} onSubmit={handleSubmit} isSubmitting={isSubmitting} />;
+        return <SlideChoice key="second" {...slideProps} isSecondChoice />;
       case 6:
+        return <Slide4 {...slideProps} />;
+      // Consulting Day step, disabled
+      // case 7:
+      //   return <Slide5 {...slideProps} />;
+      case 7:
+        return <Slide6 {...slideProps} onSubmit={handleSubmit} isSubmitting={isSubmitting} />;
+      case 8:
         return <SubmitSlide formData={formData} /*onBack={handlePrevious}*/ />;
       default:
         return <Slide1 {...slideProps} />;
@@ -180,9 +196,9 @@ export default function Form() {
           <div className="pb-4">
             <div className="mb-4 flex items-center justify-between">
               <div className="text-sm font-medium text-gray-600">
-                {currentSlide === 5
+                {currentSlide === REVIEW_SLIDE
                   ? "Review"
-                  : currentSlide === 6
+                  : currentSlide === SUBMITTED_SLIDE
                     ? "Complete"
                     : `Step ${currentSlide} of ${totalSlides}`}
               </div>
@@ -192,7 +208,7 @@ export default function Form() {
           <div className="pb-8">
             <div className="flex min-h-[400px] flex-col">
               <div className="mb-6 flex-1">{renderSlide()}</div>
-              {currentSlide !== 6 && (
+              {currentSlide !== SUBMITTED_SLIDE && (
                 <div className="flex items-center justify-between border-t border-gray-200 pt-4">
                   <Button
                     variant="outline"

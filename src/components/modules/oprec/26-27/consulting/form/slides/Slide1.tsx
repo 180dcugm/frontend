@@ -234,14 +234,14 @@ const Slide1 = ({ formData, updateFormData, onNext }) => {
               htmlFor="major"
               className="font-avenir-regular mb-2 block text-sm font-medium text-gray-700"
             >
-              Major/Study Program *
+              Faculty_Major *
             </Label>
             <Input
               id="major"
               type="text"
               value={major}
               onChange={(e) => setMajor(e.target.value)}
-              placeholder="e.g., Management"
+              placeholder="e.g., FEB_Management"
               className="font-lato-regular border-gray-300 transition-all duration-200 focus:ring-2 focus:ring-green-300/50"
             />
           </div>
@@ -250,17 +250,24 @@ const Slide1 = ({ formData, updateFormData, onNext }) => {
               htmlFor="gpa"
               className="font-avenir-regular mb-2 block text-sm font-medium text-gray-700"
             >
-              Current GPA (For those who are in their first-year applying, you can insert your final
-              average score from high-school.) *
+              Current GPA *
             </Label>
             <Input
               id="gpa"
               type="text"
               value={gpa}
               onChange={(e) => setGpa(e.target.value)}
-              placeholder="e.g., 3.75 or 92"
+              placeholder="e.g., 3.99"
               className="font-lato-regular border-gray-300 transition-all duration-200 focus:ring-2 focus:ring-green-300/50"
             />
+            <p className="font-lato-regular mt-2 text-sm text-gray-500">
+              If you have not received your IPK, you may use your IPS instead. For batch 2026
+              students, please use your final average high school grade.
+              <br />
+              Please use a period (.) as the decimal separator.
+              <br />
+              e.g. 3.99
+            </p>
           </div>
         </div>
         <div className="mb-4 flex flex-col gap-2">

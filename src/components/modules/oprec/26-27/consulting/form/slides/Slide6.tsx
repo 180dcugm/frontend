@@ -14,9 +14,18 @@ const Slide6 = ({ formData, onSubmit, isSubmitting }) => {
     formData.major &&
     formData.gpa &&
     formData.activeStudent !== undefined &&
-    formData.firstChoicePosition &&
-    formData.documentLink &&
-    formData.cvLink &&
+    formData.firstChoice &&
+    formData.first_role &&
+    formData.first_documentLink &&
+    formData.first_cvLink &&
+    // Project Leader applicants must have answered whether they would accept
+    // Project Analyst instead; every other role skips the question entirely.
+    (formData.first_role !== "Project Leader" || formData.first_openToAnalyst) &&
+    (!formData.secondChoice ||
+      (formData.second_role &&
+        formData.second_documentLink &&
+        formData.second_cvLink &&
+        (formData.second_role !== "Project Leader" || formData.second_openToAnalyst))) &&
     formData.twibbonPost &&
     formData.instagramProofLink &&
     formData.hearAboutUs?.length > 0 &&
@@ -158,28 +167,38 @@ const Slide6 = ({ formData, onSubmit, isSubmitting }) => {
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
           <div>
             <span className="font-avenir-regular text-sm font-medium text-gray-700">
-              First Choice Position:
+              First Choice Division:
             </span>
             <p className="font-lato-regular text-gray-600">
-              {formData.firstChoicePosition || "Not provided"}
+              {formData.firstChoice || "Not provided"}
             </p>
           </div>
           <div>
             <span className="font-avenir-regular text-sm font-medium text-gray-700">
-              Second Choice Position:
+              First Choice Role:
             </span>
             <p className="font-lato-regular text-gray-600">
-              {formData.secondChoicePosition || "No second choice"}
+              {formData.first_role || "Not provided"}
             </p>
           </div>
+          {formData.first_role === "Project Leader" && (
+            <div className="md:col-span-2">
+              <span className="font-avenir-regular text-sm font-medium text-gray-700">
+                Open to Project Analyst instead:
+              </span>
+              <p className="font-lato-regular text-gray-600">
+                {formData.first_openToAnalyst || "Not provided"}
+              </p>
+            </div>
+          )}
           <div className="md:col-span-1">
             <span className="font-avenir-regular text-sm font-medium text-gray-700">
               Motivation Document:
             </span>
             <p className="font-lato-regular text-gray-600">
-              {formData.documentLink ? (
+              {formData.first_documentLink ? (
                 <Link
-                  href={formData.documentLink}
+                  href={formData.first_documentLink}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-green-300 hover:underline"
@@ -196,9 +215,9 @@ const Slide6 = ({ formData, onSubmit, isSubmitting }) => {
               CV (McKinsey Format):
             </span>
             <p className="font-lato-regular text-gray-600">
-              {formData.cvLink ? (
+              {formData.first_cvLink ? (
                 <Link
-                  href={formData.cvLink}
+                  href={formData.first_cvLink}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-green-300 hover:underline"
@@ -210,6 +229,83 @@ const Slide6 = ({ formData, onSubmit, isSubmitting }) => {
               )}
             </p>
           </div>
+        </div>
+
+        {/* Second choice, only for applicants who asked for two positions. */}
+        <div className="mt-6 border-t border-gray-200 pt-4">
+          {formData.secondChoice ? (
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+              <div>
+                <span className="font-avenir-regular text-sm font-medium text-gray-700">
+                  Second Choice Division:
+                </span>
+                <p className="font-lato-regular text-gray-600">{formData.secondChoice}</p>
+              </div>
+              <div>
+                <span className="font-avenir-regular text-sm font-medium text-gray-700">
+                  Second Choice Role:
+                </span>
+                <p className="font-lato-regular text-gray-600">
+                  {formData.second_role || "Not provided"}
+                </p>
+              </div>
+              {formData.second_role === "Project Leader" && (
+                <div className="md:col-span-2">
+                  <span className="font-avenir-regular text-sm font-medium text-gray-700">
+                    Open to Project Analyst instead:
+                  </span>
+                  <p className="font-lato-regular text-gray-600">
+                    {formData.second_openToAnalyst || "Not provided"}
+                  </p>
+                </div>
+              )}
+              <div className="md:col-span-1">
+                <span className="font-avenir-regular text-sm font-medium text-gray-700">
+                  Motivation Document:
+                </span>
+                <p className="font-lato-regular text-gray-600">
+                  {formData.second_documentLink ? (
+                    <Link
+                      href={formData.second_documentLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-green-300 hover:underline"
+                    >
+                      View Document
+                    </Link>
+                  ) : (
+                    "Not provided"
+                  )}
+                </p>
+              </div>
+              <div className="md:col-span-1">
+                <span className="font-avenir-regular text-sm font-medium text-gray-700">
+                  CV (McKinsey Format):
+                </span>
+                <p className="font-lato-regular text-gray-600">
+                  {formData.second_cvLink ? (
+                    <Link
+                      href={formData.second_cvLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-green-300 hover:underline"
+                    >
+                      View CV
+                    </Link>
+                  ) : (
+                    "Not provided"
+                  )}
+                </p>
+              </div>
+            </div>
+          ) : (
+            <div>
+              <span className="font-avenir-regular text-sm font-medium text-gray-700">
+                Second Choice Division:
+              </span>
+              <p className="font-lato-regular text-gray-600">No second choice</p>
+            </div>
+          )}
         </div>
       </div>
 
@@ -286,7 +382,15 @@ const Slide6 = ({ formData, onSubmit, isSubmitting }) => {
               How did you hear about us:
             </span>
             <p className="font-lato-regular text-gray-600">
-              {formData.hearAboutUs?.length > 0 ? formData.hearAboutUs.join(", ") : "Not provided"}
+              {formData.hearAboutUs?.length > 0
+                ? formData.hearAboutUs
+                    .map((source) =>
+                      source === "Other" && formData.hearAboutUsOther
+                        ? `Other: ${formData.hearAboutUsOther}`
+                        : source
+                    )
+                    .join(", ")
+                : "Not provided"}
             </p>
           </div>
           <div>

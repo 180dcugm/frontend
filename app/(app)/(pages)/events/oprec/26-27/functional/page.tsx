@@ -1,15 +1,15 @@
-import HeroOprec from "@/components/modules/oprec/26-27/functional/HeroOprec";
-import Guidebook from "@/components/modules/oprec/26-27/functional/Guidebook";
-import CTASection180 from "@/components/elements/CTASection180";
+// import HeroOprec from "@/components/modules/oprec/26-27/functional/HeroOprec";
+// import Guidebook from "@/components/modules/oprec/26-27/functional/Guidebook";
+// import CTASection180 from "@/components/elements/CTASection180";
 // import ComingSoon from "@/components/modules/comingsoon/ComingSoon";
-// import Closed from "@/components/modules/closed/Closed";
+import Closed from "@/components/modules/closed/Closed";
 
 export default function OpenRecruitment2627() {
   return (
     <>
       {/* <ComingSoon /> */}
-      {/* <Closed /> */}
-      <HeroOprec />
+      <Closed />
+      {/* <HeroOprec />
       <Guidebook />
       <CTASection180
         id="cta"
@@ -18,7 +18,7 @@ export default function OpenRecruitment2627() {
         primaryButtonText="Apply Now"
         primaryButtonHref="/events/oprec/26-27/functional/register"
         decoration="check"
-      />
+      /> */}
     </>
   );
 }

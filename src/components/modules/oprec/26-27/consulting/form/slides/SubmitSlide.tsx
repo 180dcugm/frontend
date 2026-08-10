@@ -130,15 +130,19 @@ const SubmitSlide = ({ formData }) => {
               First Choice Position:
             </span>
             <p className="font-lato-regular text-gray-600">
-              {formData.firstChoicePosition || "N/A"}
+              {formData.firstChoice
+                ? `${formData.firstChoice} — ${formData.first_role || "N/A"}`
+                : "N/A"}
             </p>
           </div>
-          {formData.secondChoicePosition && formData.secondChoicePosition !== "unassigned" && (
+          {formData.secondChoice && (
             <div>
               <span className="font-avenir-regular text-sm font-medium text-gray-700">
                 Second Choice Position:
               </span>
-              <p className="font-lato-regular text-gray-600">{formData.secondChoicePosition}</p>
+              <p className="font-lato-regular text-gray-600">
+                {`${formData.secondChoice} — ${formData.second_role || "N/A"}`}
+              </p>
             </div>
           )}
           <div>

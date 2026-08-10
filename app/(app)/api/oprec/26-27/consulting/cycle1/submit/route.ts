@@ -5,6 +5,22 @@ import { NextResponse } from "next/server";
 const TABLE_NAME = "consulting-batch1-26-27-submissions";
 const SHEET_TAB = process.env.GOOGLE_SHEETS_CONSULTING_2627_TAB || "Consulting Cycle 1 Oprec";
 
+// The checkbox list arrives comma separated. "Other" carries a free text answer
+// in its own field, which is folded back in here so the whole answer lives in
+// one column, readable as "Instagram, Other: campus expo".
+function formatHearAboutUs(sources, other) {
+  const selected = String(sources || "")
+    .split(",")
+    .map((source) => source.trim())
+    .filter(Boolean);
+
+  const otherText = String(other || "").trim();
+
+  return selected
+    .map((source) => (source === "Other" && otherText ? `Other: ${otherText}` : source))
+    .join(", ");
+}
+
 export async function POST(request) {
   try {
     const formData = await request.formData();
@@ -29,20 +45,39 @@ export async function POST(request) {
       pastPosition: formData.get("pastPosition") || "",
       pastBatch: formData.get("pastBatch") || "",
 
-      // Position Choices (matching slide6 field names)
-      firstChoicePosition: formData.get("firstChoicePosition"),
-      secondChoicePosition: formData.get("secondChoicePosition"),
+      // How many positions the applicant asked for
+      onePosition: formData.get("onePosition") === "true",
+      twoPositions: formData.get("twoPositions") === "true",
 
-      // Documents (matching slide6 field names)
-      documentLink: formData.get("documentLink"),
-      cvLink: formData.get("cvLink"),
+      // Division choices (Consulting, Knowledge Team)
+      firstChoice: formData.get("firstChoice"),
+      secondChoice: formData.get("secondChoice") || "",
+
+      // Role within each division. "openToAnalyst" is a Yes/No that only
+      // Project Leader applicants are asked, so it is blank for everyone else.
+      first_role: formData.get("first_role"),
+      first_openToAnalyst: formData.get("first_openToAnalyst") || "",
+      first_documentLink: formData.get("first_documentLink"),
+      first_cvLink: formData.get("first_cvLink"),
+
+      second_role: formData.get("second_role") || "",
+      second_openToAnalyst: formData.get("second_openToAnalyst") || "",
+      second_documentLink: formData.get("second_documentLink") || "",
+      second_cvLink: formData.get("second_cvLink") || "",
+
+      // Flat columns kept from before divisions existed, so the admin dashboard
+      // and any existing exports keep working without knowing about them.
+      firstChoicePosition: formData.get("first_role"),
+      secondChoicePosition: formData.get("second_role") || "",
+      documentLink: formData.get("first_documentLink"),
+      cvLink: formData.get("first_cvLink"),
 
       // Social Media Requirements (matching slide6 field names)
       twibbonPost: formData.get("twibbonPost"),
       instagramProofLink: formData.get("instagramProofLink"),
 
       // Additional fields from slide6
-      hearAboutUs: formData.get("hearAboutUs"),
+      hearAboutUs: formatHearAboutUs(formData.get("hearAboutUs"), formData.get("hearAboutUsOther")),
       consentAgreed: formData.get("consentAgreed") === "true",
 
       // Meta Information
@@ -68,9 +103,10 @@ export async function POST(request) {
       !submissionData.major ||
       !submissionData.gpa ||
       submissionData.activeStudent === undefined ||
-      !submissionData.firstChoicePosition ||
-      !submissionData.documentLink ||
-      !submissionData.cvLink ||
+      !submissionData.firstChoice ||
+      !submissionData.first_role ||
+      !submissionData.first_documentLink ||
+      !submissionData.first_cvLink ||
       !submissionData.twibbonPost ||
       !submissionData.instagramProofLink ||
       !submissionData.hearAboutUs?.length ||
@@ -164,10 +200,16 @@ export async function POST(request) {
           submissionData.is180DCAlumni ? "Yes" : "No",
           submissionData.pastPosition || "",
           submissionData.pastBatch || "",
-          submissionData.firstChoicePosition,
-          submissionData.secondChoicePosition || "No second choice",
-          submissionData.documentLink,
-          submissionData.cvLink,
+          submissionData.firstChoice,
+          submissionData.first_role,
+          submissionData.first_openToAnalyst || "N/A",
+          submissionData.first_documentLink,
+          submissionData.first_cvLink,
+          submissionData.secondChoice || "No second choice",
+          submissionData.second_role || "",
+          submissionData.second_openToAnalyst || "N/A",
+          submissionData.second_documentLink || "",
+          submissionData.second_cvLink || "",
           submissionData.twibbonPost,
           submissionData.instagramProofLink,
           submissionData.hearAboutUs || "",
@@ -176,7 +218,7 @@ export async function POST(request) {
           submissionData.user_agent,
         ];
 
-        await appendToSheet(spreadsheetId, `${SHEET_TAB}!A:V`, [sheetRow]);
+        await appendToSheet(spreadsheetId, `${SHEET_TAB}!A:AB`, [sheetRow]);
         console.log("Successfully submitted to Google Sheets");
       } else {
         console.warn("Google Sheets ID not configured, skipping Google Sheets submission");
