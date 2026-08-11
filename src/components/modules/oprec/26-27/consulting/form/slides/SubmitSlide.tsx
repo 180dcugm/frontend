@@ -20,7 +20,7 @@ const SubmitSlide = ({ formData }) => {
       <div className="rounded-xl border border-gray-200 bg-white p-6 shadow-xs">
         <h3 className="font-avenir-black mb-6 flex items-center gap-2 text-xl text-gray-800">
           <div className="flex h-6 w-6 items-center justify-center rounded-full bg-green-300">
-            <span className="text-sm font-bold text-white">6</span>
+            <span className="text-sm font-bold text-white">8</span>
           </div>
           Next Steps
         </h3>
@@ -32,8 +32,8 @@ const SubmitSlide = ({ formData }) => {
             <p className="font-lato-regular mb-3 text-gray-600">
               Please kindly confirm with our HR Team regarding your submission.
             </p>
-            <p className="font-lato-bold underline">Moody: +62 895-39707-5008</p>
-            <p className="font-lato-bold underline">Viola: +62 812-4997-4911</p>
+            <p className="font-lato-bold underline">Haidar: +62 822-4302-7654</p>
+            <p className="font-lato-bold underline">Moody: +62 895-3970-75008</p>
           </div>
 
           {/* Join Recruitment Group */}
@@ -43,12 +43,12 @@ const SubmitSlide = ({ formData }) => {
               And kindly join our Recruitment Group here
             </p>
             <Link
-              href="https://180dcugm.com/ConsultingRecruitment-Cycle2"
+              href="https://180dcugm.com/CARecruitmentGroup-2627"
               target="_blank"
               className="font-avenir-regular inline-flex items-center gap-2 rounded-md bg-cyan-300 px-4 py-2 text-sm text-white transition-all duration-200 hover:bg-cyan-300/80"
             >
               <ExternalLink className="h-4 w-4" />
-              Group Link Consulting Recruitment Cycle 2
+              Group Link Consulting Analyst Recruitment
             </Link>
           </div>
 
@@ -59,7 +59,7 @@ const SubmitSlide = ({ formData }) => {
               And 180DC&quot;s Community Group here
             </p>
             <Link
-              href="https://180dcugm.com/COMMUNITY1"
+              href="https://180dcugm.com/180DCCommunity"
               target="_blank"
               className="font-avenir-regular inline-flex items-center gap-2 rounded-md bg-green-300 px-4 py-2 text-sm text-white transition-all duration-200 hover:bg-green-300/80"
             >
@@ -83,7 +83,7 @@ const SubmitSlide = ({ formData }) => {
       <div className="rounded-xl border border-gray-200 bg-white p-6 shadow-xs">
         <h3 className="font-avenir-black mb-6 flex items-center gap-2 text-xl text-gray-800">
           <div className="flex h-6 w-6 items-center justify-center rounded-full bg-green-300">
-            <span className="text-sm font-bold text-white">7</span>
+            <span className="text-sm font-bold text-white">9</span>
           </div>
           Application Summary
         </h3>
@@ -176,7 +176,7 @@ const SubmitSlide = ({ formData }) => {
       <div className="rounded-xl border border-gray-200 bg-white p-6 shadow-xs">
         <h3 className="font-avenir-black mb-6 flex items-center gap-2 text-xl text-gray-800">
           <div className="flex h-6 w-6 items-center justify-center rounded-full bg-green-300">
-            <span className="text-sm font-bold text-white">8</span>
+            <span className="text-sm font-bold text-white">10</span>
           </div>
           Submitted Documents
         </h3>
@@ -284,7 +284,7 @@ const SubmitSlide = ({ formData }) => {
       <div className="rounded-xl border border-gray-200 bg-white p-6 shadow-xs">
         <h3 className="font-avenir-black mb-6 flex items-center gap-2 text-xl text-gray-800">
           <div className="flex h-6 w-6 items-center justify-center rounded-full bg-green-300">
-            <span className="text-sm font-bold text-white">9</span>
+            <span className="text-sm font-bold text-white">11</span>
           </div>
           Additional Information
         </h3>
