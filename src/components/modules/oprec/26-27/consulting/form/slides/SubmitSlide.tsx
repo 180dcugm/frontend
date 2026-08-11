@@ -43,12 +43,12 @@ const SubmitSlide = ({ formData }) => {
               And kindly join our Recruitment Group here
             </p>
             <Link
-              href="https://180dcugm.com/ConsultingRecruitment-Cycle2"
+              href="https://180dcugm.com/CARecruitmentGroup-2627"
               target="_blank"
               className="font-avenir-regular inline-flex items-center gap-2 rounded-md bg-cyan-300 px-4 py-2 text-sm text-white transition-all duration-200 hover:bg-cyan-300/80"
             >
               <ExternalLink className="h-4 w-4" />
-              Group Link Consulting Recruitment Cycle 2
+              Group Link Consulting Analyst Recruitment
             </Link>
           </div>
 
@@ -59,7 +59,7 @@ const SubmitSlide = ({ formData }) => {
               And 180DC&quot;s Community Group here
             </p>
             <Link
-              href="https://180dcugm.com/COMMUNITY1"
+              href="https://180dcugm.com/180DCCommunity"
               target="_blank"
               className="font-avenir-regular inline-flex items-center gap-2 rounded-md bg-green-300 px-4 py-2 text-sm text-white transition-all duration-200 hover:bg-green-300/80"
             >

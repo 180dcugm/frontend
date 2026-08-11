@@ -83,12 +83,12 @@ const Slide4 = ({ formData, updateFormData, onNext, onPrevious }) => {
               1. Open the drive:{" "}
               <span className="font-lato-bold text-black-300">
                 <Link
-                  href="https://drive.google.com/drive/folders/1787LhaAnV-FXgZykk70Gqc50IRClAvUT?usp=sharing"
+                  href="https://drive.google.com/drive/folders/1-sG34JB4znGS4sCrvbZhSt95jn2snHno?usp=drive_link"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="underline hover:text-green-300"
                 >
-                  https://drive.google.com/drive/folders/1787LhaAnV-FXgZykk70Gqc50IRClAvUT?usp=sharing{" "}
+                  https://drive.google.com/drive/folders/1-sG34JB4znGS4sCrvbZhSt95jn2snHno?usp=drive_link{" "}
                 </Link>
               </span>
               <br />
@@ -146,11 +146,11 @@ const Slide4 = ({ formData, updateFormData, onNext, onPrevious }) => {
               2. Uploading this image on your story {"->"}{" "}
               <span className="font-lato-bold text-black-300 underline hover:text-green-300">
                 <Link
-                  href="https://drive.google.com/drive/folders/1z8NURTHPRVnFOwBrpwL79JgV1oQ8gKMh"
+                  href="https://drive.google.com/drive/folders/1f1-uzQ3EQkFl2B0U1vlkBiCcSxffr6v7?usp=drive_link"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  https://drive.google.com/drive/folders/1z8NURTHPRVnFOwBrpwL79JgV1oQ8gKMh
+                  https://drive.google.com/drive/folders/1f1-uzQ3EQkFl2B0U1vlkBiCcSxffr6v7?usp=drive_link
                 </Link>
               </span>
               <br />
