@@ -234,14 +234,14 @@ const Slide1 = ({ formData, updateFormData, onNext }) => {
               htmlFor="major"
               className="font-avenir-regular mb-2 block text-sm font-medium text-gray-700"
             >
-              Faculty_Major *
+              Major *
             </Label>
             <Input
               id="major"
               type="text"
               value={major}
               onChange={(e) => setMajor(e.target.value)}
-              placeholder="e.g., FEB_Management"
+              placeholder="e.g., Management"
               className="font-lato-regular border-gray-300 transition-all duration-200 focus:ring-2 focus:ring-green-300/50"
             />
           </div>
