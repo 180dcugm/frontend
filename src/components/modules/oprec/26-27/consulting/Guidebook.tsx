@@ -19,7 +19,7 @@ export default function Guidebook() {
           </div>
           <div className="mt-4 hidden flex-col gap-4 sm:flex-row sm:justify-center md:flex">
             <Link
-              href="/file/CAOprecCycle2.pdf"
+              href="/file/Consulting_Recruitment_Booklet.pdf"
               download="180DC_Recruitment_Guidebook.pdf"
               className="inline-block"
             >
@@ -30,7 +30,7 @@ export default function Guidebook() {
               />
             </Link>
             <Link
-              href="/file/CAOprecCycle2.pdf"
+              href="/file/Consulting_Recruitment_Booklet.pdf"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-block"
@@ -46,7 +46,7 @@ export default function Guidebook() {
 
         <div className="group w-full rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-xs md:w-[80%] lg:p-8">
           <iframe
-            src="/file/CAOprecCycle2.pdf#toolbar=0&navpanes=0&scrollbar=1"
+            src="/file/Consulting_Recruitment_Booklet.pdf#toolbar=0&navpanes=0&scrollbar=1"
             width="100%"
             height="600"
             title="180DC Recruitment Guidebook"
@@ -57,7 +57,7 @@ export default function Guidebook() {
           />
           <div className="mt-4 flex flex-col gap-4 sm:flex-row sm:justify-center md:hidden">
             <Link
-              href="/file/CAOprecCycle2.pdf"
+              href="/file/Consulting_Recruitment_Booklet.pdf"
               download="180DC_Recruitment_Guidebook.pdf"
               className="inline-block"
             >
@@ -68,7 +68,7 @@ export default function Guidebook() {
               />
             </Link>
             <Link
-              href="/file/CAOprecCycle2.pdf"
+              href="/file/Consulting_Recruitment_Booklet.pdf"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-block"
