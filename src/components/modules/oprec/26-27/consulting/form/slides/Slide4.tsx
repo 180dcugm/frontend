@@ -134,12 +134,12 @@ const Slide4 = ({ formData, updateFormData, onNext, onPrevious }) => {
               1. Tagging 3 friends on this post {"->"}{" "}
               <span className="font-lato-bold text-black-300">
                 <Link
-                  href="https://www.instagram.com/p/DTxbOgtE-lF/?igsh=ank2cWRqZWljcjUw"
+                  href="https://www.instagram.com/p/Db5O4rUk_nz/?igsh=bW5qNDdhaDduY21s"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="underline hover:text-green-300"
                 >
-                  https://www.instagram.com/p/DTxbOgtE-lF/?igsh=ank2cWRqZWljcjUw
+                  https://www.instagram.com/p/Db5O4rUk_nz/?igsh=bW5qNDdhaDduY21s
                 </Link>
               </span>
               <br />

@@ -119,7 +119,11 @@ const Slide1 = ({ formData, updateFormData, onNext }) => {
           <p className="font-lato-regular text-gray-600">
             We advise you to read through the booklet first before filling out the form!
           </p>
-          <Link href="/file/CAOprecGuidebook2627.pdf" target="blank" className="hover:text-green-300">
+          <Link
+            href="/file/CAOprecGuidebook2627.pdf"
+            target="blank"
+            className="hover:text-green-300"
+          >
             <p className="font-lato-bold underline">Read Booklet</p>
           </Link>
         </div>

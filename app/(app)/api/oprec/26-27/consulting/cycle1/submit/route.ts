@@ -86,7 +86,7 @@ export async function POST(request) {
         request.headers.get("x-forwarded-for") ||
         request.headers.get("x-real-ip") ||
         request.ip ||
-        "unknown",
+        null,
       submitted_at: new Date().toISOString(),
     };
 
