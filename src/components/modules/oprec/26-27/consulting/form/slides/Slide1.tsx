@@ -120,7 +120,7 @@ const Slide1 = ({ formData, updateFormData, onNext }) => {
             We advise you to read through the booklet first before filling out the form!
           </p>
           <Link
-            href="/file/Consulting_Recruitment_Booklet.pdf"
+            href="/file/CAOprecGuidebook2627.pdf"
             target="blank"
             className="hover:text-green-300"
           >
