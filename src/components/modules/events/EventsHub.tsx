@@ -15,7 +15,7 @@ const programs = [
     icon: Users,
     image:
       "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=1500&auto=format&fit=crop", // collaborative team
-    available: true,
+    available: false,
   },
   {
     title: "Consulting Bootcamp",
