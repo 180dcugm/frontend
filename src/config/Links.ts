@@ -32,5 +32,5 @@ export const socLinks = {
   Instagram: "https://www.instagram.com/180dcugm/",
   LinkedIn: "https://www.linkedin.com/company/180dcugm/",
   Spotify: "https://open.spotify.com/show/4JoRSSOG8SospplfsJTxSe",
-  WhatsApp: "https://wa.me/6281328294460",
+  WhatsApp: "https://wa.me/628176019668",
 };
