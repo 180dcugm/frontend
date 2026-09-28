@@ -15,6 +15,174 @@
 */
 
 const BoD = {
+  "2026/2027": [
+    [
+      {
+        name: "Clairina Elvina",
+        role: "President of 180DC UGM",
+        linkedin: "https://www.linkedin.com/in/clairina-elvina-indriani-1716951b4/",
+        src: "/img/aboutus/BoD/2627/president.webp",
+      },
+      {
+        name: "Imam Akbar R.",
+        role: "Vice President of Consulting",
+        linkedin: "https://www.linkedin.com/in/imam-akbar-rosyadi/",
+        src: "/img/aboutus/BoD/2627/vice-president-consulting.webp",
+      },
+      {
+        name: "Nasywa Athaya S.",
+        role: "Vice President of External & Branding",
+        linkedin: "https://www.linkedin.com/in/nasywasantoni/",
+        src: "/img/aboutus/BoD/2627/vice-president-external-branding.webp",
+      },
+    ],
+    [
+      {
+        name: "Aqilah Shofi A.",
+        role: "Director of Client Engagement",
+        linkedin: "https://www.linkedin.com/in/aqilahshofiazzahra/",
+        src: "/img/aboutus/BoD/2627/director-client-engagement.webp",
+      },
+      {
+        name: "Nareswari Sarisha",
+        role: "Co-Director of Client Engagement",
+        linkedin: "https://www.linkedin.com/in/nareswarirsc/",
+        src: "/img/aboutus/BoD/2627/co-director-client-engagement.webp",
+      },
+    ],
+    [
+      {
+        name: "Amilia Windy",
+        role: "Director of Finance",
+        linkedin: "https://www.linkedin.com/in/amiliawindy/",
+        src: "/img/aboutus/BoD/2627/director-finance.webp",
+      },
+      {
+        name: "Theresia Yulia T.",
+        role: "Co-Director of Finance",
+        linkedin: "https://www.linkedin.com/in/theresia-yulia-trifena/",
+        src: "/img/aboutus/BoD/2627/co-director-finance.webp",
+      },
+      {
+        name: "Nawla Azanov",
+        role: "Director of Legal",
+        linkedin: "https://www.linkedin.com/in/nawla-azanov-8ba1183a5/",
+        src: "/img/aboutus/BoD/2627/director-legal.webp",
+      },
+    ],
+    [
+      {
+        name: "Haidar Ziyya",
+        role: "Director of Human Resources",
+        linkedin: "https://www.linkedin.com/in/haidarziyya/",
+        src: "/img/aboutus/BoD/2627/director-human-resources.webp",
+      },
+      {
+        name: "Michelle Moody H.",
+        role: "Co-Director of Human Resources",
+        linkedin: "https://www.linkedin.com/in/michellemoodyhadhinoto/",
+        src: "/img/aboutus/BoD/2627/co-director-human-resources.webp",
+      },
+      {
+        name: "Inka Anabel P.",
+        role: "Human Resources Manager",
+        linkedin: "https://www.linkedin.com/in/inkaanabel/",
+        src: "/img/aboutus/BoD/2627/manager-human-resources.webp",
+      },
+    ],
+    [
+      {
+        name: "Pradicantya P. R.",
+        role: "Director of Strategy and Growth",
+        linkedin: "https://www.linkedin.com/in/pradicantya/",
+        src: "/img/aboutus/BoD/2627/director-strategy-and-growth.webp",
+      },
+      {
+        name: "Nadya Clarissa",
+        role: "Co-Director of Strategy and Growth",
+        linkedin: "https://www.linkedin.com/in/nadya-clarissa-putri-windra-255195318/",
+        src: "/img/aboutus/BoD/2627/co-director-strategy-and-growth.webp",
+      },
+      {
+        name: "Yanuba Hana L.",
+        role: "Partnership Manager",
+        linkedin: "https://www.linkedin.com/in/yanuba-hana-latifah/",
+        src: "/img/aboutus/BoD/2627/manager-partnership.webp",
+      },
+      {
+        name: "Jesslyn Manalu",
+        role: "Events Manager",
+        linkedin: "https://www.linkedin.com/in/jesslyn-wina-teresa-manalu-167830380/",
+        src: "/img/aboutus/BoD/2627/manager-events.webp",
+      },
+    ],
+    [
+      {
+        name: "Gayatri Rida M.",
+        role: "Director of Marketing",
+        linkedin: "https://www.linkedin.com/in/gayatri-rida-maharani-aa3a2a322/",
+        src: "/img/aboutus/BoD/2627/director-marketing-it.webp",
+      },
+      {
+        name: "Birgita Heswari",
+        role: "Co-Director of Marketing",
+        linkedin: "https://www.linkedin.com/in/birgita-heswari-helga-pramesti-0523a335a/",
+        src: "/img/aboutus/BoD/2627/co-director-marketing-it.webp",
+      },
+      {
+        name: "Calista Gracia",
+        role: "Branding Manager",
+        linkedin: "https://www.linkedin.com/in/cacagracia/",
+        src: "/img/aboutus/BoD/2627/manager-branding.webp",
+      },
+      {
+        name: "Ahsan Wiryawan",
+        role: "IT Manager",
+        linkedin: "https://www.linkedin.com/in/ahsan-wiryawan-35924b326/",
+        src: "/img/aboutus/BoD/2627/manager-it.webp",
+      },
+    ],
+    [
+      {
+        name: "Faiha Citra V.",
+        role: "Director of Consulting",
+        linkedin: "https://www.linkedin.com/in/faiha-supriyanto/",
+        src: "/img/aboutus/BoD/2627/director-consulting.webp",
+      },
+      {
+        name: "Morreno Al D.",
+        role: "Co-Director of Consulting",
+        linkedin: "https://www.linkedin.com/in/morreno-al-danendra/",
+        src: "/img/aboutus/BoD/2627/co-director-consulting.webp",
+      },
+      {
+        name: "Hilmy Herismawati",
+        role: "Project Manager",
+        linkedin: "",
+        src: "/img/aboutus/BoD/2627/manager-project-1.webp",
+      },
+      {
+        name: "Rejica Siahaan",
+        role: "Project Manager",
+        linkedin: "https://www.linkedin.com/in/rejica-arthur-siahaan-04a94a3a7/",
+        src: "/img/aboutus/BoD/2627/manager-project-2.webp",
+      },
+    ],
+    [
+      {
+        name: "Najwah Ariella",
+        role: "Director of Knowledge Team",
+        linkedin: "https://www.linkedin.com/in/najwah-ariella-puteri/",
+        src: "/img/aboutus/BoD/2627/director-knowledge-team.webp",
+      },
+      {
+        name: "Haka Aghitsna",
+        role: "Co-Director of Knowledge Team",
+        linkedin: "https://id.linkedin.com/in/haka-aghitsna-ridloka16",
+        src: "/img/aboutus/BoD/2627/co-director-knowledge-team.webp",
+      },
+    ],
+  ],
   "2025/2026": [
     [
       {
