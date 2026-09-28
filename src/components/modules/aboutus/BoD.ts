@@ -18,16 +18,16 @@ const BoD = {
   "2026/2027": [
     [
       {
-        name: "Clairina Elvina",
-        role: "President of 180DC UGM",
-        linkedin: "https://www.linkedin.com/in/clairina-elvina-indriani-1716951b4/",
-        src: "/img/aboutus/BoD/2627/president.webp",
-      },
-      {
         name: "Imam Akbar R.",
         role: "Vice President of Consulting",
         linkedin: "https://www.linkedin.com/in/imam-akbar-rosyadi/",
         src: "/img/aboutus/BoD/2627/vice-president-consulting.webp",
+      },
+      {
+        name: "Clairina Elvina",
+        role: "President of 180DC UGM",
+        linkedin: "https://www.linkedin.com/in/clairina-elvina-indriani-1716951b4/",
+        src: "/img/aboutus/BoD/2627/president.webp",
       },
       {
         name: "Nasywa Athaya S.",
