@@ -158,7 +158,7 @@ const BoD = {
       {
         name: "Hilmy Herismawati",
         role: "Project Manager",
-        linkedin: "",
+        linkedin: "https://www.linkedin.com/in/hilmyherismawati/",
         src: "/img/aboutus/BoD/2627/manager-project-1.webp",
       },
       {
