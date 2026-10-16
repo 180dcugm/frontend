@@ -15,6 +15,7 @@ import { Links } from "./collections/Links";
 import { TelescopeComments } from "./collections/TelescopeComments";
 import { AIKnowledge } from "./collections/AIKnowledge";
 import { Hero } from "./collections/Hero";
+import { Partners } from "./collections/Partners";
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -26,7 +27,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media, Telescope, Links, TelescopeComments, Hero, AIKnowledge],
+  collections: [Users, Media, Telescope, Links, TelescopeComments, Hero, AIKnowledge, Partners],
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || "",
   typescript: {
@@ -41,6 +42,9 @@ export default buildConfig({
   plugins: [
     payloadCloudPlugin(),
     s3Storage({
+      // Opt-out so production can't lose S3 by a missing variable. Set PAYLOAD_LOCAL_UPLOADS=true
+      // in a local .env to store uploads on disk (./media) instead of the production bucket.
+      enabled: process.env.PAYLOAD_LOCAL_UPLOADS !== "true",
       collections: {
         media: true,
       },
