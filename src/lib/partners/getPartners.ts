@@ -51,15 +51,13 @@ const toPartner = (doc: PayloadPartner): Partner | undefined => {
   const description = doc.description?.trim();
   if (description) partner.description = description;
 
-  if (partner.isRecent) {
-    // Recent partners have no popup; their case study is shown in the carousel instead.
-    const caseStudy = toCaseStudy(doc);
-    if (caseStudy) partner.caseStudy = caseStudy;
-    return partner;
-  }
-
   const background = toPartnerMedia(doc.popup?.background, "popup");
   if (background) partner.popup = { background };
+
+  if (partner.isRecent) {
+    const caseStudy = toCaseStudy(doc);
+    if (caseStudy) partner.caseStudy = caseStudy;
+  }
 
   return partner;
 };

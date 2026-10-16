@@ -52,15 +52,15 @@ export const Partners: CollectionConfig = {
       name: "description",
       type: "textarea",
       label: "Description",
-      // Shown in the popup, or on the carousel card for recent partners, so only recent partners
-      // need one. `required` would make the column NOT NULL for every partner.
+      // Shown in the popup, and on the carousel card for recent partners, where it can't be left
+      // empty. `required` would make the column NOT NULL for every partner.
       validate: (value, { data }) =>
         !(data as { isRecent?: boolean } | undefined)?.isRecent ||
         Boolean(value?.trim()) ||
         "A description is required for recent partners.",
       admin: {
         description:
-          "Short description of the partner. Shown in the popup, or on the carousel card for recent partners.",
+          "Short description of the partner. Shown in the popup, and on the carousel card for recent partners.",
       },
     },
     {
@@ -132,8 +132,6 @@ export const Partners: CollectionConfig = {
       type: "group",
       label: "Popup",
       admin: {
-        // Recent partners have no popup; their case study is shown in the carousel instead.
-        condition: (data) => !data?.isRecent,
         description: "Content shown when a visitor clicks this partner.",
       },
       fields: [

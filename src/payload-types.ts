@@ -367,7 +367,7 @@ export interface Partner {
    */
   logo: number | Media;
   /**
-   * Short description of the partner. Shown in the popup, or on the carousel card for recent partners.
+   * Short description of the partner. Shown in the popup, and on the carousel card for recent partners.
    */
   description?: string | null;
   /**

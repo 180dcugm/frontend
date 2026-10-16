@@ -25,12 +25,12 @@ export type Partner = {
   name: string;
   category: PartnerCategory;
   logo: PartnerMedia;
-  // Shown in the popup, or on the carousel card for recent partners.
+  // Shown in the popup, and on the carousel card for recent partners.
   description?: string;
   isRecent: boolean;
-  // Recent partners only; they appear in the Recent Partners carousel and have no popup.
+  // Recent partners only; shown on their card in the Recent Partners carousel.
   caseStudy?: PartnerCaseStudy;
-  // Non-recent partners only. Omitted when the partner has no popup background yet.
+  // Omitted when the partner has no popup background yet.
   popup?: {
     background: PartnerMedia;
   };

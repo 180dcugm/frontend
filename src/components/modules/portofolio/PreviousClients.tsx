@@ -15,171 +15,30 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-
-type PartnerLogo = {
-  url: string;
-  alt?: string | null;
-};
-
-type Partner = {
-  id: string | number;
-  name: string;
-  category: string;
-  description?: string | null;
-  logo?: PartnerLogo | null;
-};
-
-type RecentPartner = {
-  name: string;
-  nps?: string | null;
-  logo?: string | null;
-  desc?: string | null;
-  pleft?: string | null;
-  pcenter?: string | null;
-  pright?: string | null;
-  prightcondition?: "impact" | "comment" | string | null;
-};
+import type { Partner, PartnerCategory, RecentPartner } from "@/lib/partners/types";
 
 type PreviousClientsProps = {
+  // From getPartners() and getRecentPartners(), fetched by the services page.
   partners?: Partner[];
+  recentPartners?: RecentPartner[];
 };
 
-const filters = ["All", "Case Collaboration", "Event Collaboration", "Media Partner"];
+type PartnerFilter = "all" | PartnerCategory;
 
-// Carousel data stays hardcoded in the frontend.
-const clientsPorto: RecentPartner[] = [
-  {
-    name: "Kopi Sembilan",
-    nps: "100%",
-    logo: "/img/portofolio/company_logos/kopi_sembilan.png",
-    desc: "Kopi Sembilan is a local coffee shop and one of the SMEs based in Yogyakarta.",
-    pleft:
-      "Kopi Sembilan faced challenges with its supply chain, management structure, and structured budget planning and bookkeeping.",
-    pcenter:
-      "We helped restructure its management hierarchy and provided an integrated bookkeeping system with supply chain tracking.",
-    pright:
-      "We provided an organizational structure, inventory management, and management controls to improve financial reporting and operational decision-making.",
-    prightcondition: "impact",
-  },
-  {
-    name: "Planet Protector Packaging",
-    nps: "100%",
-    logo: "/img/portofolio/company_logos/planet_protector_packaging.png",
-    desc: "Planet Protector Packaging distributes sustainable, recyclable, and biodegradable Woolpack packaging in Australia and New Zealand.",
-    pleft:
-      "The company needed advice on entering the Indonesian market as part of its broader market expansion.",
-    pcenter:
-      "We developed a business model and go-to-market proposal supported by strategic partnership planning.",
-    pright:
-      "We helped identify potential corporate partners and recommended strategies for approaching the government to support market entry.",
-    prightcondition: "impact",
-  },
-  {
-    name: "Mercy Ships",
-    nps: "90%",
-    logo: "/img/portofolio/company_logos/mercy_ships.png",
-    desc: "Mercy Ships is an international charity operating hospital ships to provide humanitarian aid.",
-    pleft:
-      "Mercy Ships wanted to enter Asian markets, particularly Indonesia, Vietnam, and the Philippines.",
-    pcenter:
-      "We developed market and competitor analyses and website optimization recommendations covering UI/UX and country-specific marketing strategies.",
-    pright:
-      "We delivered website and social media strategies, including implementation plans, required resources, timelines, and KPI metrics.",
-    prightcondition: "impact",
-  },
-  {
-    name: "Widya Edu",
-    nps: "100%",
-    logo: "/img/portofolio/company_logos/Widya_Edu.png",
-    desc: "Widya Edu is an education technology company helping Indonesian high school students prepare for university.",
-    pleft:
-      "Widya Edu faced challenges with visibility and brand recognition in the education technology market.",
-    pcenter:
-      "We recommended ways to improve exposure and reach students in a competitive education technology market.",
-    pright:
-      "Made it much easier to achieve our aims. We are satisfied with the work and impressed with the results. Thank you!",
-    prightcondition: "comment",
-  },
-  {
-    name: "Asdos.id",
-    nps: "90%",
-    logo: "/img/portofolio/company_logos/Asdos.Id.jpg",
-    desc: "Asdos.id is an online marketplace providing academic assistance services for university students.",
-    pleft:
-      "Asdos.id needed to improve brand recognition and reevaluate its brand value and proposition ahead of a relaunch.",
-    pcenter: "We provided consultation on strengthening brand recognition among its target market.",
-    pright:
-      "The team provided useful insights for social impact initiatives without placing a heavy burden on day-to-day operations or resources.",
-    prightcondition: "comment",
-  },
-  {
-    name: "Kolom Remaja",
-    nps: "100%",
-    logo: "/img/portofolio/company_logos/KolomRemaja.png",
-    desc: "Kolom Remaja is an independent online media platform focused on freedom of speech and expression for Indonesian youth.",
-    pleft:
-      "Kolom Remaja wanted to improve human resource management and strengthen its product development strategy.",
-    pcenter:
-      "We analyzed brand perception and developed recommendations to strengthen its brand personality and internal collaboration.",
-    pright: "The research and analysis provided insightful recommendations for the organization.",
-    prightcondition: "comment",
-  },
-  {
-    name: "Gores Denai",
-    nps: "100%",
-    logo: "/img/portofolio/company_logos/GoresDenai.png",
-    desc: "Gores Denai helps Indonesian youth access international education and global opportunities.",
-    pleft:
-      "Gores Denai faced challenges in strengthening its market position, branding, and revenue generation while maintaining free access to its products.",
-    pcenter:
-      "We analyzed its branding and recommended strategic steps to attract customers and increase user engagement.",
-    pright:
-      "The team provided practical recommendations for addressing organizational concerns and improving performance.",
-    prightcondition: "comment",
-  },
-  {
-    name: "KitaBisa",
-    nps: "80%",
-    logo: "/img/portofolio/company_logos/KitaBisa.png",
-    desc: "KitaBisa.com is a crowdfunding platform supporting humanitarian initiatives and social programs.",
-    pleft: "KitaBisa wanted to strengthen its brand positioning against competitors.",
-    pcenter:
-      "We analyzed its internal situation and recommended improvements to data collection, transparency, and social campaigns.",
-    pright:
-      "The resulting report exceeded expectations and reflected a strong commitment to high-quality work.",
-    prightcondition: "comment",
-  },
-  {
-    name: "EWasteRJ",
-    nps: "90%",
-    logo: "/img/portofolio/company_logos/EwasteRJ.jpg",
-    desc: "EWasteRJ educates the public about unsafe electronic waste disposal and facilitates e-waste collection.",
-    pleft:
-      "EWasteRJ needed to improve revenue generation and determine a sustainable monetization strategy.",
-    pcenter:
-      "We helped identify partnership opportunities, brand awareness initiatives, and potential revenue streams.",
-    pright:
-      "We provided pitch decks for corporate and educational audiences, potential partner lists, and positioning strategies.",
-    prightcondition: "impact",
-  },
-  {
-    name: "Tersalur",
-    nps: "100%",
-    logo: "/img/portofolio/company_logos/LogoTersalur.jpg",
-    desc: "Tersalur is a foundation supporting vulnerable communities affected by poverty, disasters, and disease.",
-    pleft:
-      "Tersalur faced challenges with member training, virtual team management, knowledge transfer, and documentation.",
-    pcenter:
-      "We analyzed its organizational structure, recruitment process, and competitors, then recommended relevant development programs.",
-    pright:
-      "The client highlighted the value of practical recommendations aligned with the needs of NGOs.",
-    prightcondition: "comment",
-  },
+// Values match the `category` options in the partners collection.
+const filters: { label: string; value: PartnerFilter }[] = [
+  { label: "All", value: "all" },
+  { label: "Case Collaboration", value: "case-collaboration" },
+  { label: "Event Collaboration", value: "event-collaboration" },
+  { label: "Media Partner", value: "media-partner" },
 ];
 
-export default function PreviousClients({ partners = [] }: PreviousClientsProps) {
+export default function PreviousClients({
+  partners = [],
+  recentPartners = [],
+}: PreviousClientsProps) {
   const [selectedPartner, setSelectedPartner] = useState<Partner | null>(null);
-  const [activeFilter, setActiveFilter] = useState("All");
+  const [activeFilter, setActiveFilter] = useState<PartnerFilter>("all");
   const [isMounted, setIsMounted] = useState(false);
   const [desktopApi, setDesktopApi] = useState<any>(null);
   const [mobileApi, setMobileApi] = useState<any>(null);
@@ -226,9 +85,10 @@ export default function PreviousClients({ partners = [] }: PreviousClientsProps)
   };
 
   const safePartners = Array.isArray(partners) ? partners : [];
+  const safeRecentPartners = Array.isArray(recentPartners) ? recentPartners : [];
 
   const visiblePartners = safePartners.filter((partner) => {
-    if (activeFilter === "All") return true;
+    if (activeFilter === "all") return true;
     return partner.category === activeFilter;
   });
 
@@ -373,249 +233,247 @@ export default function PreviousClients({ partners = [] }: PreviousClientsProps)
           </div>
         </Container>
 
-        {/* Carousel background */}
-        <div className="relative">
-          <div className="absolute inset-0 z-[1] h-full w-full overflow-clip">
-            <ImageAction alt="portofolio hero background" src="/img/portofolio/hero_bg-c.png" />
-          </div>
-
-          <div className="absolute z-[1] h-full w-full bg-gradient-to-b from-black/20 via-transparent to-black/90" />
-          <div className="absolute top-0 z-[1] h-full w-full bg-black/85" />
-
-          <Container color="dark" className="relative z-[2]">
-            {/* Title: Recent Partners */}
-            <div className="mb-6 w-full px-6 pt-8 lg:px-0">
-              <h2 className="font-avenir-black text-2xl sm:text-3xl">
-                Recent{" "}
-                <span className="bg-gradient-to-r from-[#83bd61] to-[#68b8c4] bg-clip-text text-transparent">
-                  Partners
-                </span>
-              </h2>
+        {/* Carousel background (hidden until the CMS has recent partners) */}
+        {safeRecentPartners.length > 0 ? (
+          <div className="relative">
+            <div className="absolute inset-0 z-[1] h-full w-full overflow-clip">
+              <ImageAction alt="portofolio hero background" src="/img/portofolio/hero_bg-c.png" />
             </div>
-            {/* Desktop carousel */}
-            <div
-              id="previous-clients-carousel"
-              className="relative hidden w-full flex-col items-center justify-center px-6 lg:flex"
-            >
-              <div className="h-full w-full 2xl:w-[1536px]">
-                <div className="relative flex h-[85%] w-full items-end justify-center pb-2">
-                  <Carousel
-                    opts={{
-                      align: "start",
-                      loop: true,
-                      slidesToScroll: 1,
-                    }}
-                    plugins={[Autoplay({ delay: 5000 })]}
-                    setApi={setDesktopCarouselApi}
-                    className="w-full"
-                  >
-                    <CarouselContent className="-ml-4">
-                      {clientsPorto.map((client, slideIndex) => (
-                        <CarouselItem key={slideIndex} className="basis-1/2 pl-4">
-                          <div className="w-full">
-                            <div className="relative h-96 w-full lg:h-[500px] xl:h-[600px] 2xl:h-[700px]">
-                              {/* Card background */}
-                              <div className="absolute h-1/2 w-full rounded-lg rounded-bl-none lg:rounded-xl 2xl:rounded-2xl">
-                                <div className="relative h-full w-full bg-[#0A1E22]/47" />
-                              </div>
 
-                              {/* Upper body */}
-                              <div className="relative mt-4 flex h-1/2 w-full gap-4 p-4 lg:mt-6 lg:gap-8 lg:p-6 xl:gap-12 2xl:p-8">
-                                <div className="relative flex h-full w-7/12 flex-col items-start justify-start gap-2 lg:gap-4">
-                                  <p className="font-avenir-black text-lg leading-none text-green-300 lg:text-2xl 2xl:text-3xl">
-                                    {client.name}
-                                  </p>
+            <div className="absolute z-[1] h-full w-full bg-gradient-to-b from-black/20 via-transparent to-black/90" />
+            <div className="absolute top-0 z-[1] h-full w-full bg-black/85" />
 
-                                  <div className="font-avenir-light text-sm leading-none text-cyan-300 lg:text-base 2xl:text-lg">
-                                    <h2 className="font-avenir-black text-gray-100">
-                                      {client.desc}
-                                    </h2>
-                                    <p>
-                                      <strong className="font-avenir-heavy absolute bottom-0 text-base lg:text-xl 2xl:text-2xl">
-                                        NPS of {client.nps}
-                                      </strong>
+            <Container color="dark" className="relative z-[2]">
+              {/* Title: Recent Partners */}
+              <div className="mb-6 w-full px-6 pt-8 lg:px-0">
+                <h2 className="font-avenir-black text-2xl sm:text-3xl">
+                  Recent{" "}
+                  <span className="bg-gradient-to-r from-[#83bd61] to-[#68b8c4] bg-clip-text text-transparent">
+                    Partners
+                  </span>
+                </h2>
+              </div>
+              {/* Desktop carousel */}
+              <div
+                id="previous-clients-carousel"
+                className="relative hidden w-full flex-col items-center justify-center px-6 lg:flex"
+              >
+                <div className="h-full w-full 2xl:w-[1536px]">
+                  <div className="relative flex h-[85%] w-full items-end justify-center pb-2">
+                    <Carousel
+                      opts={{
+                        align: "start",
+                        loop: true,
+                        slidesToScroll: 1,
+                      }}
+                      plugins={[Autoplay({ delay: 5000 })]}
+                      setApi={setDesktopCarouselApi}
+                      className="w-full"
+                    >
+                      <CarouselContent className="-ml-4">
+                        {safeRecentPartners.map((client) => (
+                          <CarouselItem key={client.id} className="basis-1/2 pl-4">
+                            <div className="w-full">
+                              <div className="relative h-96 w-full lg:h-[500px] xl:h-[600px] 2xl:h-[700px]">
+                                {/* Card background */}
+                                <div className="absolute h-1/2 w-full rounded-lg rounded-bl-none lg:rounded-xl 2xl:rounded-2xl">
+                                  <div className="relative h-full w-full bg-[#0A1E22]/47" />
+                                </div>
+
+                                {/* Upper body */}
+                                <div className="relative mt-4 flex h-1/2 w-full gap-4 p-4 lg:mt-6 lg:gap-8 lg:p-6 xl:gap-12 2xl:p-8">
+                                  <div className="relative flex h-full w-7/12 flex-col items-start justify-start gap-2 lg:gap-4">
+                                    <p className="font-avenir-black text-lg leading-none text-green-300 lg:text-2xl 2xl:text-3xl">
+                                      {client.name}
                                     </p>
+
+                                    <div className="font-avenir-light text-sm leading-none text-cyan-300 lg:text-base 2xl:text-lg">
+                                      <h2 className="font-avenir-black text-gray-100">
+                                        {client.description}
+                                      </h2>
+                                      <p>
+                                        <strong className="font-avenir-heavy absolute bottom-0 text-base lg:text-xl 2xl:text-2xl">
+                                          NPS of {client.caseStudy.nps}%
+                                        </strong>
+                                      </p>
+                                    </div>
+                                  </div>
+
+                                  <div className="flex h-full w-5/12 items-center justify-center">
+                                    <div className="flex w-4/5 overflow-clip rounded-lg lg:rounded-xl 2xl:rounded-2xl">
+                                      <ImageAction
+                                        alt={client.logo.alt || `${client.name} logo`}
+                                        src={client.logo.url}
+                                      />
+                                    </div>
                                   </div>
                                 </div>
 
-                                <div className="flex h-full w-5/12 items-center justify-center">
-                                  <div className="flex w-4/5 overflow-clip rounded-lg lg:rounded-xl 2xl:rounded-2xl">
+                                {/* Lower body */}
+                                <div className="mt-4 flex h-full w-full gap-4 px-4 pb-32 lg:mt-6 lg:gap-6 lg:px-6 lg:pb-40 2xl:gap-8 2xl:px-8 2xl:pb-48">
+                                  <div className="font-lato-regular w-4/12 text-justify text-xs leading-relaxed text-gray-100 lg:text-sm 2xl:text-base">
+                                    <p className="font-avenir-black mb-2 text-green-300 lg:mb-3">
+                                      What challenges does {client.name} face?
+                                    </p>
+                                    <p>{client.caseStudy.challenge}</p>
+                                  </div>
+
+                                  <div className="font-lato-regular w-4/12 text-justify text-xs leading-relaxed text-gray-100 lg:text-sm 2xl:text-base">
+                                    <p className="font-avenir-black mb-2 text-green-300 lg:mb-3">
+                                      What solution do we offer?
+                                    </p>
+                                    <p>{client.caseStudy.solution}</p>
+                                  </div>
+
+                                  <div className="font-lato-regular w-4/12 text-justify text-xs leading-relaxed text-gray-100 lg:text-sm 2xl:text-base">
+                                    <p className="font-avenir-black mb-2 text-green-300 lg:mb-3">
+                                      Impact that we deliver
+                                    </p>
+                                    <p>{client.caseStudy.impact}</p>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </CarouselItem>
+                        ))}
+                      </CarouselContent>
+
+                      <CarouselPrevious className="left-4 z-10 hidden rounded-[10px] bg-green-300/80 hover:bg-green-300 lg:flex" />
+                      <CarouselNext className="right-4 z-10 hidden rounded-[10px] bg-green-300/80 hover:bg-green-300 lg:flex" />
+                    </Carousel>
+                  </div>
+
+                  {/* Carousel navigation buttons */}
+                  <div className="mt-1 flex items-center justify-center gap-1.5">
+                    <button
+                      type="button"
+                      aria-label="Previous slide"
+                      onClick={() => desktopApi?.scrollPrev()}
+                      className="mr-1 text-white transition-opacity hover:opacity-60"
+                    >
+                      <FaChevronLeft size={14} />
+                    </button>
+
+                    {Array.from({ length: desktopApi?.scrollSnapList().length ?? 0 }).map(
+                      (_, index) => (
+                        <button
+                          key={index}
+                          type="button"
+                          aria-label={`Go to slide ${index + 1}`}
+                          onClick={() => desktopApi?.scrollTo(index)}
+                          className={`h-2.5 w-2.5 rounded-full transition-colors ${
+                            desktopApi?.selectedScrollSnap() === index ? "bg-[#83bd61]" : "bg-white"
+                          }`}
+                        />
+                      )
+                    )}
+
+                    <button
+                      type="button"
+                      aria-label="Next slide"
+                      onClick={() => desktopApi?.scrollNext()}
+                      className="ml-1 text-white transition-opacity hover:opacity-60"
+                    >
+                      <FaChevronRight size={14} />
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              {/* Mobile carousel */}
+              <div className="z-[4] h-fit w-full lg:hidden">
+                <Carousel
+                  opts={{
+                    align: "start",
+                    loop: true,
+                  }}
+                  plugins={[Autoplay({ delay: 5000 })]}
+                  setApi={setMobileCarouselApi}
+                >
+                  <CarouselContent>
+                    {safeRecentPartners.map((client) => (
+                      <CarouselItem key={client.id} className="basis-full">
+                        <div className="relative h-96 overflow-clip rounded-[14px] sm:min-h-screen md:h-full">
+                          <div className="absolute -z-[1] h-full w-full">
+                            <div className="relative h-full w-full bg-[#2C6970]/47" />
+                          </div>
+
+                          <div className="flex h-full w-full items-center justify-center px-2 py-4 sm:px-4">
+                            <button
+                              type="button"
+                              aria-label="Previous client"
+                              className="mr-2 w-fit shrink-0 sm:mr-4"
+                              onClick={() => mobileApi?.scrollPrev()}
+                            >
+                              <FaChevronLeft className="text-4xl text-gray-100/35 sm:text-5xl md:text-6xl" />
+                            </button>
+
+                            <div className="flex h-full w-full flex-col items-center justify-center gap-8 overflow-clip sm:gap-12">
+                              <div className="relative mt-4 flex h-1/3 w-full gap-4 sm:mt-6 sm:gap-6">
+                                <div className="flex h-full w-1/3 items-center justify-end sm:w-2/5">
+                                  <div className="flex w-full overflow-clip rounded-2xl sm:rounded-3xl">
                                     <ImageAction
-                                      alt={`${client.name}_logo`}
-                                      src={client.logo || "/placeholder.svg"}
+                                      alt={client.logo.alt || `${client.name} logo`}
+                                      src={client.logo.url}
                                     />
                                   </div>
                                 </div>
+
+                                <div className="flex h-full flex-col items-start justify-center gap-2 sm:gap-3">
+                                  <p className="font-avenir-black text-2xl leading-none text-green-300 sm:text-3xl md:text-4xl">
+                                    {client.name}
+                                  </p>
+                                </div>
                               </div>
 
-                              {/* Lower body */}
-                              <div className="mt-4 flex h-full w-full gap-4 px-4 pb-32 lg:mt-6 lg:gap-6 lg:px-6 lg:pb-40 2xl:gap-8 2xl:px-8 2xl:pb-48">
-                                <div className="font-lato-regular w-4/12 text-justify text-xs leading-relaxed text-gray-100 lg:text-sm 2xl:text-base">
-                                  <p className="font-avenir-black mb-2 text-green-300 lg:mb-3">
+                              <div className="flex h-3/5 w-full flex-col gap-4 overflow-y-scroll px-4 sm:gap-6 sm:px-6">
+                                <div className="font-lato-regular text-justify text-sm leading-relaxed text-gray-100 sm:text-base md:text-lg">
+                                  <p className="font-avenir-black mb-2 text-green-300">
                                     What challenges does {client.name} face?
                                   </p>
-                                  <p>{client.pleft}</p>
+                                  <p>{client.caseStudy.challenge}</p>
                                 </div>
 
-                                <div className="font-lato-regular w-4/12 text-justify text-xs leading-relaxed text-gray-100 lg:text-sm 2xl:text-base">
-                                  <p className="font-avenir-black mb-2 text-green-300 lg:mb-3">
-                                    What solution does we offer?
+                                <div className="font-lato-regular text-sm leading-relaxed text-gray-100 sm:text-base md:text-lg">
+                                  <p className="font-avenir-black mb-2 text-green-300">
+                                    What solution do we offer?
                                   </p>
-                                  <p>{client.pcenter}</p>
+                                  <p>{client.caseStudy.solution}</p>
                                 </div>
 
-                                <div className="font-lato-regular w-4/12 text-justify text-xs leading-relaxed text-gray-100 lg:text-sm 2xl:text-base">
-                                  <p className="font-avenir-black mb-2 text-green-300 lg:mb-3">
-                                    {client.prightcondition === "impact"
-                                      ? "Impact that we deliver"
-                                      : `${client.name} comments of our work`}
+                                <div className="font-lato-regular text-sm leading-relaxed text-gray-100 sm:text-base md:text-lg">
+                                  <p className="font-avenir-black mb-2 text-green-300">
+                                    Impact that we deliver
                                   </p>
-                                  <p>{client.pright}</p>
+                                  <p>{client.caseStudy.impact}</p>
                                 </div>
                               </div>
+
+                              <div className="h-1/12">
+                                <p className="font-lato-light-italic text-sm text-gray-100 sm:text-base">
+                                  Slide For More
+                                </p>
+                              </div>
                             </div>
+
+                            <button
+                              type="button"
+                              aria-label="Next client"
+                              className="ml-2 w-fit shrink-0 sm:ml-4"
+                              onClick={() => mobileApi?.scrollNext()}
+                            >
+                              <FaChevronRight className="w-fit text-4xl text-gray-100/35 sm:text-5xl md:text-6xl" />
+                            </button>
                           </div>
-                        </CarouselItem>
-                      ))}
-                    </CarouselContent>
-
-                    <CarouselPrevious className="left-4 z-10 hidden rounded-[10px] bg-green-300/80 hover:bg-green-300 lg:flex" />
-                    <CarouselNext className="right-4 z-10 hidden rounded-[10px] bg-green-300/80 hover:bg-green-300 lg:flex" />
-                  </Carousel>
-                </div>
-
-                {/* Carousel navigation buttons */}
-                <div className="mt-1 flex items-center justify-center gap-1.5">
-                  <button
-                    type="button"
-                    aria-label="Previous slide"
-                    onClick={() => desktopApi?.scrollPrev()}
-                    className="mr-1 text-white transition-opacity hover:opacity-60"
-                  >
-                    <FaChevronLeft size={14} />
-                  </button>
-
-                  {Array.from({ length: desktopApi?.scrollSnapList().length ?? 0 }).map(
-                    (_, index) => (
-                      <button
-                        key={index}
-                        type="button"
-                        aria-label={`Go to slide ${index + 1}`}
-                        onClick={() => desktopApi?.scrollTo(index)}
-                        className={`h-2.5 w-2.5 rounded-full transition-colors ${
-                          desktopApi?.selectedScrollSnap() === index ? "bg-[#83bd61]" : "bg-white"
-                        }`}
-                      />
-                    )
-                  )}
-
-                  <button
-                    type="button"
-                    aria-label="Next slide"
-                    onClick={() => desktopApi?.scrollNext()}
-                    className="ml-1 text-white transition-opacity hover:opacity-60"
-                  >
-                    <FaChevronRight size={14} />
-                  </button>
-                </div>
+                        </div>
+                      </CarouselItem>
+                    ))}
+                  </CarouselContent>
+                </Carousel>
               </div>
-            </div>
-
-            {/* Mobile carousel */}
-            <div className="z-[4] h-fit w-full lg:hidden">
-              <Carousel
-                opts={{
-                  align: "start",
-                  loop: true,
-                }}
-                plugins={[Autoplay({ delay: 5000 })]}
-                setApi={setMobileCarouselApi}
-              >
-                <CarouselContent>
-                  {clientsPorto.map((client, idx) => (
-                    <CarouselItem key={idx} className="basis-full">
-                      <div className="relative h-96 overflow-clip rounded-[14px] sm:min-h-screen md:h-full">
-                        <div className="absolute -z-[1] h-full w-full">
-                          <div className="relative h-full w-full bg-[#2C6970]/47" />
-                        </div>
-
-                        <div className="flex h-full w-full items-center justify-center px-2 py-4 sm:px-4">
-                          <button
-                            type="button"
-                            aria-label="Previous client"
-                            className="mr-2 w-fit shrink-0 sm:mr-4"
-                            onClick={() => mobileApi?.scrollPrev()}
-                          >
-                            <FaChevronLeft className="text-4xl text-gray-100/35 sm:text-5xl md:text-6xl" />
-                          </button>
-
-                          <div className="flex h-full w-full flex-col items-center justify-center gap-8 overflow-clip sm:gap-12">
-                            <div className="relative mt-4 flex h-1/3 w-full gap-4 sm:mt-6 sm:gap-6">
-                              <div className="flex h-full w-1/3 items-center justify-end sm:w-2/5">
-                                <div className="flex w-full overflow-clip rounded-2xl sm:rounded-3xl">
-                                  <ImageAction
-                                    alt={`${client.name}_logo`}
-                                    src={client.logo || "/placeholder.svg"}
-                                  />
-                                </div>
-                              </div>
-
-                              <div className="flex h-full flex-col items-start justify-center gap-2 sm:gap-3">
-                                <p className="font-avenir-black text-2xl leading-none text-green-300 sm:text-3xl md:text-4xl">
-                                  {client.name}
-                                </p>
-                              </div>
-                            </div>
-
-                            <div className="flex h-3/5 w-full flex-col gap-4 overflow-y-scroll px-4 sm:gap-6 sm:px-6">
-                              <div className="font-lato-regular text-justify text-sm leading-relaxed text-gray-100 sm:text-base md:text-lg">
-                                <p className="font-avenir-black mb-2 text-green-300">
-                                  What challenges does {client.name} face?
-                                </p>
-                                <p>{client.pleft}</p>
-                              </div>
-
-                              <div className="font-lato-regular text-sm leading-relaxed text-gray-100 sm:text-base md:text-lg">
-                                <p className="font-avenir-black mb-2 text-green-300">
-                                  What solution does we offer?
-                                </p>
-                                <p>{client.pcenter}</p>
-                              </div>
-
-                              <div className="font-lato-regular text-sm leading-relaxed text-gray-100 sm:text-base md:text-lg">
-                                <p className="font-avenir-black mb-2 text-green-300">
-                                  {client.prightcondition === "impact"
-                                    ? "Impact that we deliver"
-                                    : `${client.name} comments of our work`}
-                                </p>
-                                <p>{client.pright}</p>
-                              </div>
-                            </div>
-
-                            <div className="h-1/12">
-                              <p className="font-lato-light-italic text-sm text-gray-100 sm:text-base">
-                                Slide For More
-                              </p>
-                            </div>
-                          </div>
-
-                          <button
-                            type="button"
-                            aria-label="Next client"
-                            className="ml-2 w-fit shrink-0 sm:ml-4"
-                            onClick={() => mobileApi?.scrollNext()}
-                          >
-                            <FaChevronRight className="w-fit text-4xl text-gray-100/35 sm:text-5xl md:text-6xl" />
-                          </button>
-                        </div>
-                      </div>
-                    </CarouselItem>
-                  ))}
-                </CarouselContent>
-              </Carousel>
-            </div>
-          </Container>
-        </div>
+            </Container>
+          </div>
+        ) : null}
       </div>
 
       {/* Our Partners */}
@@ -635,17 +493,17 @@ export default function PreviousClients({ partners = [] }: PreviousClientsProps)
             <div className="flex flex-wrap items-center gap-1 rounded-full bg-[#171717]/90 p-1">
               {filters.map((filter) => (
                 <button
-                  key={filter}
+                  key={filter.value}
                   type="button"
-                  onClick={() => setActiveFilter(filter)}
-                  aria-pressed={activeFilter === filter}
+                  onClick={() => setActiveFilter(filter.value)}
+                  aria-pressed={activeFilter === filter.value}
                   className={`rounded-full px-5 py-2.5 text-sm whitespace-nowrap transition-colors duration-200 ${
-                    activeFilter === filter
+                    activeFilter === filter.value
                       ? "bg-[#83bd61] text-white"
                       : "text-gray-200 hover:bg-white/10 hover:text-white"
                   }`}
                 >
-                  {filter}
+                  {filter.label}
                 </button>
               ))}
             </div>
