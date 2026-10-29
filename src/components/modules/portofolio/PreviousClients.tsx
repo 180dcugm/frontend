@@ -33,6 +33,9 @@ const filters: { label: string; value: PartnerFilter }[] = [
   { label: "Media Partner", value: "media-partner" },
 ];
 
+// Card background for recent partners that don't have one in the CMS yet.
+const fallbackCardBackground = "/img/portofolio/hero_bg-new.jpg";
+
 export default function PreviousClients({
   partners = [],
   recentPartners = [],
@@ -145,26 +148,23 @@ export default function PreviousClients({
   if (!isMounted) return null;
 
   return (
-    <div className="relative min-h-screen bg-[#202020] text-white">
-      {/* Hero background */}
-      <div className="pointer-events-none absolute inset-0">
-        <ImageAction
-          heightPtg="100%"
-          alt="Dark architectural background"
-          src="/img/portofolio/hero_bg-c.png"
-        />
-        <div className="absolute inset-0 bg-[#171717]/85" />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/50" />
-      </div>
+    <div
+      className="relative min-h-screen bg-[#202020] bg-cover bg-center bg-no-repeat text-white"
+      style={{
+        backgroundImage: "url('/img/portofolio/hero_bg-new.jpg')",
+      }}
+    >
+      {/* Dark overlay */}
+      <div className="pointer-events-none absolute inset-0 bg-black/60" />
 
       {/* Hero: Partnerships that Drive Impact */}
-      <Container color="dark" className="relative z-10">
+      <Container className="relative z-10">
         <section className="flex min-h-[520px] flex-col items-center justify-center px-5 py-16 text-center sm:min-h-[600px] sm:px-8">
           <h1 className="font-avenir-black max-w-3xl text-4xl leading-[1.05] text-white sm:text-5xl md:text-6xl">
             Partnerships that
             <br />
             Drive{" "}
-            <span className="bg-gradient-to-r from-[#83bd8b] to-[#64b6c4] bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-[#6FAA26] to-[#58B9D1] bg-clip-text text-transparent">
               Impact
             </span>
           </h1>
@@ -176,19 +176,41 @@ export default function PreviousClients({
 
           <div className="mt-9 grid w-full max-w-[620px] grid-cols-2 gap-3 sm:grid-cols-4 sm:gap-4">
             {[
-              { number: "50+", label: "Partners" },
-              { number: "450", label: "Projects Completed" },
-              { number: "3", label: "Sectors" },
-              { number: "5+", label: "Years Active" },
+              {
+                number: "50+",
+                label: "Partners",
+                image: "/img/portofolio/statistics/partners_statistics.jpg",
+              },
+              {
+                number: "450",
+                label: "Projects Completed",
+                image: "/img/portofolio/statistics/projects_statistics.jpg",
+              },
+              {
+                number: "3",
+                label: "Sectors",
+                image: "/img/portofolio/statistics/impactful_statistics.jpg",
+              },
+              {
+                number: "5+",
+                label: "Years Active",
+                image: "/img/portofolio/statistics/years_statistics.png",
+              },
             ].map((item) => (
               <div
                 key={item.label}
-                className="flex aspect-square flex-col items-center justify-center rounded-2xl border border-white/30 bg-black/35 px-2 backdrop-blur-sm transition duration-300 hover:-translate-y-1 hover:border-[#83bd8b]/70"
+                className="group relative flex aspect-square flex-col items-center justify-center overflow-hidden rounded-2xl border border-white/50 bg-black/10 px-2 shadow-[5px_7px_3px_#58B9D140] backdrop-blur-sm transition duration-300 hover:-translate-y-1 hover:border-[#83bd8b]/80"
+                style={{
+                  backgroundImage: `linear-gradient(rgba(10, 15, 18, 0.58), rgba(10, 15, 18, 0.68)), url("${item.image}")`,
+                  backgroundSize: "cover",
+                  backgroundPosition: "center",
+                }}
               >
-                <span className="font-avenir-black text-3xl text-[#83bd62] sm:text-4xl">
+                <span className="font-avenir-black bg-gradient-to-b from-[#6FAA26] to-[#58B9D1] bg-clip-text text-4xl text-transparent sm:text-5xl lg:text-6xl">
                   {item.number}
                 </span>
-                <span className="mt-2 text-center text-[10px] text-gray-300 sm:text-xs">
+
+                <span className="mt-2 text-center text-[10px] text-gray-200 sm:text-xs">
                   {item.label}
                 </span>
               </div>
@@ -200,18 +222,9 @@ export default function PreviousClients({
       {/* Previous Clients section */}
       <div className="relative">
         {/* Background */}
-        <div className="absolute z-1 h-screen w-full overflow-hidden">
-          <ImageAction
-            heightPtg="100%"
-            alt="portofolio hero background"
-            src="/img/portofolio/hero_bg-c.png"
-          />
-        </div>
+        <div className="absolute z-1 h-screen w-full overflow-hidden"></div>
 
-        <div className="to-black-300 absolute z-2 h-screen w-full bg-gradient-to-b from-transparent from-70% to-90%" />
-        <div className="bg-black-300 absolute z-2 h-screen w-full opacity-[75.45%]" />
-
-        <Container color="dark" className="relative">
+        <Container className="relative">
           {/* Section title */}
           <div className="relative flex min-h-screen w-full flex-col items-center justify-center max-lg:gap-8 max-lg:px-8 lg:min-h-screen">
             <h1 className="font-avenir-black z-3 text-center text-4xl leading-tight text-gray-100 sm:text-5xl md:text-6xl lg:text-7xl">
@@ -235,24 +248,39 @@ export default function PreviousClients({
 
         {/* Carousel background (hidden until the CMS has recent partners) */}
         {safeRecentPartners.length > 0 ? (
-          <div className="relative">
-            <div className="absolute inset-0 z-[1] h-full w-full overflow-clip">
-              <ImageAction alt="portofolio hero background" src="/img/portofolio/hero_bg-c.png" />
+          <div className="relative isolate">
+            {/* Recent Partners mirrored background */}
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-0 z-[1] overflow-hidden"
+            >
+              {/* Mirrored image */}
+              <div
+                className="absolute inset-x-0 top-0 h-full"
+                style={{
+                  backgroundImage: "url('/img/portofolio/hero_bg-new.jpg')",
+                  backgroundRepeat: "no-repeat",
+                  backgroundSize: "100% auto",
+                  backgroundPosition: "center center",
+                  transform: "scaleY(-1)",
+                  transformOrigin: "center center",
+                  opacity: 1,
+                }}
+              />
+              <div className="pointer-events-none absolute inset-0 bg-black/60" />
             </div>
 
-            <div className="absolute z-[1] h-full w-full bg-gradient-to-b from-black/20 via-transparent to-black/90" />
-            <div className="absolute top-0 z-[1] h-full w-full bg-black/85" />
-
-            <Container color="dark" className="relative z-[2]">
-              {/* Title: Recent Partners */}
+            {/* Recent Partners content */}
+            <Container color="dark" className="relative z-[2] !bg-transparent">
               <div className="mb-6 w-full px-6 pt-8 lg:px-0">
                 <h2 className="font-avenir-black text-2xl sm:text-3xl">
                   Recent{" "}
-                  <span className="bg-gradient-to-r from-[#83bd61] to-[#68b8c4] bg-clip-text text-transparent">
+                  <span className="bg-gradient-to-r from-[#6FAA26] to-[#58B9D1] bg-clip-text text-transparent">
                     Partners
                   </span>
                 </h2>
               </div>
+
               {/* Desktop carousel */}
               <div
                 id="previous-clients-carousel"
@@ -273,60 +301,61 @@ export default function PreviousClients({
                       <CarouselContent className="-ml-4">
                         {safeRecentPartners.map((client) => (
                           <CarouselItem key={client.id} className="basis-1/2 pl-4">
-                            <div className="w-full">
-                              <div className="relative h-96 w-full lg:h-[500px] xl:h-[600px] 2xl:h-[700px]">
-                                {/* Card background */}
-                                <div className="absolute h-1/2 w-full rounded-lg rounded-bl-none lg:rounded-xl 2xl:rounded-2xl">
-                                  <div className="relative h-full w-full bg-[#0A1E22]/47" />
-                                </div>
-
-                                {/* Upper body */}
-                                <div className="relative mt-4 flex h-1/2 w-full gap-4 p-4 lg:mt-6 lg:gap-8 lg:p-6 xl:gap-12 2xl:p-8">
-                                  <div className="relative flex h-full w-7/12 flex-col items-start justify-start gap-2 lg:gap-4">
-                                    <p className="font-avenir-black text-lg leading-none text-green-300 lg:text-2xl 2xl:text-3xl">
+                            <div className="relative flex h-[400px] flex-col overflow-hidden rounded-2xl xl:h-[500px] 2xl:h-[600px]">
+                              {/* Upper section: background image, partner info and logo */}
+                              <div
+                                className="relative h-[45%] shrink-0 overflow-hidden rounded-t-2xl border-b border-white/15 bg-cover bg-center"
+                                style={{
+                                  backgroundImage: `linear-gradient(rgba(5, 13, 15, 0.42), rgba(5, 13, 15, 0.58)), url("${client.caseStudy.background?.url || fallbackCardBackground}")`,
+                                }}
+                              >
+                                <div className="relative z-10 flex h-full items-center gap-4 p-5 lg:gap-6 lg:p-6 2xl:p-8">
+                                  {/* Partner name, description and NPS */}
+                                  <div className="flex h-full min-w-0 flex-1 flex-col items-start">
+                                    <h2 className="font-avenir-black text-xl leading-tight text-[#83bd62] lg:text-2xl 2xl:text-3xl">
                                       {client.name}
+                                    </h2>
+
+                                    <p className="mt-3 text-sm leading-relaxed text-gray-100 lg:text-base 2xl:text-lg">
+                                      {client.description}
                                     </p>
 
-                                    <div className="font-avenir-light text-sm leading-none text-cyan-300 lg:text-base 2xl:text-lg">
-                                      <h2 className="font-avenir-black text-gray-100">
-                                        {client.description}
-                                      </h2>
-                                      <p>
-                                        <strong className="font-avenir-heavy absolute bottom-0 text-base lg:text-xl 2xl:text-2xl">
-                                          NPS of {client.caseStudy.nps}%
-                                        </strong>
-                                      </p>
-                                    </div>
+                                    <p className="font-avenir-heavy mt-auto pt-3 text-lg text-[#78bfd0] lg:text-xl 2xl:text-2xl">
+                                      NPS of {client.caseStudy.nps}%
+                                    </p>
                                   </div>
 
-                                  <div className="flex h-full w-5/12 items-center justify-center">
-                                    <div className="flex w-4/5 overflow-clip rounded-lg lg:rounded-xl 2xl:rounded-2xl">
-                                      <ImageAction
-                                        alt={client.logo.alt || `${client.name} logo`}
-                                        src={client.logo.url}
-                                      />
-                                    </div>
+                                  {/* Partner logo */}
+                                  <div className="rounded-6xl flex h-28 w-28 shrink-0 items-center justify-center overflow-hidden p-3 lg:h-50 lg:w-50 2xl:h-54 2xl:w-54">
+                                    <ImageAction
+                                      alt={client.logo.alt || `${client.name} logo`}
+                                      src={client.logo.url}
+                                    />
                                   </div>
                                 </div>
+                              </div>
 
-                                {/* Lower body */}
-                                <div className="mt-4 flex h-full w-full gap-4 px-4 pb-32 lg:mt-6 lg:gap-6 lg:px-6 lg:pb-40 2xl:gap-8 2xl:px-8 2xl:pb-48">
-                                  <div className="font-lato-regular w-4/12 text-justify text-xs leading-relaxed text-gray-100 lg:text-sm 2xl:text-base">
-                                    <p className="font-avenir-black mb-2 text-green-300 lg:mb-3">
+                              {/* Lower section */}
+                              <div className="relative min-h-0 flex-1 bg-[#A7CDD1]/10">
+                                <div className="absolute inset-0 bg-gradient-to-br from-white/[0.025] via-transparent to-black/20" />
+
+                                <div className="relative z-10 grid h-full grid-cols-3 gap-4 overflow-y-auto p-5 lg:gap-5 lg:p-6 2xl:gap-8 2xl:p-8">
+                                  <div className="min-w-0 text-xs leading-relaxed text-gray-100 lg:text-sm 2xl:text-base">
+                                    <p className="font-avenir-black mb-3 text-[#83bd62]">
                                       What challenges does {client.name} face?
                                     </p>
                                     <p>{client.caseStudy.challenge}</p>
                                   </div>
 
-                                  <div className="font-lato-regular w-4/12 text-justify text-xs leading-relaxed text-gray-100 lg:text-sm 2xl:text-base">
-                                    <p className="font-avenir-black mb-2 text-green-300 lg:mb-3">
+                                  <div className="min-w-0 text-xs leading-relaxed text-gray-100 lg:text-sm 2xl:text-base">
+                                    <p className="font-avenir-black mb-3 text-[#83bd62]">
                                       What solution do we offer?
                                     </p>
                                     <p>{client.caseStudy.solution}</p>
                                   </div>
 
-                                  <div className="font-lato-regular w-4/12 text-justify text-xs leading-relaxed text-gray-100 lg:text-sm 2xl:text-base">
-                                    <p className="font-avenir-black mb-2 text-green-300 lg:mb-3">
+                                  <div className="min-w-0 text-xs leading-relaxed text-gray-100 lg:text-sm 2xl:text-base">
+                                    <p className="font-avenir-black mb-3 text-[#83bd62]">
                                       Impact that we deliver
                                     </p>
                                     <p>{client.caseStudy.impact}</p>
@@ -338,137 +367,107 @@ export default function PreviousClients({
                         ))}
                       </CarouselContent>
 
-                      <CarouselPrevious className="left-4 z-10 hidden rounded-[10px] bg-green-300/80 hover:bg-green-300 lg:flex" />
-                      <CarouselNext className="right-4 z-10 hidden rounded-[10px] bg-green-300/80 hover:bg-green-300 lg:flex" />
+                      <CarouselPrevious className="left-4 z-20 hidden rounded-[10px] border border-white/70 bg-[#83bd62]/90 hover:bg-[#83bd62] lg:flex" />
+                      <CarouselNext className="right-4 z-20 hidden rounded-[10px] border border-white/70 bg-[#83bd62]/90 hover:bg-[#83bd62] lg:flex" />
                     </Carousel>
-                  </div>
-
-                  {/* Carousel navigation buttons */}
-                  <div className="mt-1 flex items-center justify-center gap-1.5">
-                    <button
-                      type="button"
-                      aria-label="Previous slide"
-                      onClick={() => desktopApi?.scrollPrev()}
-                      className="mr-1 text-white transition-opacity hover:opacity-60"
-                    >
-                      <FaChevronLeft size={14} />
-                    </button>
-
-                    {Array.from({ length: desktopApi?.scrollSnapList().length ?? 0 }).map(
-                      (_, index) => (
-                        <button
-                          key={index}
-                          type="button"
-                          aria-label={`Go to slide ${index + 1}`}
-                          onClick={() => desktopApi?.scrollTo(index)}
-                          className={`h-2.5 w-2.5 rounded-full transition-colors ${
-                            desktopApi?.selectedScrollSnap() === index ? "bg-[#83bd61]" : "bg-white"
-                          }`}
-                        />
-                      )
-                    )}
-
-                    <button
-                      type="button"
-                      aria-label="Next slide"
-                      onClick={() => desktopApi?.scrollNext()}
-                      className="ml-1 text-white transition-opacity hover:opacity-60"
-                    >
-                      <FaChevronRight size={14} />
-                    </button>
                   </div>
                 </div>
               </div>
 
-              {/* Mobile carousel */}
-              <div className="z-[4] h-fit w-full lg:hidden">
+              {/* Mobile carousel: same visual design as desktop */}
+              <div className="relative z-[4] h-fit w-full lg:hidden">
                 <Carousel
                   opts={{
                     align: "start",
                     loop: true,
+                    slidesToScroll: 1,
                   }}
                   plugins={[Autoplay({ delay: 5000 })]}
                   setApi={setMobileCarouselApi}
+                  className="w-full"
                 >
-                  <CarouselContent>
-                    {safeRecentPartners.map((client) => (
-                      <CarouselItem key={client.id} className="basis-full">
-                        <div className="relative h-96 overflow-clip rounded-[14px] sm:min-h-screen md:h-full">
-                          <div className="absolute -z-[1] h-full w-full">
-                            <div className="relative h-full w-full bg-[#2C6970]/47" />
-                          </div>
+                  <CarouselContent className="-ml-3">
+                    {safeRecentPartners.map((client, idx) => (
+                      <CarouselItem key={client.id} className="basis-full pl-3">
+                        <div className="relative mx-3 flex h-[680px] flex-col overflow-hidden rounded-2xl border border-white/10 bg-[#202020]/70 sm:mx-4 sm:h-[760px]">
+                          {/* Upper section: background image, partner info and logo */}
+                          <div
+                            className="relative h-[35%] min-h-[220px] shrink-0 overflow-hidden rounded-t-2xl border-b border-white/15 bg-cover bg-center"
+                            style={{
+                              backgroundImage: `linear-gradient(rgba(5, 13, 15, 0.42), rgba(5, 13, 15, 0.58)), url("${client.caseStudy.background?.url || fallbackCardBackground}")`,
+                            }}
+                          >
+                            <div className="relative z-10 flex h-full items-center gap-3 p-4 sm:gap-5 sm:p-6">
+                              {/* Partner name, description and NPS */}
+                              <div className="flex h-full min-w-0 flex-1 flex-col items-start">
+                                <h2 className="font-avenir-black text-lg leading-tight text-[#83bd62] sm:text-2xl">
+                                  {client.name}
+                                </h2>
 
-                          <div className="flex h-full w-full items-center justify-center px-2 py-4 sm:px-4">
-                            <button
-                              type="button"
-                              aria-label="Previous client"
-                              className="mr-2 w-fit shrink-0 sm:mr-4"
-                              onClick={() => mobileApi?.scrollPrev()}
-                            >
-                              <FaChevronLeft className="text-4xl text-gray-100/35 sm:text-5xl md:text-6xl" />
-                            </button>
+                                <p className="mt-2 text-xs leading-relaxed text-gray-100 sm:mt-3 sm:text-sm">
+                                  {client.description}
+                                </p>
 
-                            <div className="flex h-full w-full flex-col items-center justify-center gap-8 overflow-clip sm:gap-12">
-                              <div className="relative mt-4 flex h-1/3 w-full gap-4 sm:mt-6 sm:gap-6">
-                                <div className="flex h-full w-1/3 items-center justify-end sm:w-2/5">
-                                  <div className="flex w-full overflow-clip rounded-2xl sm:rounded-3xl">
-                                    <ImageAction
-                                      alt={client.logo.alt || `${client.name} logo`}
-                                      src={client.logo.url}
-                                    />
-                                  </div>
-                                </div>
-
-                                <div className="flex h-full flex-col items-start justify-center gap-2 sm:gap-3">
-                                  <p className="font-avenir-black text-2xl leading-none text-green-300 sm:text-3xl md:text-4xl">
-                                    {client.name}
-                                  </p>
-                                </div>
-                              </div>
-
-                              <div className="flex h-3/5 w-full flex-col gap-4 overflow-y-scroll px-4 sm:gap-6 sm:px-6">
-                                <div className="font-lato-regular text-justify text-sm leading-relaxed text-gray-100 sm:text-base md:text-lg">
-                                  <p className="font-avenir-black mb-2 text-green-300">
-                                    What challenges does {client.name} face?
-                                  </p>
-                                  <p>{client.caseStudy.challenge}</p>
-                                </div>
-
-                                <div className="font-lato-regular text-sm leading-relaxed text-gray-100 sm:text-base md:text-lg">
-                                  <p className="font-avenir-black mb-2 text-green-300">
-                                    What solution do we offer?
-                                  </p>
-                                  <p>{client.caseStudy.solution}</p>
-                                </div>
-
-                                <div className="font-lato-regular text-sm leading-relaxed text-gray-100 sm:text-base md:text-lg">
-                                  <p className="font-avenir-black mb-2 text-green-300">
-                                    Impact that we deliver
-                                  </p>
-                                  <p>{client.caseStudy.impact}</p>
-                                </div>
-                              </div>
-
-                              <div className="h-1/12">
-                                <p className="font-lato-light-italic text-sm text-gray-100 sm:text-base">
-                                  Slide For More
+                                <p className="font-avenir-heavy mt-auto pt-2 text-base text-[#78bfd0] sm:text-lg">
+                                  NPS of {client.caseStudy.nps}%
                                 </p>
                               </div>
-                            </div>
 
-                            <button
-                              type="button"
-                              aria-label="Next client"
-                              className="ml-2 w-fit shrink-0 sm:ml-4"
-                              onClick={() => mobileApi?.scrollNext()}
-                            >
-                              <FaChevronRight className="w-fit text-4xl text-gray-100/35 sm:text-5xl md:text-6xl" />
-                            </button>
+                              {/* Partner logo */}
+                              <div className="flex h-20 w-20 shrink-0 items-center justify-center overflow-hidden rounded-xl p-1 sm:h-28 sm:w-28 sm:p-2">
+                                <ImageAction
+                                  alt={client.logo.alt || `${client.name} logo`}
+                                  src={client.logo.url}
+                                />
+                              </div>
+                            </div>
+                          </div>
+
+                          {/* Lower section */}
+                          <div className="relative min-h-0 flex-1 bg-[#A7CDD1]/10">
+                            <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-white/[0.025] via-transparent to-black/20" />
+
+                            <div className="relative z-10 h-full space-y-5 overflow-y-auto p-4 sm:space-y-6 sm:p-6">
+                              {/* Challenges */}
+                              <div className="min-w-0 text-sm leading-relaxed text-gray-100 sm:text-base">
+                                <p className="font-avenir-black mb-2 text-[#83bd62]">
+                                  What challenges does {client.name} face?
+                                </p>
+                                <p>{client.caseStudy.challenge}</p>
+                              </div>
+
+                              {/* Solution */}
+                              <div className="min-w-0 text-sm leading-relaxed text-gray-100 sm:text-base">
+                                <p className="font-avenir-black mb-2 text-[#83bd62]">
+                                  What solution do we offer?
+                                </p>
+                                <p>{client.caseStudy.solution}</p>
+                              </div>
+
+                              {/* Impact */}
+                              <div className="min-w-0 text-sm leading-relaxed text-gray-100 sm:text-base">
+                                <p className="font-avenir-black mb-2 text-[#83bd62]">
+                                  Impact that we deliver
+                                </p>
+                                <p>{client.caseStudy.impact}</p>
+                              </div>
+                            </div>
+                          </div>
+
+                          {/* Slide indicator */}
+                          <div className="pointer-events-none absolute right-4 bottom-2 z-20">
+                            <span className="font-lato-light-italic text-xs text-gray-300/70">
+                              {idx + 1} / {safeRecentPartners.length}
+                            </span>
                           </div>
                         </div>
                       </CarouselItem>
                     ))}
                   </CarouselContent>
+
+                  {/* Navigation */}
+                  <CarouselPrevious className="left-1 z-20 h-9 w-9 rounded-[10px] border border-white/70 bg-[#83bd62]/90 text-white hover:bg-[#83bd62] sm:left-3" />
+                  <CarouselNext className="right-1 z-20 h-9 w-9 rounded-[10px] border border-white/70 bg-[#83bd62]/90 text-white hover:bg-[#83bd62] sm:right-3" />
                 </Carousel>
               </div>
             </Container>
@@ -485,7 +484,7 @@ export default function PreviousClients({
           <div className="mb-7 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <h2 className="font-avenir-black text-2xl sm:text-3xl">
               Our{" "}
-              <span className="bg-gradient-to-r from-[#83bd61] to-[#68b8c4] bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-[#6FAA26] to-[#58B9D1] bg-clip-text text-transparent">
                 Partners
               </span>
             </h2>
