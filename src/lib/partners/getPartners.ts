@@ -21,7 +21,8 @@ const toPartnerMedia = (
 // Payload's generated type marks these fields required, but they are only enforced while the
 // partner is recent, so a partner that was un-flagged and flagged again could still lack them.
 const toCaseStudy = (doc: PayloadPartner): PartnerCaseStudy | undefined => {
-  const { nps, challenge, solution, impact, background } = doc.caseStudy ?? {};
+  const { nps } = doc;
+  const { challenge, solution, impact, background } = doc.caseStudy ?? {};
   if (typeof nps !== "number" || !challenge?.trim() || !solution?.trim() || !impact?.trim()) {
     return undefined;
   }

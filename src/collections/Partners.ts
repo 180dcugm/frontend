@@ -38,14 +38,13 @@ export const Partners: CollectionConfig = {
       name: "logo",
       type: "upload",
       relationTo: "media",
-      required: true,
       label: "Logo",
       filterOptions: {
         mimeType: { contains: "image" },
       },
       admin: {
         description:
-          "Shown on the partner card in the grid. Square logos work best, at least 320×320px.",
+          "Shown on the partner card in the grid. Square logos work best, at least 320×320px. Partners without a logo are hidden on the site until one is added.",
       },
     },
     {
@@ -61,6 +60,28 @@ export const Partners: CollectionConfig = {
       admin: {
         description:
           "Short description of the partner. Shown in the popup, and on the carousel card for recent partners.",
+      },
+    },
+    {
+      name: "nps",
+      type: "number",
+      label: "NPS (%)",
+      // Like description: kept for every partner, but only shown (and required) for recent ones.
+      validate: (value, { data }) => {
+        if (value === null || value === undefined) {
+          return (
+            !(data as { isRecent?: boolean } | undefined)?.isRecent ||
+            "An NPS is required for recent partners."
+          );
+        }
+        return (
+          (Number.isInteger(value) && value >= 0 && value <= 100) ||
+          "NPS must be a whole number from 0 to 100."
+        );
+      },
+      admin: {
+        description:
+          "The client's feedback score as a whole percentage: a 9 out of 10 is 90. Shown as \"NPS of 90%\" on the carousel card for recent partners.",
       },
     },
     {
@@ -84,17 +105,6 @@ export const Partners: CollectionConfig = {
         description: "Shown on this partner's card in the Recent Partners carousel.",
       },
       fields: [
-        {
-          name: "nps",
-          type: "number",
-          required: true,
-          min: 0,
-          max: 100,
-          label: "NPS (%)",
-          admin: {
-            description: "Whole percentage, e.g. 100 is shown as \"NPS of 100%\".",
-          },
-        },
         {
           name: "challenge",
           type: "textarea",

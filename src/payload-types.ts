@@ -363,13 +363,17 @@ export interface Partner {
    */
   category: 'case-collaboration' | 'event-collaboration' | 'media-partner';
   /**
-   * Shown on the partner card in the grid. Square logos work best, at least 320×320px.
+   * Shown on the partner card in the grid. Square logos work best, at least 320×320px. Partners without a logo are hidden on the site until one is added.
    */
-  logo: number | Media;
+  logo?: (number | null) | Media;
   /**
    * Short description of the partner. Shown in the popup, and on the carousel card for recent partners.
    */
   description?: string | null;
+  /**
+   * The client's feedback score as a whole percentage: a 9 out of 10 is 90. Shown as "NPS of 90%" on the carousel card for recent partners.
+   */
+  nps?: number | null;
   /**
    * Shows this partner in the Recent Partners carousel, with its case study.
    */
@@ -378,10 +382,6 @@ export interface Partner {
    * Shown on this partner's card in the Recent Partners carousel.
    */
   caseStudy?: {
-    /**
-     * Whole percentage, e.g. 100 is shown as "NPS of 100%".
-     */
-    nps: number;
     challenge: string;
     solution: string;
     impact: string;
@@ -642,11 +642,11 @@ export interface PartnersSelect<T extends boolean = true> {
   category?: T;
   logo?: T;
   description?: T;
+  nps?: T;
   isRecent?: T;
   caseStudy?:
     | T
     | {
-        nps?: T;
         challenge?: T;
         solution?: T;
         impact?: T;
