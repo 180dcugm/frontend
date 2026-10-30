@@ -8,11 +8,5 @@
       "path": "/api/casecomp/admin/check-pending",
       "schedule": "0 9 * * *"
     }
-  ],
-  "git": {
-    "deploymentEnabled": {
-      "backend/partners": false,
-      "feat/previous-clients-ui": false
-    }
-  }
+  ]
 }
