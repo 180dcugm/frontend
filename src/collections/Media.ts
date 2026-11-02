@@ -17,6 +17,12 @@ const mediaReferences: {
   },
   { collection: 'hero', fields: ['newsImage'], singular: 'hero entry', plural: 'hero entries' },
   { collection: 'telescope', fields: ['image'], singular: 'Telescope article', plural: 'Telescope articles' },
+  {
+    collection: 'short-industry-decks',
+    fields: ['pdf', 'coverImage'],
+    singular: 'Short Industry Deck',
+    plural: 'Short Industry Decks',
+  },
 ]
 
 export const Media: CollectionConfig = {
