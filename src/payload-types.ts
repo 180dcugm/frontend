@@ -75,6 +75,7 @@ export interface Config {
     hero: Hero;
     ai_knowledge: AiKnowledge;
     partners: Partner;
+    'short-industry-decks': ShortIndustryDeck;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -90,6 +91,7 @@ export interface Config {
     hero: HeroSelect<false> | HeroSelect<true>;
     ai_knowledge: AiKnowledgeSelect<false> | AiKnowledgeSelect<true>;
     partners: PartnersSelect<false> | PartnersSelect<true>;
+    'short-industry-decks': ShortIndustryDecksSelect<false> | ShortIndustryDecksSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -361,9 +363,9 @@ export interface Partner {
   /**
    * Decides which filter tab the partner appears under.
    */
-  category: 'case-collaboration' | 'event-collaboration' | 'media-partner';
+  category: 'client' | 'case-collaboration' | 'event-collaboration' | 'media-partner';
   /**
-   * Shown on the partner card in the grid. Square logos work best, at least 320×320px. Partners without a logo are hidden on the site until one is added.
+   * Shown on the partner card in the grid. Square logos work best, at least 320×320px. Partners without a logo use a text-only card until one is added.
    */
   logo?: (number | null) | Media;
   /**
@@ -399,6 +401,41 @@ export interface Partner {
      */
     background?: (number | null) | Media;
   };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Concise industry decks shown in the Article Hub and Short Industry Decks page.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "short-industry-decks".
+ */
+export interface ShortIndustryDeck {
+  id: number;
+  title: string;
+  /**
+   * Used in the page URL. Generated from the title if left blank.
+   */
+  slug: string;
+  subtitle?: string | null;
+  author: string;
+  /**
+   * Upload the complete PDF. Landscape (16:9) slides work best in the viewer.
+   */
+  pdf: number | Media;
+  /**
+   * Optional thumbnail. If omitted, the first PDF slide is used automatically.
+   */
+  coverImage?: (number | null) | Media;
+  /**
+   * Shown in the collapsible Overview panel below the deck viewer.
+   */
+  overview: string;
+  /**
+   * Public share link for the "View on Drive" button. Leave blank until available.
+   */
+  driveLink?: string | null;
+  publishedDate: string;
   updatedAt: string;
   createdAt: string;
 }
@@ -457,6 +494,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'partners';
         value: number | Partner;
+      } | null)
+    | ({
+        relationTo: 'short-industry-decks';
+        value: number | ShortIndustryDeck;
       } | null)
     | ({
         relationTo: 'payload-kv';
@@ -657,6 +698,23 @@ export interface PartnersSelect<T extends boolean = true> {
     | {
         background?: T;
       };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "short-industry-decks_select".
+ */
+export interface ShortIndustryDecksSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  subtitle?: T;
+  author?: T;
+  pdf?: T;
+  coverImage?: T;
+  overview?: T;
+  driveLink?: T;
+  publishedDate?: T;
   updatedAt?: T;
   createdAt?: T;
 }

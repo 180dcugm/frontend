@@ -3,6 +3,25 @@ import config from "@payload-config";
 import type { Media, Partner as PayloadPartner } from "@/payload-types";
 import type { Partner, PartnerCaseStudy, PartnerMedia, RecentPartner } from "./types";
 
+// Editorial priority only; all case-study copy and media still come from Payload.
+const spotlightOrder = [
+  "yayasan satunama",
+  "foras palestine",
+  "gili eco trust",
+  "akkar",
+  "bentala fragrances",
+  "kopi sembilan",
+  "planet protector packaging",
+  "mercy ships",
+  "widya edu",
+  "asdos.id",
+  "kolom remaja",
+  "gores denai",
+  "kitabisa",
+  "ewasterj",
+  "tersalur",
+];
+
 // Upload fields come back as a Media object at depth 1, but as a bare ID (or null) when the
 // file was deleted or not populated. Prefer the named image size, falling back to the
 // original for files uploaded before the size existed.
@@ -38,8 +57,6 @@ const toCaseStudy = (doc: PayloadPartner): PartnerCaseStudy | undefined => {
 
 const toPartner = (doc: PayloadPartner): Partner | undefined => {
   const logo = toPartnerMedia(doc.logo, "logo");
-  // A card without a logo can't render, so skip it rather than ship a broken entry.
-  if (!logo) return undefined;
 
   const partner: Partner = {
     id: doc.id,
@@ -88,10 +105,16 @@ export async function getPartners(): Promise<Partner[]> {
 }
 
 // Recent partners with a description and a complete case study, for the Recent Partners
-// carousel. Newest first, by when the partner was added to the CMS.
+// carousel. The supplied spotlight cases lead, followed by the original portfolio.
 export async function getRecentPartners(): Promise<RecentPartner[]> {
   const partners = await findPartners({ recentOnly: true });
-  return partners.filter((partner): partner is RecentPartner =>
-    Boolean(partner.description && partner.caseStudy)
-  );
+  const rank = (name: string) => {
+    const index = spotlightOrder.indexOf(name.trim().toLowerCase());
+    return index === -1 ? spotlightOrder.length : index;
+  };
+  return partners
+    .filter((partner): partner is RecentPartner =>
+      Boolean(partner.logo && partner.description && partner.caseStudy)
+    )
+    .sort((a, b) => rank(a.name) - rank(b.name) || a.name.localeCompare(b.name));
 }

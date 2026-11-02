@@ -1,0 +1,385 @@
+{
+  "sourceFiles": {
+    "client-deck": "../Documents/Client Page/[English NEW] 180DC UGM Client Introduction 2026_2027.pdf",
+    "project-tracker": "../Documents/Client Page/R_Project_Tracker_1789726691.xlsx",
+    "legacy-portfolio": "git:1b536a4:src/components/modules/portofolio/PreviousClients.tsx"
+  },
+  "excludedOrganizations": ["Hoppr"],
+  "overviews": {
+    "360energy": {
+      "description": "360energy develops solar-energy management technology, bringing system design, inverter monitoring, fault detection, and maintenance coordination together through its eDash platform and connected devices.",
+      "sources": ["https://www.360energy.io/"]
+    },
+    "ABHATI Studio": {
+      "description": "ABHATI Studio creates naturally dyed textiles and hand-drawn batik in Yogyakarta, combining traditional fabric-making techniques with local natural materials and an environmentally conscious approach to fashion.",
+      "sources": [
+        "https://www.voaindonesia.com/a/slow-fashion-gaya-hidup-peduli-lingkungan-lewat-fesyen/7390112.html"
+      ]
+    },
+    "Accenture": {
+      "description": "Accenture is a global professional services company helping organizations improve their businesses through strategy, consulting, technology implementation, digital transformation, and managed operations.",
+      "sources": ["https://www.accenture.com/us-en/about/company-index"]
+    },
+    "Adiandra Medika": {
+      "description": "Adiandra Medika is a dental clinic providing oral-health consultations and dental care, helping patients understand their treatment needs and maintain their dental health.",
+      "sources": [
+        "../UI-UX/Client Page/180DC Website 26_27.zip: Client Page-4.svg, Adiandra Medika Dental Clinic"
+      ]
+    },
+    "Africa Access Water": {
+      "description": "Africa Access Water develops solar-powered water solutions for rural communities, improving access to water while supporting agricultural production, food security, and sustainable livelihoods.",
+      "sources": ["https://www.africaaccesswater.org/"]
+    },
+    "Akkar": {
+      "description": "Akkar Juice Bar serves cold-pressed juices, smoothies, and salads, offering convenient food and beverage choices for customers interested in healthier lifestyles and sustainability.",
+      "sources": ["client-deck#page-18", "project-tracker:Akkar"]
+    },
+    "AlphaSights": {
+      "description": "AlphaSights connects businesses and investors with professionals who have relevant industry experience, helping clients access expert perspectives for research, strategy, and decision-making.",
+      "sources": ["https://www.alphasights.com/"]
+    },
+    "Arjuna EV UGM": {
+      "description": "Arjuna EV UGM is a student engineering team developing electric racing cars, bringing together vehicle research, design, manufacturing, and competitive motorsport experience at Universitas Gadjah Mada.",
+      "sources": ["https://www.arjunaevugm.com/", "project-tracker:Arjuna EV"]
+    },
+    "Arthur D. Little": {
+      "description": "Arthur D. Little is a management consultancy combining strategy, innovation, and technology expertise to help organizations develop business models, improve operations, and navigate industry change.",
+      "sources": ["https://www.adlittle.com/"]
+    },
+    "Asdos.id": {
+      "description": "Asdos.id is an online marketplace for university students seeking academic assistance, connecting students with educational support services and helping them address their study-related needs.",
+      "sources": ["legacy-portfolio:Asdos.id"]
+    },
+    "AturKuliner": {
+      "description": "AturKuliner provides procurement and inventory software for food businesses, helping teams manage supplier orders, calculate recipe costs, track stock, and control purchasing approvals.",
+      "sources": ["https://aturkuliner.id/"]
+    },
+    "BCG": {
+      "description": "Boston Consulting Group is a global management consultancy helping businesses and other organizations address strategic challenges, improve performance, and pursue organizational and digital transformation.",
+      "sources": ["https://www.bcg.com/about/overview"]
+    },
+    "Bentala Fragrances": {
+      "description": "Bentala Fragrances creates premium perfumes inspired by Indonesian stories and identities, combining fragrance craftsmanship, brand storytelling, and sustainability considerations in its products and customer experience.",
+      "sources": ["client-deck#page-19", "https://bentalafragrances.com/"]
+    },
+    "Berbagi Beras": {
+      "description": "Berbagi Beras supports orphanages through rice donations and distribution partnerships, while developing empowerment programs intended to help beneficiaries become more independent and less reliant on aid.",
+      "sources": ["project-tracker:Berbagi Beras"]
+    },
+    "BHOB": {
+      "description": "BHOB, or Bumi Herbs Oditi Bali, creates herbal infusions and botanical personal-care products, using plant ingredients in teas, soaps, and everyday body-care offerings.",
+      "sources": ["https://bumiherbsoditibali.com/pages/about-us"]
+    },
+    "Bhumi Mendha Farm": {
+      "description": "Bhumi Mendha Farm is a livestock farming enterprise whose activities center on farm operations and animal productivity, with a focus on sustainable growth and agricultural value creation.",
+      "sources": ["project-tracker:Bhumi Mendha Farm"]
+    },
+    "BLU by BCA Digital": {
+      "description": "blu by BCA Digital offers mobile banking services including savings, payments, and transfers, giving customers digital tools to organize their money and manage everyday finances.",
+      "sources": ["https://blubybcadigital.id/"]
+    },
+    "Bosch": {
+      "description": "Bosch is a technology and engineering company supplying products and services across mobility, industrial technology, consumer goods, and energy and building systems.",
+      "sources": ["https://www.bosch.com/company/"]
+    },
+    "CIMB Niaga": {
+      "description": "CIMB Niaga provides banking and financial services for individuals and businesses, including savings, payments, financing, and tools for managing personal and corporate financial needs.",
+      "sources": ["https://www.cimbniaga.co.id/"]
+    },
+    "Duai Fav": {
+      "description": "Duai Fav designs and sells Muslim fashion, developing modest clothing collections that bring contemporary styles to customers seeking everyday outfits and occasion wear.",
+      "sources": ["https://id.linkedin.com/company/duai-fav", "https://www.instagram.com/duai_fav/"]
+    },
+    "EconPeels": {
+      "description": "EconPeels is a youth-led socioeconomic research platform publishing research articles, social-media explainers, and advocacy work that make economic, political, and social issues accessible to young people.",
+      "sources": ["https://econpeels.org/about-us"]
+    },
+    "ESC": {
+      "description": "Economia Study Community supports students at UGM’s Faculty of Economics and Business through academic discussions, research activities, competition preparation, and opportunities to develop analytical skills.",
+      "sources": [
+        "https://feb.ugm.ac.id/en/news/4099-competition-community-kick-off-by-esc-and-csdu-represents-competition-interest-and-student-achievements-of-feb-ugm",
+        "https://www.instagram.com/esc.febugm/"
+      ]
+    },
+    "EWasteRJ": {
+      "description": "EWasteRJ addresses electronic waste through collection points, recycling initiatives, and public education, helping communities understand the risks of unsafe disposal and participate in responsible e-waste management.",
+      "sources": ["project-tracker:EwasteRJ", "legacy-portfolio:EWasteRJ"]
+    },
+    "Extern": {
+      "description": "Extern offers remote externship programs built around real business projects, connecting learners with practical work experience, professional guidance, and opportunities to explore different career paths.",
+      "sources": ["https://www.extern.com/"]
+    },
+    "FlashCampus": {
+      "description": "FlashCampus is a personal-development platform helping Indonesian university students prepare for life after graduation through mentoring, access to opportunities, and practical guidance for their future careers.",
+      "sources": [
+        "https://www.linkedin.com/company/flashcampus",
+        "https://diana-award.org.uk/roll-of-honour-2023"
+      ]
+    },
+    "Foras Palestine": {
+      "description": "Foras Palestine is an employment platform connecting young people with jobs and development opportunities, helping jobseekers discover relevant roles and employers reach potential candidates.",
+      "sources": ["client-deck#page-16", "https://foras.ps/"]
+    },
+    "FPCI UGM": {
+      "description": "FPCI UGM is a university chapter of the Foreign Policy Community of Indonesia, engaging students in international affairs through discussions, research, and foreign-policy learning activities.",
+      "sources": ["https://www.fpcindonesia.org/", "https://www.instagram.com/fpciugm/"]
+    },
+    "Gadjah Mada Business Case Competition": {
+      "description": "Gadjah Mada Business Case Competition brings student teams together to analyze business challenges, develop strategic recommendations, and present their solutions in a competitive learning environment.",
+      "sources": [
+        "../UI-UX/Client Page/180DC Website 26_27.zip: Client Page-4.svg",
+        "https://mm.feb.ugm.ac.id/"
+      ]
+    },
+    "GAMA EXPO": {
+      "description": "Gadjah Mada Entrepreneur Expo brings students and business practitioners together through entrepreneurship talks, business-case competitions, and opportunities to explore ideas for building and developing ventures.",
+      "sources": ["https://www.instagram.com/gamaexpo/"]
+    },
+    "Gandeng Foundation": {
+      "description": "Gandeng Foundation develops university students’ soft skills through management-consulting courses, practical business projects, and individual coaching, helping young people build leadership capabilities and create meaningful impact.",
+      "sources": ["https://www.gandeng.org/about-us"]
+    },
+    "Garuda Hacks": {
+      "description": "Garuda Hacks connects students and developers through hackathons, technical workshops, and mentorship, encouraging teams to build technology-based solutions and learn through hands-on collaboration.",
+      "sources": ["https://garudahacks.com/"]
+    },
+    "Gili Eco Trust": {
+      "description": "Gili Eco Trust protects the environment of Gili Trawangan through waste-management initiatives, community education, and conservation work, encouraging residents and visitors to participate in protecting the island.",
+      "sources": ["client-deck#page-17", "https://giliecotrust.com/"]
+    },
+    "Gores Denai": {
+      "description": "Gores Denai helps Indonesian youth access international education and global opportunities, developing programs that expand students’ exposure, strengthen their ambitions, and support their educational journeys.",
+      "sources": ["legacy-portfolio:Gores Denai"]
+    },
+    "Hanif Alim Works": {
+      "description": "Hanif Alim Works supports jobseekers with CV and LinkedIn reviews, application-document preparation, interview mentoring, and vacancy information to help them navigate recruitment and career development.",
+      "sources": ["https://hanifalim.com/"]
+    },
+    "IFR Foundation": {
+      "description": "IFR Foundation delivers robotics and STEM learning opportunities, including Indonesia’s FIRST Tech Challenge, using mentor-supported programs to develop technical ability, teamwork, communication, and leadership among young people.",
+      "sources": [
+        "https://www.ifrfoundation.org/en/about/first",
+        "https://id.linkedin.com/company/ifr-foundation"
+      ]
+    },
+    "Innovative Academy": {
+      "description": "Innovative Academy UGM supports technology startups through incubation and ecosystem development, helping founders turn ideas into businesses with access to mentoring, learning opportunities, and entrepreneurial networks.",
+      "sources": [
+        "../UI-UX/Client Page/180DC Website 26_27.zip: Client Page-3.svg",
+        "https://innovativeacademy.ugm.ac.id/"
+      ]
+    },
+    "Island Organics Bali": {
+      "description": "Island Organics Bali grows herbs and vegetables in Baturiti without synthetic pesticides, supplying freshly harvested produce to hotels, restaurants, resorts, and home-delivery customers.",
+      "sources": ["https://www.islandorganicsbali.com/pages/about-us"]
+    },
+    "Kantar": {
+      "description": "Kantar provides market research, consumer insights, and analytics, helping organizations understand audiences, evaluate their brands, and make informed decisions about marketing and business growth.",
+      "sources": ["https://www.kantar.com/"]
+    },
+    "Kapal Api": {
+      "description": "Kapal Api is an Indonesian coffee brand producing and marketing coffee products, serving consumers through familiar roasted, ground, and ready-to-prepare coffee offerings.",
+      "sources": ["https://www.kapalapi.co.id/"]
+    },
+    "KitaBisa": {
+      "description": "KitaBisa is an online fundraising platform connecting donors with individuals, communities, and organizations, enabling contributions to humanitarian campaigns, social programs, and other causes needing public support.",
+      "sources": ["project-tracker:KitaBisa", "https://kitabisa.com/"]
+    },
+    "Kolom Remaja": {
+      "description": "Kolom Remaja is an independent online media platform giving Indonesian young people space to express ideas, discuss social issues, and participate in public conversations through their writing.",
+      "sources": ["legacy-portfolio:Kolom Remaja"]
+    },
+    "Kopi Sembilan": {
+      "description": "Kopi Sembilan is a Yogyakarta coffee shop serving coffee and café beverages, offering customers a place to enjoy drinks, meet others, and spend time in a local café setting.",
+      "sources": ["legacy-portfolio:Kopi Sembilan"]
+    },
+    "KUDATA": {
+      "description": "KUDATA connects Indonesian university students with survey respondents, providing tools to create and distribute questionnaires, choose participation incentives, and collect responses for research projects.",
+      "sources": ["https://kudata.id/"]
+    },
+    "LEVA": {
+      "description": "LEVA, or Lestari Mangrove dan Alam, restores mangrove ecosystems through rehabilitation, coastal-community empowerment, environmental consulting, and conservation-based trips that connect ecological protection with sustainable livelihoods.",
+      "sources": ["https://leva.co.id/"]
+    },
+    "Livingseas": {
+      "description": "Livingseas combines scuba-diving education and guided underwater experiences with marine conservation, encouraging responsible diving and supporting efforts to protect and restore healthy coral-reef ecosystems.",
+      "sources": ["https://livingseas.asia/"]
+    },
+    "Mankaya": {
+      "description": "Mankaya is a cryptocurrency-mining management business providing mining hardware setup, technical operations support, and profit-sharing arrangements for customers participating in digital-asset mining.",
+      "sources": ["https://id.linkedin.com/company/mankaya"]
+    },
+    "McKinsey & Company": {
+      "description": "McKinsey & Company is a global management consultancy helping organizations address strategic and operational challenges, develop their capabilities, and pursue business and digital transformation.",
+      "sources": ["https://www.mckinsey.com/about-us/overview"]
+    },
+    "Mercy Ships": {
+      "description": "Mercy Ships is an international charity operating hospital ships to provide surgical care and medical support, working with healthcare professionals and communities to improve access to essential treatment.",
+      "sources": ["legacy-portfolio:Mercy Ships", "https://www.mercyships.org/"]
+    },
+    "National Geographic Society": {
+      "description": "The National Geographic Society supports exploration, science, education, and storytelling, working with explorers and communities to deepen understanding of the planet and help protect it.",
+      "sources": ["https://www.nationalgeographic.org/society/"]
+    },
+    "Nichoa Chocolate": {
+      "description": "Nichoa Chocolate produces bean-to-bar chocolate using Indonesian cacao, combining product innovation with ethical sourcing, farmer empowerment, and a commitment to more sustainable chocolate production.",
+      "sources": [
+        "https://nichoa.id/",
+        "https://www.ikeasocialentrepreneurship.org/en/social-enterprises/nichoa-chocolate"
+      ]
+    },
+    "No-Trash Triangle Initiative (NTTI)": {
+      "description": "No-Trash Triangle Initiative tackles marine pollution through waste management, research, and environmental education, including hands-on coastal learning that helps students and communities understand and protect marine ecosystems.",
+      "sources": ["https://no-trashtriangle.org/education-awareness"]
+    },
+    "ParagonCorp": {
+      "description": "ParagonCorp develops and manufactures beauty and personal-care products through brands including Wardah, Make Over, and Emina, combining product research, manufacturing, and consumer-focused brand development.",
+      "sources": ["https://www.paragoncorp.com/"]
+    },
+    "PasteLab": {
+      "description": "PasteLab transforms collected plastic waste into recycled sheets, furniture, and design products, while offering waste-management partnerships and workshops that introduce businesses and communities to practical plastic recycling.",
+      "sources": [
+        "https://community.preciousplastic.com/news/plastic-recycling-meets-art-and-design-paste-lab",
+        "https://pastelaboratory.com/"
+      ]
+    },
+    "Planet Protector Packaging": {
+      "description": "Planet Protector Packaging develops sustainable insulated packaging using wool, offering businesses a recyclable and biodegradable alternative for protecting temperature-sensitive products during storage and transport.",
+      "sources": [
+        "legacy-portfolio:Planet Protector Packaging",
+        "https://planetprotectorpackaging.com/"
+      ]
+    },
+    "Protectores de la Tierra": {
+      "description": "Protectores de la Tierra is an Afro-Indigenous community farming initiative in Nuquí, Colombia, supporting food sovereignty, regenerative agriculture, and community access to locally grown food.",
+      "sources": ["https://www.gofundme.com/f/protectores-de-la-tierra"]
+    },
+    "PwC": {
+      "description": "PwC is a global professional services network providing assurance, tax, and consulting services, helping organizations strengthen reporting, manage risk, and address complex business challenges.",
+      "sources": ["https://www.pwc.com/gx/en/about.html"]
+    },
+    "RASA Corp": {
+      "description": "RASA Corp operates in the food and beverage industry, bringing together food distribution, service, and production as an integrated business focused on developing products and serving customers.",
+      "sources": ["https://glints.com/id/companies/rasa-corp/87e2e229-6d02-4197-9728-1ea59138e9e4"]
+    },
+    "REAPRA": {
+      "description": "REAPRA is a venture-building and investment group supporting entrepreneurs through research, business development, and long-term collaboration, helping founders build sustainable businesses around complex societal challenges.",
+      "sources": ["https://reapra.com/"]
+    },
+    "Roland Berger": {
+      "description": "Roland Berger is a management consultancy advising organizations on strategy, operational improvement, and transformation, helping clients navigate changing markets and develop more resilient businesses.",
+      "sources": ["https://www.rolandberger.com/en/About/"]
+    },
+    "Shiva Industries": {
+      "description": "Shiva Industries develops organic-waste composting technology in Bali, helping businesses process food waste into nutrient-rich material and connecting waste-management solutions with agricultural and soil-health applications.",
+      "sources": ["https://www.shivaindustries.tech/about", "project-tracker:Shiva Industries"]
+    },
+    "Skin Game": {
+      "description": "Skin Game develops affordable basic skincare for sensitive skin, offering cleansers, moisturizers, and targeted products designed to help customers build consistent morning and evening routines.",
+      "sources": ["https://skingameofficial.com/pages/about-us"]
+    },
+    "SPE UGM": {
+      "description": "SPE UGM is the Society of Petroleum Engineers student chapter at Universitas Gadjah Mada, connecting students with technical learning, professional networks, and energy-sector development opportunities.",
+      "sources": [
+        "https://www.spe.org/",
+        "../UI-UX/Client Page/180DC Website 26_27.zip: Client Page-6.svg"
+      ]
+    },
+    "SRE UGM": {
+      "description": "SRE UGM promotes renewable-energy awareness and learning through student activities, discussions, and collaborative initiatives, connecting young people interested in clean energy and a more sustainable energy transition.",
+      "sources": [
+        "https://www.instagram.com/sreugm/",
+        "../UI-UX/Client Page/180DC Website 26_27.zip: Client Page-5.svg"
+      ]
+    },
+    "Students Catalyst": {
+      "description": "Students Catalyst is a student-led development initiative offering an incubation community where university students connect, share experiences, plan their academic journeys, and prepare for professional opportunities.",
+      "sources": ["https://id.linkedin.com/company/studentscatalyst"]
+    },
+    "StudentsXCEOs International Summit": {
+      "description": "StudentsXCEOs International Summit brings students and business leaders together through discussions and networking, giving participants opportunities to explore leadership, professional development, and perspectives on the business world.",
+      "sources": [
+        "https://www.studentsxceos.org/",
+        "../UI-UX/Client Page/180DC Website 26_27.zip: Client Page-6.svg"
+      ]
+    },
+    "StudentsXCEOs Yogyakarta": {
+      "description": "StudentsXCEOs Yogyakarta connects university students with business leaders and professional experiences, supporting career exploration and leadership development through community learning, collaborative projects, and networking opportunities.",
+      "sources": [
+        "https://www.studentsxceos.org/",
+        "../UI-UX/Client Page/180DC Website 26_27.zip: Client Page-6.svg"
+      ]
+    },
+    "Sustenea / OceanKita": {
+      "description": "OceanKita provides marine-debris collection, plastic-processing, and pollution-mitigation services, working with coastal communities to reduce waste in waterways and develop more sustainable approaches to managing marine litter.",
+      "sources": ["https://oceankita.com/about-us", "project-tracker:Oceankita"]
+    },
+    "Terra Water": {
+      "description": "Terra Water creates ceramic water filters that help households access drinking water while reducing reliance on single-use plastic bottles and other disposable drinking-water packaging.",
+      "sources": ["https://terrawaterindonesia.com/pages/our-story"]
+    },
+    "Tersalur": {
+      "description": "Tersalur is a humanitarian foundation supporting vulnerable communities through education, disaster response, and assistance programs, working with volunteers and local partners to improve people’s welfare and opportunities.",
+      "sources": ["project-tracker:Tersalur", "legacy-portfolio:Tersalur"]
+    },
+    "The Nature Conservancy": {
+      "description": "The Nature Conservancy is a global conservation organization working with communities, governments, and businesses to protect lands and waters, conserve biodiversity, and address environmental challenges.",
+      "sources": ["https://www.nature.org/en-us/about-us/"]
+    },
+    "think-cell": {
+      "description": "think-cell develops presentation software that helps users create professional charts, layouts, and data-linked slides, streamlining business reporting and visual communication in Microsoft PowerPoint.",
+      "sources": ["https://www.think-cell.com/en/"]
+    },
+    "UGM Buddy Club": {
+      "description": "UGM Buddy Club helps connect local and international students through friendship, cultural exchange, and student activities, supporting a welcoming and connected university experience at Universitas Gadjah Mada.",
+      "sources": ["https://www.instagram.com/ugmbuddyclub/"]
+    },
+    "UNICEF BCRWG": {
+      "description": "The Business and Children’s Rights Working Group supports responsible business practices in Indonesia through shared learning, dialogue, and collaboration to implement children’s rights and business principles.",
+      "sources": ["https://id.linkedin.com/company/bcr-wgindonesia/"]
+    },
+    "Unilever": {
+      "description": "Unilever develops and markets consumer products across personal care, household cleaning, and food categories, using its brands and distribution networks to serve everyday consumer needs.",
+      "sources": ["https://www.unilever.com/our-company/"]
+    },
+    "VedaPraxis": {
+      "description": "VedaPraxis advises organizations on governance, risk, compliance, and digital transformation, helping businesses strengthen their processes, improve organizational capabilities, and respond to evolving operational challenges.",
+      "sources": ["https://vedapraxis.com/"]
+    },
+    "Widya Edu": {
+      "description": "Widya Edu is an education-technology company helping Indonesian high-school students prepare for university through learning practice and consultation, supporting students as they pursue their academic goals.",
+      "sources": ["legacy-portfolio:Widya Edu"]
+    },
+    "Yayasan Green Books Indonesia": {
+      "description": "Yayasan Green Books Indonesia builds environmental awareness among children through books, engaging learning activities, and support for educators, encouraging sustainable habits in schools and local communities.",
+      "sources": ["https://green-books.org/"]
+    },
+    "Yayasan Jalantara": {
+      "description": "Yayasan Jalantara engages communities in environmental education and waste-awareness activities, including explaining the environmental and health impacts of used cooking oil and encouraging more responsible disposal practices.",
+      "sources": [
+        "project-tracker:Yayasan Jalantara",
+        "https://journal.untar.ac.id/index.php/baktimas"
+      ]
+    },
+    "Yayasan Pulih": {
+      "description": "Yayasan Pulih provides psychological recovery and psychosocial support for people affected by violence, trauma, and disasters, combining counseling, community activities, and mental-health education.",
+      "sources": ["https://yayasanpulih.org/"]
+    },
+    "Yayasan SATUNAMA": {
+      "description": "Yayasan SATUNAMA supports social development and community empowerment, strengthening people’s capacity to participate in decision-making and pursue more sustainable livelihoods through education and community-focused programs.",
+      "sources": ["client-deck#page-15", "https://satunama.org/"]
+    },
+    "YCP": {
+      "description": "YCP is an advisory and investment group supporting business growth across Asia, helping organizations with strategy, market entry, operational improvement, and digital transformation.",
+      "sources": ["https://ycp.com/"]
+    },
+    "Young Leaders for Indonesia": {
+      "description": "Young Leaders for Indonesia develops university students’ leadership and problem-solving capabilities through workshops, mentoring, and practical projects, helping participants prepare to contribute in professional and community settings.",
+      "sources": ["https://www.youngleadersforindonesia.org/"]
+    },
+    "Zentide": {
+      "description": "Zentide develops seaweed-based agricultural biostimulants, helping farmers support plant growth, improve nutrient use, and restore soil health while encouraging more sustainable agricultural practices.",
+      "sources": ["https://zentide.co/"]
+    }
+  }
+}

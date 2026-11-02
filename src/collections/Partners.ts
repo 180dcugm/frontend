@@ -26,6 +26,7 @@ export const Partners: CollectionConfig = {
       required: true,
       label: "Category",
       options: [
+        { label: "Clients", value: "client" },
         { label: "Case Collaboration", value: "case-collaboration" },
         { label: "Event Collaboration", value: "event-collaboration" },
         { label: "Media Partner", value: "media-partner" },
@@ -44,7 +45,7 @@ export const Partners: CollectionConfig = {
       },
       admin: {
         description:
-          "Shown on the partner card in the grid. Square logos work best, at least 320×320px. Partners without a logo are hidden on the site until one is added.",
+          "Shown on the partner card in the grid. Square logos work best, at least 320×320px. Partners without a logo use a text-only card until one is added.",
       },
     },
     {
@@ -81,7 +82,7 @@ export const Partners: CollectionConfig = {
       },
       admin: {
         description:
-          "The client's feedback score as a whole percentage: a 9 out of 10 is 90. Shown as \"NPS of 90%\" on the carousel card for recent partners.",
+          'The client\'s feedback score as a whole percentage: a 9 out of 10 is 90. Shown as "NPS of 90%" on the carousel card for recent partners.',
       },
     },
     {
