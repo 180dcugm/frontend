@@ -24,7 +24,7 @@ export type Partner = {
   id: number;
   name: string;
   category: PartnerCategory;
-  logo: PartnerMedia;
+  logo?: PartnerMedia;
   // Shown in the popup, and on the carousel card for recent partners.
   description?: string;
   isRecent: boolean;
@@ -37,6 +37,7 @@ export type Partner = {
 };
 
 export type RecentPartner = Partner & {
+  logo: PartnerMedia;
   isRecent: true;
   description: string;
   caseStudy: PartnerCaseStudy;

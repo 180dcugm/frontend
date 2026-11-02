@@ -361,9 +361,9 @@ export interface Partner {
   /**
    * Decides which filter tab the partner appears under.
    */
-  category: 'case-collaboration' | 'event-collaboration' | 'media-partner';
+  category: 'client' | 'case-collaboration' | 'event-collaboration' | 'media-partner';
   /**
-   * Shown on the partner card in the grid. Square logos work best, at least 320×320px. Partners without a logo are hidden on the site until one is added.
+   * Shown on the partner card in the grid. Square logos work best, at least 320×320px. Partners without a logo use a text-only card until one is added.
    */
   logo?: (number | null) | Media;
   /**

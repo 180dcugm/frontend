@@ -18,9 +18,20 @@ export default async function Portofolio() {
     <main>
       <PreviousClients partners={partners} recentPartners={recentPartners} />
       <ProjectStructure />
-      <CTASection180 
-        title={<>We Look Forward to<br/>Speaking with You</>}
-        subtitle={<>Explore our different services offerings, and<br className="hidden sm:block" /> reach out to us for a discussion.</>}
+      <CTASection180
+        title={
+          <>
+            We Look Forward to
+            <br />
+            Speaking with You
+          </>
+        }
+        subtitle={
+          <>
+            Explore our different services offerings, and
+            <br className="hidden sm:block" /> reach out to us for a discussion.
+          </>
+        }
         primaryButtonText="Consult Now!"
         primaryButtonHref="/apply"
       />

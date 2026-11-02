@@ -4,6 +4,13 @@
 @plugin 'tailwindcss-animate';
 @config '../tailwind.config.ts';
 
+/* Keep the public site's default typography identical to the deployed preview. */
+@theme {
+  --font-sans: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol", "Noto Color Emoji";
+  --default-font-family: var(--font-sans);
+}
+
 /* Custom variant untuk dark mode */
 @custom-variant dark (&:is(.dark *));
 
