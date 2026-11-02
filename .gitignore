@@ -39,5 +39,8 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+# local Payload uploads (PAYLOAD_LOCAL_UPLOADS=true); production media lives in S3
+/media
+
 # ad hoc sql run by hand against Supabase, not part of a deploy
 supabase/rls-hardening.sql
