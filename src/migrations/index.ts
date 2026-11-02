@@ -1,6 +1,7 @@
 import * as migration_20261029_104633_baseline from "./20261029_104633_baseline";
 import * as migration_20261029_104643_partners from "./20261029_104643_partners";
 import * as migration_20261102_102404_client_category from "./20261102_102404_client_category";
+import * as migration_20261102_155406_short_industry_decks from "./20261102_155406_short_industry_decks";
 
 export const migrations = [
   {
@@ -17,5 +18,10 @@ export const migrations = [
     up: migration_20261102_102404_client_category.up,
     down: migration_20261102_102404_client_category.down,
     name: "20261102_102404_client_category",
+  },
+  {
+    up: migration_20261102_155406_short_industry_decks.up,
+    down: migration_20261102_155406_short_industry_decks.down,
+    name: "20261102_155406_short_industry_decks",
   },
 ];
