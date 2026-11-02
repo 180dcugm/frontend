@@ -174,7 +174,6 @@ def legacy_cases():
 
 records = {}
 logo_images = {}
-background_images = {}
 background_logo_images = {}
 with zipfile.ZipFile(args.sources / 'UI-UX/Client Page/180DC Website 26_27.zip') as archive:
     trees = {}
@@ -193,10 +192,6 @@ with zipfile.ZipFile(args.sources / 'UI-UX/Client Page/180DC Website 26_27.zip')
             continue
         records[key(name)] = {'name': name, 'category': category, 'isRecent': False}
         logo_images[key(name)] = figma(file, number)
-    background_images[key('KitaBisa')] = figma('Client Page.svg', 33)
-    background_images[key('Innovative Academy')] = figma('Client Page-3.svg', 1)
-    background_images[key('Planet Protector Packaging')] = figma('Client Page-2.svg', 1)
-    background_images[key('Kopi Sembilan')] = figma('Client Page-2.svg', 3)
 
 # Only public organization attributes are carried over. Contact people, emails,
 # phone numbers, banking details and commercial agreement data stay in the files.
@@ -279,20 +274,6 @@ terra_cover = wall_image(49)
 w, h = terra_cover.size
 logo_images[key('Terra Water')] = terra_cover.crop((int(w*.071), int(h*.153), int(w*.177), int(h*.226)))
 
-# Crop company-specific imagery from the supplied project covers, excluding
-# their presentation headings and team portraits.
-for name, number, crop in [
-    ('Akkar', 70, (.51, .35, .89, .98)),
-    ('Gili Eco Trust', 55, (.60, .32, .98, .94)),
-    ('Terra Water', 49, (.04, .85, .96, .99)),
-    ('Sustenea / OceanKita', 64, (.20, .02, .98, .65)),
-    ('Berbagi Beras', 52, (.55, .38, .98, .97)),
-    ('Bentala Fragrances', 58, (.79, .04, .99, .62)),
-]:
-    image = wall_image(number)
-    w, h = image.size
-    background_images[key(name)] = image.crop(tuple(int(value * (w if i % 2 == 0 else h)) for i, value in enumerate(crop)))
-
 prefix = OUT / 'deck-page19'
 result = subprocess.run(['pdfimages', '-f', '19', '-l', '19', '-png', str(pdf), str(prefix)], capture_output=True)
 if result.returncode:
@@ -316,10 +297,10 @@ for identity, record in records.items():
 
 
 def company_background(identity, name, logo):
-    """A distinct brand composition made from that company's supplied mark.
+    """The same subdued brand-background template for every organization.
 
-    Figma's actual company photographs/illustrations take priority. The remaining
-    marks become subdued, oversized brand artwork, never unrelated stock photos.
+    Only the supplied company mark, name and tint vary; there are no individual
+    photographic or illustrated exceptions.
     """
     digest = hashlib.sha256(identity.encode()).digest()
     color = tuple(25 + channel // 5 for channel in digest[:3])
@@ -350,11 +331,7 @@ for identity, record in sorted(records.items()):
         record['logoFile'] = logo_path.name
     else:
         missing_logos.append(record['name'])
-    background = background_images.get(identity)
-    if background is not None:
-        background = ImageOps.fit(background.convert('RGB'), (1360, 780), method=Image.Resampling.LANCZOS)
-    else:
-        background = company_background(identity, record['name'], background_logo_images.get(identity, logo))
+    background = company_background(identity, record['name'], background_logo_images.get(identity, logo))
     background_path = OUT / f'{identity}-background.webp'
     background.save(background_path, format='WEBP', quality=88)
     record['backgroundFile'] = background_path.name
@@ -365,6 +342,7 @@ summary = {
     'logos': len(logo_images),
     'missingSuppliedLogos': missing_logos,
     'recentCases': sum(bool(r.get('isRecent')) for r in public_records),
+    'backgroundTemplate': 'company-brand',
     'minimumDescriptionWords': min(len(r['description'].split()) for r in public_records),
     'maximumDescriptionWords': max(len(r['description'].split()) for r in public_records),
     'categories': dict(Counter(r['category'] for r in public_records)),

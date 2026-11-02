@@ -3,6 +3,7 @@
  *
  * npx payload run scripts/import-client-page.ts /path/to/manifest.json
  * npx payload run scripts/import-client-page.ts /path/to/manifest.json apply
+ * npx payload run scripts/import-client-page.ts /path/to/manifest.json apply backgrounds
  *
  * The default is a dry run. Media filenames include a content hash, so repeating
  * an import reuses the same files. Existing organization names are matched before
@@ -30,10 +31,14 @@ type Manifest = {
   removePartners?: string[];
 };
 
-const [manifestPath, mode = "dry-run"] = process.argv.slice(2);
-if (!manifestPath || !["dry-run", "apply"].includes(mode)) {
+const [manifestPath, mode = "dry-run", scope = "all"] = process.argv.slice(2);
+if (
+  !manifestPath ||
+  !["dry-run", "apply"].includes(mode) ||
+  !["all", "backgrounds"].includes(scope)
+) {
   throw new Error(
-    "Usage: payload run scripts/import-client-page.ts /path/to/manifest.json [apply]"
+    "Usage: payload run scripts/import-client-page.ts /path/to/manifest.json [dry-run|apply] [all|backgrounds]"
   );
 }
 
@@ -72,7 +77,9 @@ for (const partner of manifest.partners) {
   )
     throw new Error(`Incomplete case study: ${partner.name}`);
 
-  for (const filename of [partner.logoFile, partner.backgroundFile]) {
+  for (const filename of scope === "backgrounds"
+    ? [partner.backgroundFile]
+    : [partner.logoFile, partner.backgroundFile]) {
     if (!filename) continue;
     if (path.basename(filename) !== filename || !filename.endsWith(".webp")) {
       throw new Error(`Unexpected prepared media filename: ${filename}`);
@@ -116,6 +123,7 @@ const counts = {
   uploaded: 0,
   reusedMedia: 0,
   removedMedia: 0,
+  skipped: 0,
 };
 try {
   const existing = await payload.find({
@@ -134,7 +142,7 @@ try {
   });
   const mediaByFilename = new Map(media.docs.map((item) => [item.filename, item.id]));
 
-  for (const name of manifest.removePartners ?? []) {
+  for (const name of scope === "all" ? (manifest.removePartners ?? []) : []) {
     const found = existingByName.get(identity(name));
     if (found) {
       counts.removed++;
@@ -160,7 +168,7 @@ try {
       return found;
     }
     counts.uploaded++;
-    if (!apply) return undefined;
+    if (!apply) return -1;
     const item = await payload.create({
       collection: "media",
       overrideAccess: true,
@@ -173,6 +181,32 @@ try {
 
   for (const partner of manifest.partners) {
     const found = existingByName.get(identity(partner.name));
+    if (scope === "backgrounds") {
+      if (!found) {
+        counts.skipped++;
+        continue;
+      }
+      const background = await upload(partner.backgroundFile, `${partner.name} company background`);
+      const changed =
+        found.popup?.background !== background ||
+        (found.isRecent && found.caseStudy?.background !== background);
+      if (changed) {
+        counts.updated++;
+        if (apply)
+          await payload.update({
+            collection: "partners",
+            id: found.id,
+            overrideAccess: true,
+            data: {
+              popup: { background },
+              ...(found.isRecent && found.caseStudy
+                ? { caseStudy: { ...found.caseStudy, background } }
+                : {}),
+            },
+          });
+      } else counts.unchanged++;
+      continue;
+    }
     const logo = partner.logoFile
       ? await upload(partner.logoFile, `${partner.name} logo`)
       : undefined;
@@ -216,7 +250,7 @@ try {
         await payload.update({ collection: "partners", id: found.id, overrideAccess: true, data });
     } else counts.unchanged++;
   }
-  console.log(JSON.stringify({ mode, ...counts, sourceSummary: manifest.summary }, null, 2));
+  console.log(JSON.stringify({ mode, scope, ...counts, sourceSummary: manifest.summary }, null, 2));
 } finally {
   await payload.destroy();
 }

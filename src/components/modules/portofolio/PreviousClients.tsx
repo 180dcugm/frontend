@@ -121,10 +121,10 @@ function PartnerPopup({ partner, onClose }: { partner: Partner | null; onClose: 
         )
           onClose();
       }}
-      className="fixed inset-0 m-auto max-h-[85svh] w-[calc(100%-2rem)] max-w-[850px] overflow-y-auto rounded-[30px] border border-[#77BA47] bg-[#202020] p-0 text-white shadow-[0_0_24px_#77ba4726] backdrop:bg-black/65 backdrop:backdrop-blur-sm"
+      className="fixed inset-0 m-auto max-h-[72.25svh] w-[calc(85%-1.7rem)] max-w-[722.5px] overflow-y-auto rounded-[25.5px] border border-[#77BA47] bg-[#202020] p-0 text-white shadow-[0_0_20.4px_#77ba4726] backdrop:bg-black/65 backdrop:backdrop-blur-sm"
     >
       {partner ? (
-        <div className="relative isolate min-h-[360px] overflow-hidden p-6 sm:min-h-[470px] sm:p-10">
+        <div className="relative isolate min-h-[306px] overflow-hidden p-[20.4px] sm:min-h-[399.5px] sm:p-[34px]">
           {partner.popup?.background ? (
             <Image
               src={partner.popup.background.url}
@@ -139,23 +139,23 @@ function PartnerPopup({ partner, onClose }: { partner: Partner | null; onClose: 
             type="button"
             aria-label="Close company details"
             onClick={onClose}
-            className="absolute top-4 right-4 flex h-9 w-9 items-center justify-center rounded-lg bg-[#77BA47] text-white transition hover:bg-[#639f38] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+            className="absolute top-[13.6px] right-[13.6px] flex h-[30.6px] w-[30.6px] items-center justify-center rounded-[6.8px] bg-[#77BA47] text-[13.6px] text-white transition hover:bg-[#639f38] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
           >
             <FaTimes aria-hidden="true" />
           </button>
           <h2
             id={titleId}
-            className="font-avenir-black pr-8 text-[32px] leading-tight break-words text-[#83bd61] sm:text-5xl"
+            className="font-avenir-black pr-[27.2px] text-[27.2px] leading-tight break-words text-[#83bd61] sm:text-[40.8px]"
           >
             {partner.name}
           </h2>
-          <div className="mt-6 grid items-center gap-6 sm:grid-cols-[minmax(0,1fr)_240px] sm:gap-8">
+          <div className="mt-[20.4px] grid items-center gap-[20.4px] sm:grid-cols-[minmax(0,1fr)_204px] sm:gap-[27.2px]">
             {partner.description ? (
-              <p className="font-avenir-heavy text-lg leading-relaxed whitespace-pre-line text-white sm:text-2xl">
+              <p className="font-avenir-heavy text-[15.3px] leading-relaxed whitespace-pre-line text-white sm:text-[20.4px]">
                 {partner.description}
               </p>
             ) : (
-              <p className="text-sm text-white/80">Learn more about {partner.name}.</p>
+              <p className="text-[11.9px] text-white/80">Learn more about {partner.name}.</p>
             )}
             {partner.logo ? (
               <Image
@@ -164,7 +164,7 @@ function PartnerPopup({ partner, onClose }: { partner: Partner | null; onClose: 
                 width={320}
                 height={320}
                 unoptimized
-                className="mx-auto h-40 w-44 object-contain sm:h-60 sm:w-60"
+                className="mx-auto h-[136px] w-[149.6px] object-contain sm:h-[204px] sm:w-[204px]"
               />
             ) : null}
           </div>
@@ -238,6 +238,9 @@ export default function PreviousClients({
   const [activeFilter, setActiveFilter] = useState<PartnerFilter>("all");
   const [desktopApi, setDesktopApi] = useState<CarouselApi>();
   const [mobileApi, setMobileApi] = useState<CarouselApi>();
+  const [partnerApi, setPartnerApi] = useState<CarouselApi>();
+  const [partnerPage, setPartnerPage] = useState(0);
+  const [partnerColumns, setPartnerColumns] = useState(5);
   const recentSectionRef = useRef<HTMLDivElement>(null);
   const desktopAutoplay = useMemo(
     () =>
@@ -275,12 +278,60 @@ export default function PreviousClients({
       mobileAutoplay.stop();
     };
   }, [desktopAutoplay, mobileAutoplay, desktopApi, mobileApi]);
-  const visiblePartners = partners.filter(
-    (partner) =>
-      activeFilter === "all" ||
-      partner.category === activeFilter ||
-      additionalCategories[partner.name]?.includes(activeFilter)
+  useEffect(() => {
+    const queries = [
+      window.matchMedia("(min-width: 1024px)"),
+      window.matchMedia("(min-width: 768px)"),
+      window.matchMedia("(min-width: 640px)"),
+    ];
+    const updateColumns = () => {
+      setPartnerColumns(
+        queries[0].matches ? 5 : queries[1].matches ? 4 : queries[2].matches ? 3 : 2
+      );
+      setPartnerPage(0);
+    };
+    updateColumns();
+    queries.forEach((query) => query.addEventListener("change", updateColumns));
+    return () => queries.forEach((query) => query.removeEventListener("change", updateColumns));
+  }, []);
+
+  useEffect(() => {
+    if (!partnerApi) return;
+    const updatePage = () => setPartnerPage(partnerApi.selectedScrollSnap());
+    updatePage();
+    partnerApi.on("select", updatePage);
+    partnerApi.on("reInit", updatePage);
+    return () => {
+      partnerApi.off("select", updatePage);
+      partnerApi.off("reInit", updatePage);
+    };
+  }, [partnerApi]);
+
+  const visiblePartners = useMemo(
+    () =>
+      partners
+        .filter(
+          (partner) =>
+            activeFilter === "all" ||
+            partner.category === activeFilter ||
+            additionalCategories[partner.name]?.includes(activeFilter)
+        )
+        .sort((a, b) => {
+          const aLast = /^360\s*energy$/i.test(a.name.trim());
+          const bLast = /^360\s*energy$/i.test(b.name.trim());
+          return (
+            Number(aLast) - Number(bLast) ||
+            a.name.localeCompare(b.name, "en", { sensitivity: "base", numeric: true })
+          );
+        }),
+    [partners, activeFilter]
   );
+  const partnerPages = useMemo(() => {
+    const perPage = partnerColumns * 3;
+    return Array.from({ length: Math.ceil(visiblePartners.length / perPage) }, (_, page) =>
+      visiblePartners.slice(page * perPage, (page + 1) * perPage)
+    );
+  }, [visiblePartners, partnerColumns]);
   const carouselTarget = recentPartners.length ? "recent-partners" : "our-partners";
 
   return (
@@ -326,12 +377,10 @@ export default function PreviousClients({
                     backgroundPosition: "center",
                   }}
                 >
-                  <span
-                    className={`font-avenir-black bg-gradient-to-b from-[#6FAA26] to-[#58B9D1] bg-clip-text text-transparent ${item.number.length > 4 ? "text-2xl sm:text-3xl lg:text-[40px]" : "text-4xl sm:text-5xl lg:text-6xl"}`}
-                  >
+                  <span className="font-avenir-black bg-gradient-to-b from-[#6FAA26] to-[#58B9D1] bg-clip-text text-2xl text-transparent sm:text-3xl lg:text-[40px]">
                     {item.number}
                   </span>
-                  <span className="mt-2 text-center text-[10px] text-gray-200 sm:text-xs">
+                  <span className="mt-2 flex min-h-8 items-center justify-center text-center text-[10px] text-gray-200 sm:text-xs">
                     {item.label}
                   </span>
                 </div>
@@ -515,7 +564,7 @@ export default function PreviousClients({
           </div>
         ) : null}
 
-        {/* Grid markup, width and card proportions copied from preview. */}
+        {/* Preview's partner cards, paginated into a looping three-row carousel. */}
         <section
           id="our-partners"
           aria-labelledby="our-partners-title"
@@ -534,7 +583,11 @@ export default function PreviousClients({
                   <button
                     key={filter.value}
                     type="button"
-                    onClick={() => setActiveFilter(filter.value)}
+                    onClick={() => {
+                      setActiveFilter(filter.value);
+                      setPartnerPage(0);
+                      partnerApi?.scrollTo(0, true);
+                    }}
                     aria-pressed={activeFilter === filter.value}
                     className={`rounded-full px-3 py-2.5 text-sm whitespace-nowrap transition-colors duration-200 ${activeFilter === filter.value ? "bg-[#83bd61] text-white" : "text-gray-200 hover:bg-white/10 hover:text-white"}`}
                   >
@@ -544,35 +597,103 @@ export default function PreviousClients({
               </div>
             </div>
             {visiblePartners.length ? (
-              <div className="grid grid-cols-2 gap-1.5 sm:grid-cols-3 sm:gap-2 md:grid-cols-4 lg:grid-cols-5">
-                {visiblePartners.map((partner) => (
-                  <button
-                    key={partner.id}
-                    type="button"
-                    onClick={() => setSelectedPartner(partner)}
-                    aria-label={`View details for ${partner.name}`}
-                    aria-haspopup="dialog"
-                    aria-expanded={selectedPartner?.id === partner.id}
-                    data-selected={selectedPartner?.id === partner.id}
-                    className="group flex aspect-[1.2/1] w-full flex-col items-center justify-center rounded-[22px] border border-[#6e6e6e] bg-[#202020] px-3 py-4 text-center transition-all duration-200 hover:border-[#83bd61] hover:bg-[#242824] hover:shadow-[0_4px_12px_rgba(131,189,97,0.12)] focus-visible:ring-2 focus-visible:ring-[#83bd61] focus-visible:outline-none data-[selected=true]:border-[#83bd61] data-[selected=true]:bg-[#242824] data-[selected=true]:shadow-[0_4px_12px_rgba(131,189,97,0.12)]"
+              <div>
+                <div className="px-7 sm:px-8 lg:px-0">
+                  <Carousel
+                    key={`${activeFilter}-${partnerColumns}`}
+                    opts={{ align: "start", loop: partnerPages.length > 1, slidesToScroll: 1 }}
+                    setApi={setPartnerApi}
+                    aria-label="Clients and partners catalogue"
+                    className="w-full"
                   >
-                    {partner.logo ? (
-                      <div className="mb-3 flex h-[68px] w-[68px] shrink-0 items-center justify-center overflow-hidden rounded-[15px] border border-[#6e6e6e] bg-[#252525] transition-colors group-hover:border-[#83bd61] group-hover:shadow-[0_2px_5px_rgba(131,189,97,0.15)] group-data-[selected=true]:border-[#83bd61] group-data-[selected=true]:shadow-[0_2px_5px_rgba(131,189,97,0.15)]">
-                        <Image
-                          src={partner.logo.url}
-                          alt={partner.logo.alt || `${partner.name} logo`}
-                          width={320}
-                          height={320}
-                          unoptimized
-                          className="h-full w-full object-contain p-2"
-                        />
-                      </div>
-                    ) : null}
-                    <span className="line-clamp-2 text-xs leading-snug font-medium text-white sm:text-sm">
-                      {partner.name}
+                    <CarouselContent className="ml-0">
+                      {partnerPages.map((page, pageIndex) => (
+                        <CarouselItem
+                          key={pageIndex}
+                          className="basis-full pl-0"
+                          aria-label={`Partner page ${pageIndex + 1} of ${partnerPages.length}`}
+                        >
+                          <div className="grid grid-cols-2 grid-rows-[repeat(3,minmax(148px,1fr))] gap-1.5 sm:grid-cols-3 sm:gap-2 md:grid-cols-4 lg:aspect-[2/1] lg:grid-cols-5 lg:grid-rows-3">
+                            {page.map((partner) => (
+                              <button
+                                key={partner.id}
+                                type="button"
+                                onClick={() => setSelectedPartner(partner)}
+                                aria-label={`View details for ${partner.name}`}
+                                aria-haspopup="dialog"
+                                aria-expanded={selectedPartner?.id === partner.id}
+                                data-selected={selectedPartner?.id === partner.id}
+                                className="group flex aspect-[1.2/1] w-full flex-col items-center justify-center rounded-[22px] border border-[#6e6e6e] bg-[#202020] px-3 py-4 text-center transition-all duration-200 hover:border-[#83bd61] hover:bg-[#242824] hover:shadow-[0_4px_12px_rgba(131,189,97,0.12)] focus-visible:ring-2 focus-visible:ring-[#83bd61] focus-visible:outline-none data-[selected=true]:border-[#83bd61] data-[selected=true]:bg-[#242824] data-[selected=true]:shadow-[0_4px_12px_rgba(131,189,97,0.12)]"
+                              >
+                                {partner.logo ? (
+                                  <div className="mb-3 flex h-[68px] w-[68px] shrink-0 items-center justify-center overflow-hidden rounded-[15px] border border-[#6e6e6e] bg-[#252525] transition-colors group-hover:border-[#83bd61] group-hover:shadow-[0_2px_5px_rgba(131,189,97,0.15)] group-data-[selected=true]:border-[#83bd61] group-data-[selected=true]:shadow-[0_2px_5px_rgba(131,189,97,0.15)]">
+                                    <Image
+                                      src={partner.logo.url}
+                                      alt={partner.logo.alt || `${partner.name} logo`}
+                                      width={320}
+                                      height={320}
+                                      unoptimized
+                                      className="h-full w-full object-contain p-2"
+                                    />
+                                  </div>
+                                ) : null}
+                                <span className="line-clamp-2 text-xs leading-snug font-medium text-white sm:text-sm">
+                                  {partner.name}
+                                </span>
+                              </button>
+                            ))}
+                          </div>
+                        </CarouselItem>
+                      ))}
+                    </CarouselContent>
+                    <CarouselPrevious
+                      variant="ghost"
+                      aria-label="Previous partner page"
+                      className="-left-8 z-10 h-7 w-7 rounded-[6px] border-0 bg-green-300/80 shadow-none hover:bg-green-300 lg:-left-10 lg:h-8 lg:w-8"
+                    />
+                    <CarouselNext
+                      variant="ghost"
+                      aria-label="Next partner page"
+                      className="-right-8 z-10 h-7 w-7 rounded-[6px] border-0 bg-green-300/80 shadow-none hover:bg-green-300 lg:-right-10 lg:h-8 lg:w-8"
+                    />
+                  </Carousel>
+                </div>
+                {partnerPages.length > 1 ? (
+                  <nav
+                    aria-label="Partner pages"
+                    className="mt-6 flex flex-wrap items-center justify-center gap-2"
+                  >
+                    <button
+                      type="button"
+                      aria-label="Previous page"
+                      onClick={() => partnerApi?.scrollPrev()}
+                      className="flex h-6 w-6 items-center justify-center rounded text-xs text-white/80 hover:text-green-300 focus-visible:outline-2 focus-visible:outline-green-300"
+                    >
+                      <FaChevronLeft aria-hidden="true" />
+                    </button>
+                    {partnerPages.map((_, pageIndex) => (
+                      <button
+                        key={pageIndex}
+                        type="button"
+                        aria-label={`Go to partner page ${pageIndex + 1}`}
+                        aria-current={partnerPage === pageIndex ? "page" : undefined}
+                        onClick={() => partnerApi?.scrollTo(pageIndex)}
+                        className={`h-2 w-2 rounded-full transition-colors focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-green-300 ${partnerPage === pageIndex ? "bg-green-300" : "bg-white/80 hover:bg-white"}`}
+                      />
+                    ))}
+                    <button
+                      type="button"
+                      aria-label="Next page"
+                      onClick={() => partnerApi?.scrollNext()}
+                      className="flex h-6 w-6 items-center justify-center rounded text-xs text-white/80 hover:text-green-300 focus-visible:outline-2 focus-visible:outline-green-300"
+                    >
+                      <FaChevronRight aria-hidden="true" />
+                    </button>
+                    <span className="sr-only" aria-live="polite">
+                      Page {partnerPage + 1} of {partnerPages.length}
                     </span>
-                  </button>
-                ))}
+                  </nav>
+                ) : null}
               </div>
             ) : (
               <p className="py-10 text-center text-sm text-gray-400">
