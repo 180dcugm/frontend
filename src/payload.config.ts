@@ -21,13 +21,31 @@ import { ShortIndustryDecks } from "./collections/ShortIndustryDecks";
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
 const connectionString = process.env.POSTGRES_URL || "";
-const databaseHost = connectionString ? new URL(connectionString).hostname : "";
+const databaseURL = connectionString ? new URL(connectionString) : null;
+const databaseHost = databaseURL?.hostname || "";
 const isSupabase =
   databaseHost.endsWith(".pooler.supabase.com") || databaseHost.endsWith(".supabase.co");
+const isVercel = process.env.VERCEL === "1";
+
+// Serverless instances must not retain Supabase's limited session-pool slots.
+// CLI migrations continue to use the supplied session connection on port 5432.
+if (
+  databaseURL &&
+  databaseHost.endsWith(".pooler.supabase.com") &&
+  isVercel &&
+  process.env.PAYLOAD_MIGRATING !== "true" &&
+  databaseURL.port === "5432"
+) {
+  databaseURL.port = "6543";
+}
+
 export const databasePool = {
-  connectionString,
+  connectionString: databaseURL?.toString() || connectionString,
   // Supabase's shared pooler uses a private CA; require an encrypted connection.
   ...(isSupabase ? { ssl: { rejectUnauthorized: false } } : {}),
+  ...(isVercel
+    ? { max: 5, idleTimeoutMillis: 1000, connectionTimeoutMillis: 15000, allowExitOnIdle: true }
+    : {}),
 };
 
 export default buildConfig({
