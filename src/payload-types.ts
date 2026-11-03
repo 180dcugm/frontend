@@ -74,6 +74,8 @@ export interface Config {
     telescope_comments: TelescopeComment;
     hero: Hero;
     ai_knowledge: AiKnowledge;
+    partners: Partner;
+    'short-industry-decks': ShortIndustryDeck;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -88,6 +90,8 @@ export interface Config {
     telescope_comments: TelescopeCommentsSelect<false> | TelescopeCommentsSelect<true>;
     hero: HeroSelect<false> | HeroSelect<true>;
     ai_knowledge: AiKnowledgeSelect<false> | AiKnowledgeSelect<true>;
+    partners: PartnersSelect<false> | PartnersSelect<true>;
+    'short-industry-decks': ShortIndustryDecksSelect<false> | ShortIndustryDecksSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -167,6 +171,24 @@ export interface Media {
   height?: number | null;
   focalX?: number | null;
   focalY?: number | null;
+  sizes?: {
+    popup?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+    logo?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+  };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -330,6 +352,94 @@ export interface AiKnowledge {
   createdAt: string;
 }
 /**
+ * Partners shown in the Our Partners section of the services page
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "partners".
+ */
+export interface Partner {
+  id: number;
+  name: string;
+  /**
+   * Decides which filter tab the partner appears under.
+   */
+  category: 'client' | 'case-collaboration' | 'event-collaboration' | 'media-partner';
+  /**
+   * Shown on the partner card in the grid. Square logos work best, at least 320×320px. Partners without a logo use a text-only card until one is added.
+   */
+  logo?: (number | null) | Media;
+  /**
+   * Short description of the partner. Shown in the popup, and on the carousel card for recent partners.
+   */
+  description?: string | null;
+  /**
+   * The client's feedback score as a whole percentage: a 9 out of 10 is 90. Shown as "NPS of 90%" on the carousel card for recent partners.
+   */
+  nps?: number | null;
+  /**
+   * Shows this partner in the Recent Partners carousel, with its case study.
+   */
+  isRecent?: boolean | null;
+  /**
+   * Shown on this partner's card in the Recent Partners carousel.
+   */
+  caseStudy?: {
+    challenge: string;
+    solution: string;
+    impact: string;
+    /**
+     * Photo behind this partner's card in the carousel. At least 1360px wide.
+     */
+    background?: (number | null) | Media;
+  };
+  /**
+   * Content shown when a visitor clicks this partner.
+   */
+  popup?: {
+    /**
+     * Custom background for this partner's popup. Every partner should have one. At least 1360px wide.
+     */
+    background?: (number | null) | Media;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Concise industry decks shown in the Article Hub and Short Industry Decks page.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "short-industry-decks".
+ */
+export interface ShortIndustryDeck {
+  id: number;
+  title: string;
+  /**
+   * Used in the page URL. Generated from the title if left blank.
+   */
+  slug: string;
+  subtitle?: string | null;
+  author: string;
+  /**
+   * Upload the complete PDF. Landscape (16:9) slides work best in the viewer.
+   */
+  pdf: number | Media;
+  /**
+   * Optional thumbnail. If omitted, the first PDF slide is used automatically.
+   */
+  coverImage?: (number | null) | Media;
+  /**
+   * Shown in the collapsible Overview panel below the deck viewer.
+   */
+  overview: string;
+  /**
+   * Public share link for the "View on Drive" button. Leave blank until available.
+   */
+  driveLink?: string | null;
+  publishedDate: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
@@ -380,6 +490,14 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'ai_knowledge';
         value: number | AiKnowledge;
+      } | null)
+    | ({
+        relationTo: 'partners';
+        value: number | Partner;
+      } | null)
+    | ({
+        relationTo: 'short-industry-decks';
+        value: number | ShortIndustryDeck;
       } | null)
     | ({
         relationTo: 'payload-kv';
@@ -466,6 +584,30 @@ export interface MediaSelect<T extends boolean = true> {
   height?: T;
   focalX?: T;
   focalY?: T;
+  sizes?:
+    | T
+    | {
+        popup?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
+        logo?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
+      };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -529,6 +671,50 @@ export interface AiKnowledgeSelect<T extends boolean = true> {
   title?: T;
   knowledge?: T;
   uploader?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "partners_select".
+ */
+export interface PartnersSelect<T extends boolean = true> {
+  name?: T;
+  category?: T;
+  logo?: T;
+  description?: T;
+  nps?: T;
+  isRecent?: T;
+  caseStudy?:
+    | T
+    | {
+        challenge?: T;
+        solution?: T;
+        impact?: T;
+        background?: T;
+      };
+  popup?:
+    | T
+    | {
+        background?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "short-industry-decks_select".
+ */
+export interface ShortIndustryDecksSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  subtitle?: T;
+  author?: T;
+  pdf?: T;
+  coverImage?: T;
+  overview?: T;
+  driveLink?: T;
+  publishedDate?: T;
   updatedAt?: T;
   createdAt?: T;
 }
