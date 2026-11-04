@@ -81,6 +81,7 @@ export const Partners: CollectionConfig = {
         );
       },
       admin: {
+        condition: (data) => Boolean(data?.isRecent),
         description:
           'The client\'s feedback score as a whole percentage: a 9 out of 10 is 90. Shown as "NPS of 90%" on the carousel card for recent partners.',
       },
@@ -133,6 +134,8 @@ export const Partners: CollectionConfig = {
             mimeType: { contains: "image" },
           },
           admin: {
+            // Retain existing references, but omit this unused control from the editor.
+            hidden: true,
             description: "Photo behind this partner's card in the carousel. At least 1360px wide.",
           },
         },

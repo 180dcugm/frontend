@@ -6,9 +6,9 @@ import type { Partner, PartnerCaseStudy, PartnerMedia, RecentPartner } from "./t
 // Editorial priority only; all case-study copy and media still come from Payload.
 const spotlightOrder = [
   "yayasan satunama",
-  "foras palestine",
-  "gili eco trust",
   "akkar",
+  "gili eco trust",
+  "foras palestine",
   "bentala fragrances",
   "kopi sembilan",
   "planet protector packaging",
