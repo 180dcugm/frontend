@@ -48,9 +48,9 @@ const metrics = [
     image: "/img/portofolio/statistics/partners_statistics.jpg",
   },
   {
-    // The supplied tracker verifies 35 completed projects, not the full historical
-    // events/partnership total. Retained at the owner's request pending that data.
-    number: "450",
+    // The supplied tracker only covers 35 completed projects, not the full historical
+    // events and partnership total, so this headline is retained as an editorial figure.
+    number: "100+",
     label: "Projects Completed",
     image: "/img/portofolio/statistics/projects_statistics.jpg",
   },
