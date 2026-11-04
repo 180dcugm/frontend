@@ -43,7 +43,7 @@ const additionalCategories: Record<string, PartnerCategory[]> = {
 // intentionally editorial constants, rather than additional Payload models.
 const metrics = [
   {
-    number: "83",
+    number: "90",
     label: "Clients & Partners",
     image: "/img/portofolio/statistics/partners_statistics.jpg",
   },
