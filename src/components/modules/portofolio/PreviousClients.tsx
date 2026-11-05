@@ -50,7 +50,7 @@ const metrics = [
   {
     // The supplied tracker only covers 35 completed projects, not the full historical
     // events and partnership total, so this headline is retained as an editorial figure.
-    number: "100+",
+    number: "80+",
     label: "Projects Completed",
     image: "/img/portofolio/statistics/projects_statistics.jpg",
   },
