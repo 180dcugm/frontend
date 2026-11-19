@@ -39,6 +39,29 @@ deck's Drive share link as its final argument to add or update that link.
 Pages: `/article`, `/article/shortindustrydeck`, and
 `/article/shortindustrydeck/indonesias-edtech-industry`. Publication changes appear within 60 seconds.
 
+To publish the SID #1 release in Payload's Hero collection (using the deck's existing thumbnail):
+
+```sh
+npx payload run scripts/set-sid-release-hero.ts
+```
+
+This updates the latest Hero entry in the configured database. To update a live CMS through its
+Payload REST API, set `PAYLOAD_API_URL`, `PAYLOAD_ADMIN_EMAIL`, and `PAYLOAD_ADMIN_PASSWORD` in
+the environment before running the command. The announcement stays editable in Payload.
+
+The build also runs this update in `once` mode, using the deployment's own Payload connection.
+It replaces the recruitment announcement with SID #1 and records completion in Payload's key-value
+store. Later builds preserve subsequent CMS edits and unrelated campaigns. If the deck or thumbnail
+has not been imported yet, publication is deferred until a later build.
+
+## Eighty consulting preview
+
+The chatbot includes a separate Consulting section with the five consulting/BCC starter questions
+from the IT × PVP meeting. Knowledge Team materials are still being prepared, so consulting
+requests return a clearly labelled preview response instead of using the organization FAQ knowledge
+base. Product recommendations link directly to the Casebook and Framework Bank detail sheets in
+the store. General and consulting conversation histories are kept separate for 30 minutes.
+
 ## Folder Structure
 
 ```

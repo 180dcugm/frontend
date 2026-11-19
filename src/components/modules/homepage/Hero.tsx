@@ -43,6 +43,10 @@ export function Hero({ heroData }: { heroData: Partial<HeroType> }) {
     heroData.newsImage.url
       ? heroData.newsImage.url
       : "/img/homepage/caseBook.webp";
+  const isLandscapeNews =
+    typeof heroData.newsImage === "object" &&
+    heroData.newsImage !== null &&
+    heroData.newsImage.width > heroData.newsImage.height;
 
   return (
     <>
@@ -128,10 +132,10 @@ export function Hero({ heroData }: { heroData: Partial<HeroType> }) {
                         </p>
                       </div>
 
-                      {/* Right: Square Image */}
+                      {/* Preserve landscape publication covers as well as square news images. */}
                       <Link
                         href={newsLink}
-                        className="group/news relative mx-auto aspect-square w-full max-w-[200px] overflow-hidden rounded-[16px] border border-white/5 shadow-2xl sm:mb-12 sm:max-w-full lg:rounded-[24px]"
+                        className={`group/news relative mx-auto w-full overflow-hidden rounded-[16px] border border-white/5 shadow-2xl sm:mb-12 sm:max-w-full lg:rounded-[24px] ${isLandscapeNews ? "aspect-video max-w-[320px]" : "aspect-square max-w-[200px]"}`}
                       >
                         <Image
                           src={newsImage}

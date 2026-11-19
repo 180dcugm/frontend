@@ -153,12 +153,25 @@ export default function Navbar({ notification }: { notification?: string }) {
                           </Link>
                         </NavigationMenuLink>
                       </NavigationMenuItem>
+                      <NavigationMenuItem>
+                        <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
+                          <Link
+                            href="/events"
+                            aria-current={pathname.startsWith("/events") ? "page" : undefined}
+                            className={`hover:text-black-300 transition-all duration-300 hover:bg-white ${
+                              pathname.startsWith("/events") ? "text-black-300 bg-white" : ""
+                            }`}
+                          >
+                            <p className="text-base">Events</p>
+                          </Link>
+                        </NavigationMenuLink>
+                      </NavigationMenuItem>
                     </NavigationMenuList>
                   </AnimatePresence>
                 </div>
               </NavigationMenu>
               <div className="hidden items-center gap-5 lg:flex">
-                <Link href="/events">
+                <Link href="/events/oprec">
                   <Button180
                     color="transparent"
                     text="Join Us!"
@@ -177,13 +190,25 @@ export default function Navbar({ notification }: { notification?: string }) {
             </div>
 
             {/* Mobile Menu Toggle */}
-            <div className="flex lg:hidden" onClick={toggleMobileMenu}>
-              {mobileMenuOpen ? <X size={36} /> : <Menu size={36} />}
-            </div>
+            <button
+              type="button"
+              className="flex cursor-pointer lg:hidden"
+              onClick={toggleMobileMenu}
+              aria-label={mobileMenuOpen ? "Close navigation" : "Open navigation"}
+              aria-expanded={mobileMenuOpen}
+              aria-controls="mobile-navigation"
+            >
+              {mobileMenuOpen ? (
+                <X aria-hidden="true" size={36} />
+              ) : (
+                <Menu aria-hidden="true" size={36} />
+              )}
+            </button>
           </>
         </div>
         {/* Mobile Menu */}
         <section
+          id="mobile-navigation"
           className={cn(
             "bg-black-300 font-avenir-regular relative w-full flex-col gap-5 px-4 py-6 text-left text-lg text-white lg:hidden",
             mobileMenuOpen ? "flex rounded-b-[20px]" : "hidden"
@@ -264,10 +289,25 @@ export default function Navbar({ notification }: { notification?: string }) {
                   </div>
                 </Link>
               </div>
+              <div key="events-wrapper">
+                <Link
+                  href="/events"
+                  onClick={closeMobileMenu}
+                  aria-current={pathname.startsWith("/events") ? "page" : undefined}
+                >
+                  <div
+                    className={`font-avenir-regular w-full p-2 ${
+                      pathname.startsWith("/events") ? "font-semibold text-green-300" : ""
+                    }`}
+                  >
+                    Events
+                  </div>
+                </Link>
+              </div>
             </div>
           </AnimatePresence>
           <div className="flex w-full flex-col items-center gap-4">
-            <Link href="/events" className="w-full">
+            <Link href="/events/oprec" className="w-full" onClick={closeMobileMenu}>
               <Button180
                 color="transparent"
                 text="Join Us!"

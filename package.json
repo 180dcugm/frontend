@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "payload run scripts/set-sid-release-hero.ts once && next build",
     "start": "next start",
     "lint": "next lint"
   },

@@ -32,9 +32,9 @@ export default async function ArticleHubPage() {
         title="Our thoughts"
         subtitle="Explore our latest publications, from insightful Telescope articles and in-depth Industrial Reports to concise Short Industry Decks."
       />
+      <FeaturedDecks decks={decks} />
       <FeaturedTelescope articles={telescope.docs} />
       <FeaturedReports />
-      <FeaturedDecks decks={decks} />
       <CTASection180
         title={
           <>

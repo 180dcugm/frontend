@@ -1,26 +1,31 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import StoreLayout from "./layout/StoreLayout";
 import ProductSection from "./layout/ProductSection";
 import ProductCard from "./components/ProductCard";
 import CartButton from "./components/CartButton";
 import ProductDetailSheet from "./components/ProductDetailSheet";
 import { useCart } from "../context/CartContext";
-import { useRouter } from "next/navigation";
-import {
-  bundleProducts,
-  merchandiseProducts,
-  specialProducts,
-  Product,
-} from "../data/ProductData";
+import { useRouter, useSearchParams } from "next/navigation";
+import { bundleProducts, merchandiseProducts, specialProducts, Product } from "../data/ProductData";
 
 const StoreLanding = () => {
   const { totalItems } = useCart();
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const linkedProductID = Number(searchParams.get("product"));
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [isDetailOpen, setIsDetailOpen] = useState(false);
   const isMerchOpen = false;
   const isBundleOpen = false;
+
+  useEffect(() => {
+    const product = specialProducts.find((item) => item.id === linkedProductID);
+    if (product) {
+      setSelectedProduct(product);
+      setIsDetailOpen(true);
+    }
+  }, [linkedProductID]);
 
   const handleOpenDetail = (product: Product) => {
     setSelectedProduct(product);
@@ -29,6 +34,11 @@ const StoreLanding = () => {
 
   const handleCloseDetail = () => {
     setIsDetailOpen(false);
+    if (searchParams.has("product")) {
+      const params = new URLSearchParams(searchParams.toString());
+      params.delete("product");
+      router.replace(`/store${params.size ? `?${params}` : ""}`, { scroll: false });
+    }
   };
 
   return (

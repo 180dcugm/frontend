@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { GoogleGenAI } from "@google/genai";
 import Groq from "groq-sdk"
 import { createClient } from "@/integrations/supabase/server";
+import { CONSULTING_PREVIEW_REPLIES } from "@/config/Eighty";
 
 // Instantiated lazily: a missing key should surface as a handled error inside
 // POST, not crash the whole route at import time.
@@ -376,10 +377,22 @@ ${buildLanguageRule(language)}`;
 
 export async function POST(req: NextRequest) {
     try {
-        const { message, history } = await req.json();
+        const { message, history, topic } = await req.json();
 
         if (typeof message !== 'string' || !message.trim()) {
             return NextResponse.json({ text: "Please type a message first." }, { status: 400 });
+        }
+
+        // Consulting has its own UI, but the Knowledge Team material is not
+        // available yet. Never answer these requests with organization FAQ
+        // retrieval or imply that a guidebook/casebook has already been read.
+        if (topic === "consulting") {
+            return new NextResponse(CONSULTING_PREVIEW_REPLIES[detectLanguage(message)], {
+                headers: {
+                    "Content-Type": "text/plain; charset=utf-8",
+                    "Cache-Control": "no-store",
+                },
+            });
         }
 
         const smallTalk = isSmallTalk(message);
