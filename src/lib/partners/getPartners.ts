@@ -1,5 +1,6 @@
 import { getPayload } from "payload";
 import config from "@payload-config";
+import { getMediaImage } from "@/lib/media-images";
 import type { Media, Partner as PayloadPartner } from "@/payload-types";
 import type { Partner, PartnerCaseStudy, PartnerMedia, RecentPartner } from "./types";
 
@@ -31,10 +32,10 @@ const toPartnerMedia = (
 ): PartnerMedia | undefined => {
   if (!value || typeof value === "number") return undefined;
 
-  const url = (size && value.sizes?.[size]?.url) || value.url;
-  if (!url) return undefined;
+  const image = getMediaImage(value, size);
+  if (!image) return undefined;
 
-  return { url, alt: value.alt };
+  return { url: image.src, originalSrc: image.originalSrc, alt: value.alt };
 };
 
 // Payload's generated type marks these fields required, but they are only enforced while the

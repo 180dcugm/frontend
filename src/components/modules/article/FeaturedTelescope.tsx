@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
-import Image from "next/image";
+import Image from "@/components/elements/ReliableImage";
+import { getMediaImage } from "@/lib/media-images";
 import Container from "@/components/layout/Container";
 import Button180 from "@/components/elements/Button180";
 import { ArrowRight } from "lucide-react";
@@ -36,6 +37,7 @@ export default function FeaturedTelescope({ articles }: FeaturedTelescopeProps) 
 
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
           {featuredArticles.map((article: any, index: number) => {
+            const image = getMediaImage(article.image, "popup");
             const dateObj = new Date(article.publishedDate);
             const dateStr = dateObj.toLocaleDateString("en-US", {
               month: "long",
@@ -50,11 +52,13 @@ export default function FeaturedTelescope({ articles }: FeaturedTelescopeProps) 
                 className="group flex flex-col overflow-hidden"
               >
                 <div className="relative mb-4 aspect-video w-full overflow-hidden rounded-xl bg-gray-100">
-                  {article.image?.url ? (
+                  {image ? (
                     <Image
-                      src={article.image.url}
+                      src={image.src}
+                      originalSrc={image.originalSrc}
                       alt={article.title}
                       fill
+                      sizes="(max-width: 767px) calc(100vw - 32px), (max-width: 1023px) 46vw, 440px"
                       className="object-cover transition-transform duration-500 group-hover:scale-105"
                     />
                   ) : (

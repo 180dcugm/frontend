@@ -2,6 +2,7 @@ import { cache } from "react";
 import { getPayload } from "payload";
 import config from "@payload-config";
 import type { ShortIndustryDeck } from "@/payload-types";
+import { getMediaImage } from "@/lib/media-images";
 
 export const shortIndustryDecksPath = "/article/shortindustrydeck";
 export const shortIndustryDecksDescription =
@@ -14,12 +15,13 @@ export type IndustryDeck = Pick<
   pdfUrl: string;
   filename: string;
   coverUrl: string | null;
+  coverOriginalUrl?: string;
 };
 
 function toIndustryDeck(deck: ShortIndustryDeck): IndustryDeck | null {
   const pdf = typeof deck.pdf === "object" ? deck.pdf : null;
   if (!pdf?.url) return null;
-  const cover = typeof deck.coverImage === "object" ? deck.coverImage : null;
+  const cover = getMediaImage(deck.coverImage, "popup");
   return {
     id: deck.id,
     title: deck.title,
@@ -31,7 +33,8 @@ function toIndustryDeck(deck: ShortIndustryDeck): IndustryDeck | null {
     driveLink: deck.driveLink,
     pdfUrl: pdf.url,
     filename: pdf.filename || `${deck.slug}.pdf`,
-    coverUrl: cover?.url || null,
+    coverUrl: cover?.src || null,
+    coverOriginalUrl: cover?.originalSrc,
   };
 }
 

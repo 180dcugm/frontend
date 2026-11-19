@@ -1,6 +1,7 @@
 "use client";
 
-import Image from "next/image";
+import Image from "@/components/elements/ReliableImage";
+import { getMediaImage } from "@/lib/media-images";
 import Link from "next/link";
 import { useState } from "react";
 import Container from "@/components/layout/Container";
@@ -25,30 +26,9 @@ type TelescopeCard = {
   id: string;
   href: string;
   image: string;
+  originalSrc?: string;
   title: string;
   subtitle?: string;
-};
-
-const SUPABASE_MEDIA_BASE_URL =
-  "https://gvwdpmgyinzctwyzqqdy.supabase.co/storage/v1/object/public/media/";
-
-const resolveTelescopeImageUrl = (image: Telescope["image"]): string => {
-  if (!image || typeof image === "number") return "";
-
-  if (typeof image.filename === "string" && image.filename.length > 0) {
-    return `${SUPABASE_MEDIA_BASE_URL}${encodeURIComponent(image.filename)}`;
-  }
-
-  if (typeof image.url === "string" && image.url.length > 0) {
-    if (image.url.startsWith("http://") || image.url.startsWith("https://")) {
-      return image.url;
-    }
-
-    const payloadUrl = process.env.NEXT_PUBLIC_PAYLOAD_URL || "";
-    return `${payloadUrl}${image.url.startsWith("/") ? "" : "/"}${image.url}`;
-  }
-
-  return "";
 };
 
 export function OurClients({ cards }: OurClientsProps) {
@@ -64,13 +44,14 @@ export function OurClients({ cards }: OurClientsProps) {
   }));
 
   const telescopeCards: TelescopeCard[] = cards.reduce<TelescopeCard[]>((acc, card) => {
-    const imageUrl = resolveTelescopeImageUrl(card.image);
-    if (!imageUrl) return acc;
+    const image = getMediaImage(card.image, "popup");
+    if (!image) return acc;
 
     acc.push({
       id: `telescope-${card.id}`,
       href: `/article/telescope/${card.slug}`,
-      image: imageUrl,
+      image: image.src,
+      originalSrc: image.originalSrc,
       title: card.title,
       subtitle: card.author ? `by ${card.author}` : undefined,
     });
@@ -130,12 +111,19 @@ export function OurClients({ cards }: OurClientsProps) {
 
       <Container>
         <div className="relative z-20 mx-auto w-full max-w-[1320px]">
-          <h2 className="font-avenir-black mx-auto max-w-[980px] text-center text-3xl leading-tight text-white sm:text-4xl lg:text-[60px] lg:leading-[1.1]" data-aos="fade-up">
+          <h2
+            className="font-avenir-black mx-auto max-w-[980px] text-center text-3xl leading-tight text-white sm:text-4xl lg:text-[60px] lg:leading-[1.1]"
+            data-aos="fade-up"
+          >
             Industry Reports and Articles
           </h2>
 
           <div className="mt-10 grid gap-8 lg:mt-12 lg:grid-cols-[0.72fr_1.6fr] lg:items-end lg:gap-10">
-            <div className="relative flex flex-col items-center" data-aos="fade-right" data-aos-delay="200">
+            <div
+              className="relative flex flex-col items-center"
+              data-aos="fade-right"
+              data-aos-delay="200"
+            >
               {currentReport ? (
                 <>
                   <div className="mx-auto flex w-full max-w-[360px] items-center gap-4 sm:max-w-[404px] lg:max-w-[310px]">
@@ -148,8 +136,8 @@ export function OurClients({ cards }: OurClientsProps) {
                           src={currentReport.image}
                           alt={currentReport.title}
                           fill
+                          sizes="(max-width: 1023px) 310px, 260px"
                           className="object-cover opacity-70 transition-transform duration-300 group-hover:scale-105"
-                          unoptimized
                         />
 
                         <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent px-4 pt-16 pb-5 sm:px-6 sm:pb-6">
@@ -211,10 +199,11 @@ export function OurClients({ cards }: OurClientsProps) {
                       >
                         <Image
                           src={currentTelescope.image}
+                          originalSrc={currentTelescope.originalSrc}
                           alt={currentTelescope.title}
                           fill
+                          sizes="(max-width: 1023px) 85vw, 850px"
                           className="object-cover opacity-70 transition-transform duration-300 group-hover:scale-105"
-                          unoptimized
                         />
 
                         <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent px-4 pt-16 pb-5 sm:px-6 sm:pb-6">

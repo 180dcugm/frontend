@@ -5,6 +5,7 @@ const nextConfig = {
   reactStrictMode: false,
   turbopack: {},
   images: {
+    minimumCacheTTL: 3600,
     remotePatterns: [
       {
         protocol: "http",

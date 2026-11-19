@@ -8,6 +8,7 @@ export type PartnerCategory = PayloadPartner["category"];
 export type PartnerMedia = {
   // Relative URL served by Payload (/api/media/file/...), works locally and in production.
   url: string;
+  originalSrc?: string;
   alt: string;
 };
 

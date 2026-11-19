@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import Image from "next/image";
+import Image from "@/components/elements/ReliableImage";
 import Container from "@/components/layout/Container";
 import Button180 from "@/components/elements/Button180";
 import { ArrowRight } from "lucide-react";
@@ -58,7 +58,13 @@ export default function FeaturedReports() {
               <div className="relative mb-6 aspect-[11/16] w-[70%] max-w-[280px] overflow-hidden rounded-l-sm rounded-r-lg bg-gray-200 shadow-[8px_0px_15px_rgba(0,0,0,0.15)] transition-transform duration-500 group-hover:-translate-y-2 group-hover:shadow-[12px_10px_20px_rgba(0,0,0,0.2)]">
                 {/* Book spine effect */}
                 <div className="absolute inset-y-0 left-0 z-10 w-3 bg-gradient-to-r from-black/20 to-transparent"></div>
-                <Image src={product.image} alt={product.alt} fill className="object-cover" />
+                <Image
+                  src={product.image}
+                  alt={product.alt}
+                  fill
+                  sizes="(max-width: 767px) 35vw, (max-width: 1023px) 18vw, 200px"
+                  className="object-cover"
+                />
               </div>
               <div className="flex w-full flex-col text-left">
                 <div className="mb-2 flex items-center justify-start text-xs text-gray-400">

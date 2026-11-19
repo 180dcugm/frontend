@@ -1,25 +1,12 @@
-import Image from "next/image";
+import Image from "@/components/elements/ReliableImage";
 import Link from "next/link";
+import { getMediaImage } from "@/lib/media-images";
 
 export function TelescopeBox({ article, type, className = "" }) {
   // type = "lg" or "sm" or "article"
   if (!article) return null;
 
-  // Handle image field (relationship to media collection)
-  // Handle image field (relationship to media collection)
-  let fullImageUrl = "";
-  if (
-    typeof article.image === "object" &&
-    article.image !== null &&
-    "filename" in article.image
-  ) {
-    fullImageUrl = `https://gvwdpmgyinzctwyzqqdy.supabase.co/storage/v1/object/public/media/${encodeURIComponent(article.image.filename)}`;
-  } else {
-    const imageUrl = article.image?.url || article.image;
-    fullImageUrl = imageUrl?.startsWith("http")
-      ? imageUrl
-      : `${process.env.NEXT_PUBLIC_PAYLOAD_URL || "http://localhost:3000"}${imageUrl}`;
-  }
+  const image = getMediaImage(article.image, "popup");
 
   return (
     <Link href={`/article/telescope/${article.slug}`}>
@@ -39,14 +26,18 @@ export function TelescopeBox({ article, type, className = "" }) {
         >
           {/* Background */}
           <div className="absolute inset-0 z-10 overflow-hidden rounded-[10px]">
-            {fullImageUrl ? (
+            {image ? (
               <Image
-                src={fullImageUrl}
+                src={image.src}
+                originalSrc={image.originalSrc}
                 alt={article.title || "article image"}
-                width={2000}
-                height={2000}
+                fill
+                sizes={
+                  type === "article"
+                    ? "(max-width: 1023px) 90vw, 700px"
+                    : "(max-width: 767px) 90vw, 50vw"
+                }
                 className="absolute inset-0 h-full w-full object-cover"
-                unoptimized
               />
             ) : (
               <>
@@ -66,15 +57,13 @@ export function TelescopeBox({ article, type, className = "" }) {
             <div className="flex flex-col gap-[6px]">
               <div
                 className={`font-avenir-black ${
-                  type === "lg"
-                    ? "text-3xl lg:text-5xl"
-                    : "text-xl lg:text-3xl"
+                  type === "lg" ? "text-3xl lg:text-5xl" : "text-xl lg:text-3xl"
                 } line-clamp-2 leading-[1.2] drop-shadow-lg`}
               >
                 {article.title}
               </div>
               {type === "lg" && article.description && (
-                <div className="font-lato-regular line-clamp-2 text-sm lg:text-lg leading-[1.2] drop-shadow-md">
+                <div className="font-lato-regular line-clamp-2 text-sm leading-[1.2] drop-shadow-md lg:text-lg">
                   {article.description}
                 </div>
               )}

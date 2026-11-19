@@ -63,6 +63,16 @@ export const Media: CollectionConfig = {
     ],
   },
   upload: {
+    modifyResponseHeaders: ({ headers }) => {
+      // All media in this collection is publicly readable. Versioned image URLs
+      // invalidate replacements; successful file responses can be cached at the
+      // browser and edge instead of querying Payload/S3 on every page view.
+      if (!headers.get('Content-Type')?.startsWith('image/')) return headers
+      headers.set('Cache-Control', 'public, max-age=3600, s-maxage=86400, stale-while-revalidate=604800')
+      headers.set('CDN-Cache-Control', 'public, max-age=86400, stale-while-revalidate=604800')
+      headers.set('Vercel-CDN-Cache-Control', 'public, max-age=86400, stale-while-revalidate=604800')
+      return headers
+    },
     imageSizes: [
       {
         // Partner popup background: rendered up to 680px wide, generated at 2x.

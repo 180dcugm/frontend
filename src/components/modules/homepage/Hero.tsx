@@ -1,6 +1,7 @@
 "use client";
 
-import Image from "next/image";
+import Image from "@/components/elements/ReliableImage";
+import { getMediaImage } from "@/lib/media-images";
 import Link from "next/link";
 import Button180 from "@/components/elements/Button180";
 import Container from "@/components/layout/Container";
@@ -36,13 +37,8 @@ export function Hero({ heroData }: { heroData: Partial<HeroType> }) {
     "The 180DC UGM Consulting Bootcamp 2025 is an online program designed to help you learn, apply, and master the essential skills every consultant needs. Whether you're a beginner or an aspiring problem-solver, this is the perfect place to start your journey!";
 
   const newsLink = heroData?.newsLink || "#";
-  const newsImage =
-    typeof heroData?.newsImage === "object" &&
-    heroData?.newsImage !== null &&
-    "url" in heroData.newsImage &&
-    heroData.newsImage.url
-      ? heroData.newsImage.url
-      : "/img/homepage/caseBook.webp";
+  const newsMedia = getMediaImage(heroData?.newsImage, "popup");
+  const newsImage = newsMedia?.src || "/img/homepage/caseBook.webp";
   const isLandscapeNews =
     typeof heroData.newsImage === "object" &&
     heroData.newsImage !== null &&
@@ -139,8 +135,10 @@ export function Hero({ heroData }: { heroData: Partial<HeroType> }) {
                       >
                         <Image
                           src={newsImage}
+                          originalSrc={newsMedia?.originalSrc}
                           alt={newsTitle}
                           fill
+                          sizes="(max-width: 639px) 200px, (max-width: 1023px) 35vw, 25vw"
                           className="absolute object-cover transition-transform duration-500 group-hover/news:scale-110"
                         />
                       </Link>

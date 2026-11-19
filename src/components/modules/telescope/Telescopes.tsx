@@ -1,5 +1,6 @@
 "use client";
-import Image from "next/image";
+import Image from "@/components/elements/ReliableImage";
+import { getMediaImage } from "@/lib/media-images";
 import { useEffect, useRef, useState } from "react";
 import { FaChevronDown, FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import {
@@ -64,7 +65,7 @@ export function Telescopes({ articles, subscribeScrollRef = null }) {
         width={2000}
         height={2000}
         className="absolute inset-0 z-10 !h-screen !w-screen object-cover"
-        unoptimized
+        sizes="100vw"
       />
       <Container color="dark" className="relative flex flex-col">
         {/* Hero */}
@@ -128,27 +129,7 @@ export function Telescopes({ articles, subscribeScrollRef = null }) {
             >
               <CarouselContent className="w-full">
                 {imageArticles.map((article) => {
-                  let imageUrl = "";
-                  if (article.image) {
-                    // Construct S3 URL directly if filename exists
-                    if (
-                      typeof article.image === "object" &&
-                      article.image !== null &&
-                      "filename" in article.image
-                    ) {
-                      const filename = (article.image as any).filename;
-                      imageUrl = `https://gvwdpmgyinzctwyzqqdy.supabase.co/storage/v1/object/public/media/${encodeURIComponent(filename)}`;
-                    } else if (typeof article.image === "object" && article.image?.url) {
-                      imageUrl = article.image.url;
-                    } else if (typeof article.image === "string") {
-                      imageUrl = article.image;
-                    }
-
-                    // Fallback for other relative URLs (though the above should cover S3 images)
-                    if (imageUrl && !imageUrl.startsWith("http")) {
-                      imageUrl = `${process.env.NEXT_PUBLIC_PAYLOAD_URL || ""}${imageUrl}`;
-                    }
-                  }
+                  const image = getMediaImage(article.image, "popup");
 
                   return (
                     <CarouselItem
@@ -160,13 +141,14 @@ export function Telescopes({ articles, subscribeScrollRef = null }) {
                           className="relative w-full overflow-hidden rounded-lg"
                           style={{ aspectRatio: "16/9" }}
                         >
-                          {imageUrl && (
+                          {image && (
                             <Image
-                              src={imageUrl}
+                              src={image.src}
+                              originalSrc={image.originalSrc}
                               alt={article.title || "article image"}
                               fill
+                              sizes="(max-width: 639px) 90vw, (max-width: 1023px) 65vw, 50vw"
                               className="object-cover"
-                              unoptimized
                             />
                           )}
                           <div className="absolute inset-0 bg-black/20" />

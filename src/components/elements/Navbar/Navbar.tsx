@@ -85,6 +85,7 @@ export default function Navbar({ notification }: { notification?: string }) {
           <Link className="flex w-[48px] items-center" href="/">
             <ImageAction
               src="/img/global/logo180dctrns.png"
+              sizes="48px"
               alt="logo 180dc"
               className="transition-transform duration-500 hover:scale-[1.05]"
             />

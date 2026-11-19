@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import ReliableImage from "./ReliableImage";
 
 export default function ImageAction({
   src,
@@ -9,20 +9,22 @@ export default function ImageAction({
   className = "",
   heightPtg = "auto",
   prioritize = false,
+  originalSrc = undefined,
+  sizes = "(max-width: 768px) 50vw, 320px",
 }) {
   return (
-    <Image
+    <ReliableImage
       priority={prioritize}
       src={src}
+      originalSrc={originalSrc}
       alt={alt}
       onClick={action ? () => action() : () => console.log("")}
       className={className + (action !== "" ? " hover:cursor-pointer" : "")}
-      width={0}
-      height={0}
-      sizes="100vw"
+      width={320}
+      height={320}
+      sizes={sizes}
       style={{ width: "100%", height: heightPtg }}
       draggable="false"
-      unoptimized
     />
   );
 }

@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from "@/components/elements/ReliableImage";
 import Link from "next/link";
 import { TelescopeBox } from "./TelescopeBox";
 import { Quote } from "lucide-react";
@@ -6,6 +6,7 @@ import { RichText } from "@payloadcms/richtext-lexical/react";
 import { convertLexicalToHTML } from "@payloadcms/richtext-lexical/html";
 import type { JSXConvertersFunction } from "@payloadcms/richtext-lexical/react";
 import Container from "@/components/layout/Container";
+import { getMediaImage } from "@/lib/media-images";
 
 export default function TelescopeDetail({
   article,
@@ -18,42 +19,7 @@ export default function TelescopeDetail({
 }) {
   if (!article) return null;
 
-  // Get image URL - handle both string and object cases
-  const getImageUrl = (image: any): string => {
-    if (!image) return "";
-
-    // Handle Payload CMS object format - Force S3 URL if filename exists
-    if (typeof image === "object" && image !== null && "filename" in image) {
-      return `https://gvwdpmgyinzctwyzqqdy.supabase.co/storage/v1/object/public/media/${encodeURIComponent(image.filename)}`;
-    }
-
-    let imageUrl = "";
-
-    // Handle string format
-    if (typeof image === "string") {
-      imageUrl = image;
-    }
-    // Handle Payload CMS object format (fallback)
-    else if (typeof image === "object") {
-      // Try different possible URL field names
-      imageUrl = image.url || image.src || image.filename || "";
-    }
-
-    if (!imageUrl || typeof imageUrl !== "string") return "";
-
-    // If it's already a full URL, return it as is
-    if (imageUrl.startsWith("http://") || imageUrl.startsWith("https://")) {
-      return imageUrl;
-    }
-
-    // Otherwise prepend the base URL
-    const baseUrl = process.env.NEXT_PUBLIC_PAYLOAD_URL || "";
-    if (baseUrl && imageUrl) {
-      return `${baseUrl}${imageUrl.startsWith("/") ? "" : "/"}${imageUrl}`;
-    }
-
-    return imageUrl;
-  };
+  const cover = getMediaImage(article.image, "popup");
 
   // Get a random recommendation article different from current
   const recommendedArticle = allArticles?.find((a) => a.slug !== articleSlug);
@@ -99,20 +65,11 @@ export default function TelescopeDetail({
       if (!uploadData) return null;
 
       // Get the image URL
-      let imageUrl = "";
+      const image = getMediaImage(uploadData);
       let alt = "Article image";
       let caption = "";
 
       if (typeof uploadData === "object" && uploadData !== null) {
-        // Check if it has filename (S3 storage)
-        if ("filename" in uploadData && uploadData.filename) {
-          imageUrl = `https://gvwdpmgyinzctwyzqqdy.supabase.co/storage/v1/object/public/media/${encodeURIComponent(uploadData.filename)}`;
-        }
-        // Fallback to url field
-        else if ("url" in uploadData && uploadData.url) {
-          imageUrl = uploadData.url;
-        }
-
         // Get alt text and caption if available
         if ("alt" in uploadData && typeof uploadData.alt === "string") {
           alt = uploadData.alt;
@@ -122,11 +79,19 @@ export default function TelescopeDetail({
         }
       }
 
-      if (!imageUrl) return null;
+      if (!image) return null;
 
       return (
         <div className="my-4">
-          <img src={imageUrl} alt={alt} className="h-auto w-full rounded-lg" />
+          <Image
+            src={image.src}
+            originalSrc={image.originalSrc}
+            alt={alt}
+            width={image.width || 1440}
+            height={image.height || 810}
+            sizes="(max-width: 1023px) 90vw, 700px"
+            className="h-auto w-full rounded-lg"
+          />
           {caption && <p className="mt-2 text-center text-sm text-gray-400 italic">{caption}</p>}
         </div>
       );
@@ -201,7 +166,7 @@ export default function TelescopeDetail({
   };
 
   return (
-    <section className="min-h-screen mx-auto h-full w-full max-w-[2160px] bg-black py-0">
+    <section className="mx-auto h-full min-h-screen w-full max-w-[2160px] bg-black py-0">
       <div className="font-lato-regular flex flex-col gap-[20px] px-[5%] py-[100px] text-gray-100 lg:px-[26%] lg:py-[120px]">
         {/* Title */}
         <h1 className="font-avenir-black text-center text-[32px] lg:text-[48px]">
@@ -217,14 +182,15 @@ export default function TelescopeDetail({
         </h2>
 
         {/* Image */}
-        {article.image && (
+        {cover && (
           <div className="relative aspect-video overflow-hidden rounded-[20px]">
             <Image
-              src={getImageUrl(article.image)}
+              src={cover.src}
+              originalSrc={cover.originalSrc}
               alt={article.title || "article image"}
               fill
+              sizes="(max-width: 1023px) 90vw, 700px"
               className="object-cover"
-              unoptimized
             />
           </div>
         )}
@@ -249,9 +215,7 @@ export default function TelescopeDetail({
         {recommendedArticle && (
           <div className="font-avenir-black mt-[20px] flex flex-col gap-[20px] text-[24px] lg:text-[32px]">
             Our Recommendation
-            <Link href={`/article/telescope/${recommendedArticle.slug}`}>
-              <TelescopeBox article={recommendedArticle} type="article" />
-            </Link>
+            <TelescopeBox article={recommendedArticle} type="article" />
           </div>
         )}
       </div>

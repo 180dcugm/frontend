@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useId, useMemo, useRef, useState } from "react";
-import Image from "next/image";
+import Image from "@/components/elements/ReliableImage";
 import Autoplay from "embla-carousel-autoplay";
 import { FaChevronDown, FaChevronLeft, FaChevronRight, FaTimes } from "react-icons/fa";
 import ImageAction from "@/components/elements/ImageAction";
@@ -128,9 +128,10 @@ function PartnerPopup({ partner, onClose }: { partner: Partner | null; onClose: 
           {partner.popup?.background ? (
             <Image
               src={partner.popup.background.url}
+              originalSrc={partner.popup.background.originalSrc}
               alt=""
               fill
-              unoptimized
+              sizes="(max-width: 767px) 85vw, 723px"
               className="pointer-events-none -z-20 object-cover"
             />
           ) : null}
@@ -160,10 +161,11 @@ function PartnerPopup({ partner, onClose }: { partner: Partner | null; onClose: 
             {partner.logo ? (
               <Image
                 src={partner.logo.url}
+                originalSrc={partner.logo.originalSrc}
                 alt={partner.logo.alt || `${partner.name} logo`}
                 width={320}
                 height={320}
-                unoptimized
+                sizes="(max-width: 639px) 150px, 204px"
                 className="mx-auto h-[136px] w-[149.6px] object-contain sm:h-[204px] sm:w-[204px]"
               />
             ) : null}
@@ -201,6 +203,8 @@ function CaseStudyCard({ partner }: { partner: RecentPartner }) {
               <ImageAction
                 alt={partner.logo.alt || `${partner.name} logo`}
                 src={partner.logo.url}
+                originalSrc={partner.logo.originalSrc}
+                sizes="(max-width: 1023px) 35vw, 320px"
               />
             </div>
           </div>
@@ -510,6 +514,8 @@ export default function PreviousClients({
                                     <ImageAction
                                       alt={partner.logo.alt || `${partner.name} logo`}
                                       src={partner.logo.url}
+                                      originalSrc={partner.logo.originalSrc}
+                                      sizes="160px"
                                     />
                                   </div>
                                 </div>
@@ -629,10 +635,11 @@ export default function PreviousClients({
                                   <div className="mb-3 flex h-[68px] w-[68px] shrink-0 items-center justify-center overflow-hidden rounded-[15px] border border-[#6e6e6e] bg-[#252525] transition-colors group-hover:border-[#83bd61] group-hover:shadow-[0_2px_5px_rgba(131,189,97,0.15)] group-data-[selected=true]:border-[#83bd61] group-data-[selected=true]:shadow-[0_2px_5px_rgba(131,189,97,0.15)]">
                                     <Image
                                       src={partner.logo.url}
+                                      originalSrc={partner.logo.originalSrc}
                                       alt={partner.logo.alt || `${partner.name} logo`}
                                       width={320}
                                       height={320}
-                                      unoptimized
+                                      sizes="68px"
                                       className="h-full w-full object-contain p-2"
                                     />
                                   </div>

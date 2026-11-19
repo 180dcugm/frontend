@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from "@/components/elements/ReliableImage";
 import Link from "next/link";
 import { shortIndustryDecksPath, type IndustryDeck } from "@/lib/short-industry-decks";
 import { PdfCover } from "./PdfSlides";
@@ -20,11 +20,11 @@ export default function DeckCard({ deck }: { deck: IndustryDeck }) {
         {deck.coverUrl ? (
           <Image
             src={deck.coverUrl}
+            originalSrc={deck.coverOriginalUrl}
             alt={`${deck.title} — cover slide`}
             fill
             sizes="(max-width: 767px) calc(100vw - 32px), (max-width: 1023px) 45vw, 440px"
             className="object-cover transition-transform duration-500 group-hover:scale-105"
-            unoptimized
           />
         ) : (
           <PdfCover url={deck.pdfUrl} title={deck.title} />
