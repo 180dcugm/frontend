@@ -59,8 +59,8 @@ has not been imported yet, publication is deferred until a later build.
 The chatbot includes a separate Consulting section with the five consulting/BCC starter questions
 from the IT × PVP meeting. Knowledge Team materials are still being prepared, so consulting
 requests return a clearly labelled preview response instead of using the organization FAQ knowledge
-base. Product recommendations link directly to the Casebook and Framework Bank detail sheets in
-the store. General and consulting conversation histories are kept separate for 30 minutes.
+base. A small footer link points to the store for further resources. General and consulting
+conversation histories are kept separate for 30 minutes.
 
 ## Folder Structure
 

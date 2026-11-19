@@ -46,7 +46,7 @@ export const CONSULTING_QUESTIONS = [
 // Keep these requests out of the general organization FAQ retrieval in the meantime.
 export const CONSULTING_PREVIEW_REPLIES = {
   English:
-    "I’m getting ready to help with consulting and BCC preparation using 180DC UGM’s Knowledge Team materials. Sourced answers aren’t available just yet. In the meantime, explore our [Casebook](/store?product=5) for case practice or [Framework Bank](/store?product=6) for consulting frameworks.",
+    "I’m getting ready to help with consulting and BCC preparation using 180DC UGM’s Knowledge Team materials. Sourced answers aren’t available just yet.",
   Indonesian:
-    "Aku sedang dipersiapkan untuk membantu belajar consulting dan persiapan BCC dengan materi dari Knowledge Team 180DC UGM. Jawaban yang bersumber dari materi tersebut belum tersedia. Sambil menunggu, kamu bisa melihat [Casebook](/store?product=5) untuk latihan kasus atau [Framework Bank](/store?product=6) untuk kumpulan kerangka consulting.",
+    "Aku sedang dipersiapkan untuk membantu belajar consulting dan persiapan BCC dengan materi dari Knowledge Team 180DC UGM. Jawaban yang bersumber dari materi tersebut belum tersedia.",
 };

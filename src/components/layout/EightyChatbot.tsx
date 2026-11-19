@@ -16,17 +16,25 @@ import {
   ChevronRight,
   RotateCcw,
   BookOpen,
-  Sparkles,
 } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import { EIGHTY_TOPICS } from "@/config/Eighty";
+import { CONSULTING_QUESTIONS, EIGHTY_TOPICS } from "@/config/Eighty";
 import { useEightyChat } from "@/hooks/useEightyChat";
-import { ConsultingResources, ConsultingWelcome } from "./eighty/ConsultingPanel";
+import { ConsultingWelcome } from "./eighty/ConsultingPanel";
 
 // Starter menu shown when the chat has no messages yet.
 const topicIcons = { client: Briefcase, registration: ClipboardList, store: ShoppingBag };
-const TOPICS = EIGHTY_TOPICS.map((topic) => ({ ...topic, icon: topicIcons[topic.id] }));
+const TOPICS = [
+  ...EIGHTY_TOPICS.map((topic) => ({ ...topic, icon: topicIcons[topic.id] })),
+  {
+    id: "consulting",
+    label: "Consulting",
+    description: "Case-solving, research & BCC preparation",
+    icon: BookOpen,
+    questions: CONSULTING_QUESTIONS,
+  },
+];
 
 export default function EightyChatbot() {
   const pathname = usePathname();
@@ -276,7 +284,15 @@ export default function EightyChatbot() {
                                 type="button"
                                 key={topic.id}
                                 disabled={!isReady}
-                                onClick={() => setActiveTopic(topic.id)}
+                                onClick={() => {
+                                  if (topic.id === "consulting") {
+                                    chat.changeMode("consulting");
+                                    setActiveTopic(null);
+                                    setShowTopics(false);
+                                  } else {
+                                    setActiveTopic(topic.id);
+                                  }
+                                }}
                                 className="bg-black-300 group flex w-full items-center gap-4 rounded-[16px] border border-white/10 px-4 py-3.5 text-left transition-colors hover:border-green-300/60 hover:bg-white/5"
                               >
                                 <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-green-300/20 bg-green-300/10">
@@ -293,40 +309,6 @@ export default function EightyChatbot() {
                               </button>
                             );
                           })}
-                          <div className="pt-4">
-                            <p className="font-lato-regular mb-2 text-[11px] tracking-wider text-gray-500 uppercase">
-                              Learn with 180DC UGM
-                            </p>
-                            <button
-                              type="button"
-                              disabled={!isReady}
-                              onClick={() => {
-                                chat.changeMode("consulting");
-                                setActiveTopic(null);
-                                setShowTopics(false);
-                              }}
-                              className="group flex w-full cursor-pointer items-center gap-4 rounded-2xl border border-green-300/35 bg-gradient-to-r from-green-300/10 to-transparent px-4 py-4 text-left transition-colors hover:border-green-300/70 focus-visible:outline-2 focus-visible:outline-green-300"
-                            >
-                              <span className="flex size-10 shrink-0 items-center justify-center rounded-full border border-green-300/30 bg-green-300/10">
-                                <BookOpen aria-hidden="true" className="size-5 text-green-300" />
-                              </span>
-                              <span className="min-w-0 flex-1">
-                                <span className="font-avenir-heavy flex items-center gap-2 text-[15px] text-white">
-                                  Consulting{" "}
-                                  <span className="rounded-full bg-green-300/15 px-2 py-0.5 text-[9px] font-normal tracking-wide text-green-300 uppercase">
-                                    Preview
-                                  </span>
-                                </span>
-                                <span className="font-lato-light mt-1 block text-xs leading-relaxed text-gray-400">
-                                  Case-solving, research & BCC preparation
-                                </span>
-                              </span>
-                              <Sparkles
-                                aria-hidden="true"
-                                className="size-4 shrink-0 text-green-300"
-                              />
-                            </button>
-                          </div>
                         </motion.div>
                       ) : (
                         <motion.div
@@ -413,8 +395,6 @@ export default function EightyChatbot() {
                 )}
               </div>
 
-              {mode === "consulting" && <ConsultingResources onNavigate={() => setIsOpen(false)} />}
-
               {/* Input Area */}
               <div className="z-10 border-t border-white/20 bg-black p-5">
                 <form onSubmit={handleSubmit} className="relative flex items-center">
@@ -440,12 +420,26 @@ export default function EightyChatbot() {
                     <Send className="mt-0.5 h-5 w-5" />
                   </button>
                 </form>
-                <p className="font-lato-light mt-3 flex items-center justify-center gap-1.5 text-center text-[11px] text-gray-500">
-                  <span className="inline-block h-1.5 w-1.5 rounded-full bg-green-300 drop-shadow-[0_0_3px_rgba(119,186,71,0.8)]"></span>{" "}
-                  {mode === "consulting"
-                    ? "Knowledge Team materials are being prepared"
-                    : "Made for the 180DC UGM community"}
-                </p>
+                <div className="font-lato-light mt-3 space-y-1 text-center text-[11px] leading-relaxed text-gray-500">
+                  <p className="flex items-center justify-center gap-1.5">
+                    <span
+                      aria-hidden="true"
+                      className="inline-block h-1.5 w-1.5 rounded-full bg-green-300 drop-shadow-[0_0_3px_rgba(119,186,71,0.8)]"
+                    />
+                    Made for the 180DC UGM community.
+                  </p>
+                  <p>
+                    Learn more through our{" "}
+                    <Link
+                      href="/store"
+                      onClick={() => setIsOpen(false)}
+                      className="text-green-300 underline underline-offset-2 hover:text-green-200"
+                    >
+                      resources
+                    </Link>
+                    .
+                  </p>
+                </div>
               </div>
             </motion.aside>
           </>
